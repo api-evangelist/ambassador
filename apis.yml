@@ -5,14 +5,18 @@ apis:
   - aid: ambassador:ambassador
     name: Ambassador
     tags:
-      - API
+      - Gateways
+      - Mocking
+      - Testing
     humanURL: https://www.getambassador.io/
     properties:
       - url: https://www.getambassador.io/
         type: Documentation
     description: >-
-      Simplify API development with Ambassador. Accelerate workflows using
-      Blackbird, Edge Stack, and Telepresence for unmatched speed and quality.
+      Ambassador offers a suite of products designed to deliver API developer
+      experiences that fuel innovation. These products, Blackbird API
+      Development Platform, Edge Stack API Gateway, and Telepresence, accelerate
+      development, expedite testing, and optimize the delivery of API resources.
 name: Ambassador
 tags:
   - Platform
