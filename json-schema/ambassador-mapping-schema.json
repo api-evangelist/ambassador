@@ -1,0 +1,434 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://getambassador.io/schemas/ambassador/mapping.json",
+  "title": "Ambassador Mapping",
+  "description": "Schema for an Ambassador Edge Stack Mapping custom resource that associates a URL prefix or path with a backend Kubernetes service for routing, load balancing, and traffic management.",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "description": "API version for the Mapping resource",
+      "const": "getambassador.io/v3alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Resource kind identifier",
+      "const": "Mapping"
+    },
+    "metadata": {
+      "$ref": "#/$defs/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/$defs/MappingSpec"
+    },
+    "status": {
+      "$ref": "#/$defs/MappingStatus"
+    }
+  },
+  "$defs": {
+    "ObjectMeta": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Mapping resource, unique within a namespace"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Kubernetes namespace the Mapping belongs to",
+          "default": "default"
+        },
+        "labels": {
+          "type": "object",
+          "description": "Key-value pairs for organizing and selecting Mapping resources",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "description": "Key-value pairs for storing arbitrary non-identifying metadata",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MappingSpec": {
+      "type": "object",
+      "description": "Specification defining routing behavior for the Mapping",
+      "required": [
+        "hostname",
+        "prefix",
+        "service"
+      ],
+      "properties": {
+        "hostname": {
+          "type": "string",
+          "description": "Hostname to match for this Mapping. Use '*' to match all hostnames.",
+          "examples": [
+            "api.example.com",
+            "*.example.com",
+            "*"
+          ]
+        },
+        "prefix": {
+          "type": "string",
+          "description": "URL prefix to match for routing requests to the backend service",
+          "examples": [
+            "/api/v1/",
+            "/users/",
+            "/"
+          ]
+        },
+        "prefix_regex": {
+          "type": "boolean",
+          "description": "Whether the prefix should be interpreted as a regular expression",
+          "default": false
+        },
+        "prefix_exact": {
+          "type": "boolean",
+          "description": "Whether the prefix should be matched exactly rather than as a prefix",
+          "default": false
+        },
+        "service": {
+          "type": "string",
+          "description": "Target backend service to route to, in the format service-name.namespace:port or a full URL",
+          "examples": [
+            "my-service.default:8080",
+            "my-service:80",
+            "https://external-service.example.com"
+          ]
+        },
+        "rewrite": {
+          "type": "string",
+          "description": "Prefix rewrite rule applied to the URL before forwarding to the backend service. Set to empty string to disable rewriting.",
+          "examples": [
+            "/",
+            "",
+            "/v2/"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method to match. If omitted, all methods are matched.",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH",
+            "HEAD",
+            "OPTIONS"
+          ]
+        },
+        "method_regex": {
+          "type": "boolean",
+          "description": "Whether the method value should be treated as a regular expression",
+          "default": false
+        },
+        "headers": {
+          "type": "object",
+          "description": "HTTP headers that must be present on the request for this Mapping to match",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "query_parameters": {
+          "type": "object",
+          "description": "Query parameters that must be present for this Mapping to match",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "description": "Request timeout in milliseconds for this Mapping",
+          "minimum": 0,
+          "examples": [
+            3000,
+            30000,
+            60000
+          ]
+        },
+        "idle_timeout_ms": {
+          "type": "integer",
+          "description": "Idle timeout for streaming connections in milliseconds",
+          "minimum": 0
+        },
+        "connect_timeout_ms": {
+          "type": "integer",
+          "description": "Upstream connection establishment timeout in milliseconds",
+          "minimum": 0
+        },
+        "weight": {
+          "type": "integer",
+          "description": "Weight for traffic splitting when multiple Mappings match the same prefix. Used in canary deployments.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "bypass_auth": {
+          "type": "boolean",
+          "description": "Whether to bypass the external authentication service for requests matching this Mapping",
+          "default": false
+        },
+        "grpc": {
+          "type": "boolean",
+          "description": "Whether the upstream service uses the gRPC protocol",
+          "default": false
+        },
+        "cors": {
+          "$ref": "#/$defs/CORSPolicy"
+        },
+        "retry_policy": {
+          "$ref": "#/$defs/RetryPolicy"
+        },
+        "circuit_breakers": {
+          "type": "array",
+          "description": "Circuit breaker configurations for the upstream cluster",
+          "items": {
+            "$ref": "#/$defs/CircuitBreaker"
+          }
+        },
+        "load_balancer": {
+          "$ref": "#/$defs/LoadBalancer"
+        },
+        "labels": {
+          "type": "object",
+          "description": "Rate limiting labels to apply to requests matching this Mapping",
+          "additionalProperties": true
+        },
+        "add_request_headers": {
+          "type": "object",
+          "description": "Headers to add to the request before forwarding to the upstream service",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "add_response_headers": {
+          "type": "object",
+          "description": "Headers to add to the response before sending to the client",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "remove_request_headers": {
+          "type": "array",
+          "description": "Header names to remove from the request",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remove_response_headers": {
+          "type": "array",
+          "description": "Header names to remove from the response",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allow_upgrade": {
+          "type": "array",
+          "description": "Protocols to allow upgrade to, such as websocket",
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            ["websocket"]
+          ]
+        },
+        "enable_ipv4": {
+          "type": "boolean",
+          "description": "Whether to enable IPv4 DNS lookups for the upstream service"
+        },
+        "enable_ipv6": {
+          "type": "boolean",
+          "description": "Whether to enable IPv6 DNS lookups for the upstream service"
+        },
+        "ambassador_id": {
+          "type": "array",
+          "description": "List of Ambassador IDs that should apply this Mapping, for partitioning a cluster among multiple Ambassador instances",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MappingStatus": {
+      "type": "object",
+      "description": "Status information reported by Ambassador for the Mapping",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Current operational state of the Mapping",
+          "enum": [
+            "Inactive",
+            "Running",
+            "Error"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "description": "Human-readable reason for the current state"
+        }
+      }
+    },
+    "CORSPolicy": {
+      "type": "object",
+      "description": "Cross-Origin Resource Sharing configuration applied to requests matching this Mapping",
+      "properties": {
+        "origins": {
+          "type": "array",
+          "description": "Allowed origins for CORS requests",
+          "items": {
+            "type": "string"
+          }
+        },
+        "methods": {
+          "type": "array",
+          "description": "Allowed HTTP methods for CORS requests",
+          "items": {
+            "type": "string"
+          }
+        },
+        "headers": {
+          "type": "array",
+          "description": "Allowed request headers for CORS requests",
+          "items": {
+            "type": "string"
+          }
+        },
+        "credentials": {
+          "type": "boolean",
+          "description": "Whether to allow credentials (cookies, authorization headers)"
+        },
+        "exposed_headers": {
+          "type": "array",
+          "description": "Response headers exposed to the browser",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_age": {
+          "type": "string",
+          "description": "How long the preflight response can be cached in seconds"
+        }
+      }
+    },
+    "RetryPolicy": {
+      "type": "object",
+      "description": "Retry configuration for failed requests to the upstream service",
+      "properties": {
+        "retry_on": {
+          "type": "string",
+          "description": "Envoy retry condition specifying when retries should occur",
+          "examples": [
+            "5xx",
+            "gateway-error",
+            "connect-failure",
+            "retriable-4xx"
+          ]
+        },
+        "num_retries": {
+          "type": "integer",
+          "description": "Maximum number of retry attempts",
+          "minimum": 0
+        },
+        "per_try_timeout": {
+          "type": "string",
+          "description": "Timeout per individual retry attempt (e.g., '3s', '500ms')",
+          "examples": [
+            "3s",
+            "500ms",
+            "10s"
+          ]
+        }
+      }
+    },
+    "CircuitBreaker": {
+      "type": "object",
+      "description": "Circuit breaker configuration for protecting upstream services from overload",
+      "properties": {
+        "priority": {
+          "type": "string",
+          "description": "Envoy routing priority level",
+          "enum": [
+            "default",
+            "high"
+          ]
+        },
+        "max_connections": {
+          "type": "integer",
+          "description": "Maximum number of connections to the upstream cluster",
+          "minimum": 1
+        },
+        "max_pending_requests": {
+          "type": "integer",
+          "description": "Maximum number of pending requests queued for the upstream cluster",
+          "minimum": 1
+        },
+        "max_requests": {
+          "type": "integer",
+          "description": "Maximum number of parallel requests to the upstream cluster",
+          "minimum": 1
+        },
+        "max_retries": {
+          "type": "integer",
+          "description": "Maximum number of parallel retries to the upstream cluster",
+          "minimum": 1
+        }
+      }
+    },
+    "LoadBalancer": {
+      "type": "object",
+      "description": "Load balancing configuration for distributing traffic across upstream endpoints",
+      "properties": {
+        "policy": {
+          "type": "string",
+          "description": "Load balancing algorithm to use",
+          "enum": [
+            "round_robin",
+            "least_request",
+            "ring_hash",
+            "maglev"
+          ]
+        },
+        "cookie": {
+          "type": "object",
+          "description": "Cookie-based session affinity configuration for ring_hash policy",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the session affinity cookie"
+            },
+            "ttl": {
+              "type": "string",
+              "description": "Time-to-live for the session cookie"
+            },
+            "path": {
+              "type": "string",
+              "description": "Cookie path"
+            }
+          }
+        },
+        "header": {
+          "type": "string",
+          "description": "Header name to use for hash-based load balancing"
+        },
+        "source_ip": {
+          "type": "boolean",
+          "description": "Whether to use source IP for hash-based load balancing"
+        }
+      }
+    }
+  }
+}

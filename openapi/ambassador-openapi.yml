@@ -1,1 +1,1594 @@
-{}
+openapi: 3.1.0
+info:
+  title: Ambassador Edge Stack API
+  description: >-
+    API for managing Ambassador Edge Stack resources in Kubernetes environments.
+    Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy
+    that provides routing, load balancing, authentication, rate limiting, and
+    observability for microservices. This specification covers the management of
+    core custom resource definitions (CRDs) including Mapping, Host, TLSContext,
+    RateLimitService, and related configuration resources exposed through the
+    Edge Stack management API.
+  version: 3.x
+  contact:
+    name: Ambassador Labs
+    url: https://www.getambassador.io
+    email: support@datawire.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Ambassador Edge Stack Documentation
+  url: https://www.getambassador.io/docs/edge-stack/latest/
+servers:
+  - url: https://{ambassador-host}:8877
+    description: Ambassador Edge Stack Admin API
+    variables:
+      ambassador-host:
+        default: localhost
+        description: Hostname or IP of the Ambassador Edge Stack admin interface
+  - url: https://{ambassador-host}/edge_stack/api
+    description: Ambassador Edge Stack Management API
+    variables:
+      ambassador-host:
+        default: localhost
+        description: Hostname or IP of the Ambassador Edge Stack service
+tags:
+  - name: Mappings
+    description: >-
+      Manage Mapping resources that associate URL prefixes or paths with backend
+      services. Mappings are the core routing mechanism in Ambassador.
+    externalDocs:
+      url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/intro-mappings
+  - name: Hosts
+    description: >-
+      Manage Host resources that configure TLS termination, ACME certificate
+      management, and hostname-based routing rules.
+    externalDocs:
+      url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/host-crd
+  - name: TLSContexts
+    description: >-
+      Manage TLSContext resources that configure TLS settings for Ambassador,
+      including certificates, protocols, and cipher suites.
+    externalDocs:
+      url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/tls/
+  - name: RateLimits
+    description: >-
+      Manage rate limiting configuration for controlling request throughput
+      to backend services using labels and descriptors.
+    externalDocs:
+      url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/rate-limits
+  - name: Modules
+    description: >-
+      Manage Ambassador Module resources for global configuration of the
+      Ambassador gateway including diagnostics, tracing, and circuit breaking.
+  - name: Diagnostics
+    description: >-
+      Access diagnostic and health check endpoints for monitoring Ambassador
+      Edge Stack operational status.
+security:
+  - bearerAuth: []
+paths:
+  /ambassador/v0/diag:
+    get:
+      operationId: getDiagnostics
+      summary: Retrieve diagnostic overview
+      description: >-
+        Returns a comprehensive diagnostic overview of the Ambassador instance
+        including active configuration, cluster state, Envoy status, and any
+        configuration errors or warnings.
+      tags:
+        - Diagnostics
+      responses:
+        '200':
+          description: Diagnostic information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticsOverview'
+        '401':
+          description: Authentication required
+        '503':
+          description: Ambassador not ready
+  /ambassador/v0/check_ready:
+    get:
+      operationId: checkReady
+      summary: Readiness health check
+      description: >-
+        Returns whether Ambassador is ready to serve traffic. Used by
+        Kubernetes readiness probes.
+      tags:
+        - Diagnostics
+      security: []
+      responses:
+        '200':
+          description: Ambassador is ready
+        '503':
+          description: Ambassador is not ready
+  /ambassador/v0/check_alive:
+    get:
+      operationId: checkAlive
+      summary: Liveness health check
+      description: >-
+        Returns whether the Ambassador process is alive. Used by Kubernetes
+        liveness probes.
+      tags:
+        - Diagnostics
+      security: []
+      responses:
+        '200':
+          description: Ambassador is alive
+        '503':
+          description: Ambassador is not alive
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings:
+    get:
+      operationId: listMappings
+      summary: List all Mappings in a namespace
+      description: >-
+        Returns a list of all Mapping resources in the specified Kubernetes
+        namespace. Mappings associate URL prefixes or exact paths with backend
+        services and configure routing behavior.
+      tags:
+        - Mappings
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Mapping list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingList'
+        '401':
+          description: Authentication required
+        '403':
+          description: Insufficient permissions
+    post:
+      operationId: createMapping
+      summary: Create a new Mapping
+      description: >-
+        Creates a new Mapping resource in the specified namespace. A Mapping
+        defines how requests matching a URL prefix, path, or header should be
+        routed to a backend service.
+      tags:
+        - Mappings
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mapping'
+      responses:
+        '201':
+          description: Mapping created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '400':
+          description: Invalid Mapping specification
+        '401':
+          description: Authentication required
+        '409':
+          description: Mapping with this name already exists
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}:
+    get:
+      operationId: getMapping
+      summary: Get a specific Mapping
+      description: >-
+        Retrieves the full specification and status of a specific Mapping
+        resource identified by name and namespace.
+      tags:
+        - Mappings
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Mapping retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '401':
+          description: Authentication required
+        '404':
+          description: Mapping not found
+    put:
+      operationId: updateMapping
+      summary: Update a Mapping
+      description: >-
+        Replaces an existing Mapping resource with the provided specification.
+        The full Mapping object must be provided.
+      tags:
+        - Mappings
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mapping'
+      responses:
+        '200':
+          description: Mapping updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '400':
+          description: Invalid Mapping specification
+        '401':
+          description: Authentication required
+        '404':
+          description: Mapping not found
+    delete:
+      operationId: deleteMapping
+      summary: Delete a Mapping
+      description: >-
+        Deletes a specific Mapping resource. Any traffic previously routed
+        by this Mapping will no longer be handled.
+      tags:
+        - Mappings
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Mapping deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: Mapping not found
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
+    get:
+      operationId: listHosts
+      summary: List all Hosts in a namespace
+      description: >-
+        Returns a list of all Host resources in the specified namespace. Hosts
+        define how Ambassador should handle requests for specific hostnames,
+        including TLS termination and ACME certificate provisioning.
+      tags:
+        - Hosts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Host list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostList'
+        '401':
+          description: Authentication required
+        '403':
+          description: Insufficient permissions
+    post:
+      operationId: createHost
+      summary: Create a new Host
+      description: >-
+        Creates a new Host resource in the specified namespace. A Host defines
+        hostname routing, TLS termination behavior, and optionally configures
+        ACME-based automatic certificate management.
+      tags:
+        - Hosts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+      responses:
+        '201':
+          description: Host created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Invalid Host specification
+        '401':
+          description: Authentication required
+        '409':
+          description: Host with this name already exists
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
+    get:
+      operationId: getHost
+      summary: Get a specific Host
+      description: >-
+        Retrieves the specification and status of a specific Host resource.
+      tags:
+        - Hosts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Host retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '401':
+          description: Authentication required
+        '404':
+          description: Host not found
+    put:
+      operationId: updateHost
+      summary: Update a Host
+      description: >-
+        Replaces an existing Host resource with the provided specification.
+      tags:
+        - Hosts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+      responses:
+        '200':
+          description: Host updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Invalid Host specification
+        '401':
+          description: Authentication required
+        '404':
+          description: Host not found
+    delete:
+      operationId: deleteHost
+      summary: Delete a Host
+      description: >-
+        Deletes a specific Host resource. TLS termination and hostname routing
+        for this host will be removed.
+      tags:
+        - Hosts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Host deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: Host not found
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts:
+    get:
+      operationId: listTLSContexts
+      summary: List all TLS contexts in a namespace
+      description: >-
+        Returns a list of all TLSContext resources in the specified namespace.
+        TLSContexts configure TLS settings such as certificates, protocols,
+        and cipher suites.
+      tags:
+        - TLSContexts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+      responses:
+        '200':
+          description: TLSContext list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContextList'
+        '401':
+          description: Authentication required
+    post:
+      operationId: createTLSContext
+      summary: Create a new TLS context
+      description: >-
+        Creates a new TLSContext resource specifying TLS certificates,
+        protocol versions, and cipher suite configuration.
+      tags:
+        - TLSContexts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSContext'
+      responses:
+        '201':
+          description: TLSContext created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+        '400':
+          description: Invalid TLSContext specification
+        '401':
+          description: Authentication required
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}:
+    get:
+      operationId: getTLSContext
+      summary: Get a specific TLS context
+      description: >-
+        Retrieves the specification of a specific TLSContext resource.
+      tags:
+        - TLSContexts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: TLSContext retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+        '401':
+          description: Authentication required
+        '404':
+          description: TLSContext not found
+    put:
+      operationId: updateTLSContext
+      summary: Update a TLS context
+      description: >-
+        Replaces an existing TLSContext resource with the provided specification.
+      tags:
+        - TLSContexts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSContext'
+      responses:
+        '200':
+          description: TLSContext updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+        '400':
+          description: Invalid TLSContext specification
+        '401':
+          description: Authentication required
+        '404':
+          description: TLSContext not found
+    delete:
+      operationId: deleteTLSContext
+      summary: Delete a TLS context
+      description: >-
+        Deletes a specific TLSContext resource.
+      tags:
+        - TLSContexts
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: TLSContext deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: TLSContext not found
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits:
+    get:
+      operationId: listRateLimits
+      summary: List all RateLimit resources in a namespace
+      description: >-
+        Returns a list of all RateLimit resources in the specified namespace.
+        RateLimits define rate limiting policies using labels and descriptors
+        that control request throughput to backend services.
+      tags:
+        - RateLimits
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+      responses:
+        '200':
+          description: RateLimit list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitList'
+        '401':
+          description: Authentication required
+    post:
+      operationId: createRateLimit
+      summary: Create a new RateLimit
+      description: >-
+        Creates a new RateLimit resource in the specified namespace. RateLimits
+        define rate limiting policies using domain, descriptors, and rate
+        values to control traffic flow.
+      tags:
+        - RateLimits
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateLimit'
+      responses:
+        '201':
+          description: RateLimit created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimit'
+        '400':
+          description: Invalid RateLimit specification
+        '401':
+          description: Authentication required
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}:
+    get:
+      operationId: getRateLimit
+      summary: Get a specific RateLimit
+      description: >-
+        Retrieves the specification of a specific RateLimit resource.
+      tags:
+        - RateLimits
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: RateLimit retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimit'
+        '401':
+          description: Authentication required
+        '404':
+          description: RateLimit not found
+    put:
+      operationId: updateRateLimit
+      summary: Update a RateLimit
+      description: >-
+        Replaces an existing RateLimit resource with the provided specification.
+      tags:
+        - RateLimits
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateLimit'
+      responses:
+        '200':
+          description: RateLimit updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimit'
+        '400':
+          description: Invalid RateLimit specification
+        '401':
+          description: Authentication required
+        '404':
+          description: RateLimit not found
+    delete:
+      operationId: deleteRateLimit
+      summary: Delete a RateLimit
+      description: >-
+        Deletes a specific RateLimit resource.
+      tags:
+        - RateLimits
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: RateLimit deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: RateLimit not found
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules:
+    get:
+      operationId: listModules
+      summary: List all Modules in a namespace
+      description: >-
+        Returns a list of all Module resources in the specified namespace.
+        Modules configure global settings for Ambassador such as diagnostics,
+        tracing, circuit breaking, and retry policies.
+      tags:
+        - Modules
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      responses:
+        '200':
+          description: Module list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleList'
+        '401':
+          description: Authentication required
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}:
+    get:
+      operationId: getModule
+      summary: Get a specific Module
+      description: >-
+        Retrieves the specification of a specific Module resource.
+      tags:
+        - Modules
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Module retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '401':
+          description: Authentication required
+        '404':
+          description: Module not found
+    put:
+      operationId: updateModule
+      summary: Update a Module
+      description: >-
+        Replaces an existing Module resource with the provided configuration.
+      tags:
+        - Modules
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+      responses:
+        '200':
+          description: Module updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '400':
+          description: Invalid Module specification
+        '401':
+          description: Authentication required
+        '404':
+          description: Module not found
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer token authentication. Tokens are managed through the Ambassador
+        Edge Stack management interface or Kubernetes service account tokens.
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return
+      schema:
+        type: integer
+        minimum: 1
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continuation token for paginated results
+      schema:
+        type: string
+  schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+        uid:
+          type: string
+          description: Unique identifier for the resource
+      required:
+        - name
+        - namespace
+    Mapping:
+      type: object
+      description: >-
+        An Ambassador Mapping resource that associates a URL prefix or path
+        with a backend service. Mappings are the primary mechanism for
+        configuring routing in Ambassador Edge Stack.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version for the Mapping resource
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind
+          const: Mapping
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/MappingSpec'
+        status:
+          $ref: '#/components/schemas/MappingStatus'
+    MappingSpec:
+      type: object
+      description: Specification for an Ambassador Mapping
+      required:
+        - hostname
+        - prefix
+        - service
+      properties:
+        hostname:
+          type: string
+          description: >-
+            Hostname to match for this Mapping. Use '*' to match all hostnames.
+          example: api.example.com
+        prefix:
+          type: string
+          description: URL prefix to match for routing
+          example: /api/v1/
+        prefix_regex:
+          type: boolean
+          description: Whether the prefix should be interpreted as a regular expression
+          default: false
+        prefix_exact:
+          type: boolean
+          description: Whether the prefix should be matched exactly rather than as a prefix
+          default: false
+        service:
+          type: string
+          description: >-
+            Target service to route to, in the format service-name.namespace:port
+            or a full URL
+          example: my-service.default:8080
+        rewrite:
+          type: string
+          description: >-
+            Prefix rewrite rule applied to the URL before forwarding to the
+            backend service. Set to empty string to disable rewriting.
+          example: /
+        method:
+          type: string
+          description: HTTP method to match
+          enum:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - PATCH
+            - HEAD
+            - OPTIONS
+        method_regex:
+          type: boolean
+          description: Whether the method value is a regular expression
+          default: false
+        headers:
+          type: object
+          description: >-
+            HTTP headers that must be present on the request for this Mapping
+            to match. Values can be exact strings or regular expressions.
+          additionalProperties:
+            type: string
+        query_parameters:
+          type: object
+          description: Query parameters that must be present for this Mapping to match
+          additionalProperties:
+            type: string
+        host:
+          type: string
+          description: Deprecated. Use hostname instead.
+          deprecated: true
+        host_regex:
+          type: boolean
+          description: Deprecated. Whether host is a regular expression.
+          deprecated: true
+        timeout_ms:
+          type: integer
+          description: Request timeout in milliseconds
+          minimum: 0
+          example: 30000
+        idle_timeout_ms:
+          type: integer
+          description: Idle timeout for streaming connections in milliseconds
+          minimum: 0
+        connect_timeout_ms:
+          type: integer
+          description: Upstream connection timeout in milliseconds
+          minimum: 0
+        cluster_idle_timeout_ms:
+          type: integer
+          description: Idle timeout for upstream connections in the cluster in milliseconds
+          minimum: 0
+        weight:
+          type: integer
+          description: >-
+            Weight for traffic splitting when multiple Mappings match the
+            same prefix. Used in canary deployments.
+          minimum: 0
+          maximum: 100
+        bypass_auth:
+          type: boolean
+          description: Whether to bypass the external authentication service for this Mapping
+          default: false
+        cors:
+          $ref: '#/components/schemas/CORSPolicy'
+        retry_policy:
+          $ref: '#/components/schemas/RetryPolicy'
+        circuit_breakers:
+          type: array
+          description: Circuit breaker configurations for the upstream cluster
+          items:
+            $ref: '#/components/schemas/CircuitBreaker'
+        load_balancer:
+          $ref: '#/components/schemas/LoadBalancer'
+        labels:
+          type: object
+          description: >-
+            Rate limiting labels to apply to requests matching this Mapping.
+            Labels are sent to the rate limiting service for evaluation.
+          additionalProperties: true
+        add_request_headers:
+          type: object
+          description: Headers to add to the request before forwarding to the upstream
+          additionalProperties:
+            type: string
+        add_response_headers:
+          type: object
+          description: Headers to add to the response before sending to the client
+          additionalProperties:
+            type: string
+        remove_request_headers:
+          type: array
+          description: Header names to remove from the request
+          items:
+            type: string
+        remove_response_headers:
+          type: array
+          description: Header names to remove from the response
+          items:
+            type: string
+        allow_upgrade:
+          type: array
+          description: >-
+            Protocols to allow upgrade to, such as websocket
+          items:
+            type: string
+          example:
+            - websocket
+        grpc:
+          type: boolean
+          description: Whether the upstream service uses gRPC
+          default: false
+        enable_ipv4:
+          type: boolean
+          description: Whether to enable IPv4 DNS lookups for the upstream service
+        enable_ipv6:
+          type: boolean
+          description: Whether to enable IPv6 DNS lookups for the upstream service
+        ambassador_id:
+          type: array
+          description: >-
+            List of Ambassador IDs that should apply this Mapping. Used to
+            partition a single Kubernetes cluster among multiple Ambassador
+            instances.
+          items:
+            type: string
+    MappingStatus:
+      type: object
+      description: Status information for a Mapping resource
+      properties:
+        state:
+          type: string
+          description: Current state of the Mapping
+          enum:
+            - Inactive
+            - Running
+            - Error
+        reason:
+          type: string
+          description: Human-readable reason for the current state
+    MappingList:
+      type: object
+      description: List of Mapping resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: MappingList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+              description: Continuation token for pagination
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          description: List of Mapping resources
+          items:
+            $ref: '#/components/schemas/Mapping'
+    Host:
+      type: object
+      description: >-
+        An Ambassador Host resource that configures how Ambassador handles
+        requests for a specific hostname, including TLS termination and
+        ACME certificate management.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: Host
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
+    HostSpec:
+      type: object
+      description: Specification for an Ambassador Host
+      required:
+        - hostname
+      properties:
+        hostname:
+          type: string
+          description: >-
+            Hostname that this Host resource applies to. Supports wildcard
+            patterns like *.example.com.
+          example: api.example.com
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should apply this Host
+          items:
+            type: string
+        acmeProvider:
+          type: object
+          description: ACME certificate provider configuration for automatic TLS certificates
+          properties:
+            authority:
+              type: string
+              description: ACME server URL
+              example: https://acme-v02.api.letsencrypt.org/directory
+            email:
+              type: string
+              format: email
+              description: Email for ACME registration and certificate notifications
+            privateKeySecret:
+              type: object
+              description: Reference to a Kubernetes Secret for the ACME private key
+              properties:
+                name:
+                  type: string
+            registration:
+              type: string
+              description: ACME registration URL (automatically managed)
+        tlsContext:
+          type: object
+          description: Reference to a TLSContext resource for TLS configuration
+          properties:
+            name:
+              type: string
+              description: Name of the TLSContext to use
+        tlsSecret:
+          type: object
+          description: Reference to a Kubernetes TLS Secret containing certificates
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret
+        requestPolicy:
+          type: object
+          description: Policy for handling insecure requests
+          properties:
+            insecure:
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: How to handle insecure (non-TLS) requests
+                  enum:
+                    - Redirect
+                    - Reject
+                    - Route
+                additionalPort:
+                  type: integer
+                  description: Additional port to listen on for insecure requests
+        selector:
+          type: object
+          description: Label selector for Mappings this Host should be associated with
+          properties:
+            matchLabels:
+              type: object
+              additionalProperties:
+                type: string
+    HostStatus:
+      type: object
+      description: Status information for a Host resource
+      properties:
+        state:
+          type: string
+          description: Current state of the Host
+          enum:
+            - Initial
+            - Pending
+            - Ready
+            - Error
+        phaseCompleted:
+          type: string
+          description: Last completed phase of the Host lifecycle
+          enum:
+            - NA
+            - DefaultsFilled
+            - ACMEUserPrivateKeyCreated
+            - ACMEUserRegistered
+            - ACMECertificateChallenge
+        errorReason:
+          type: string
+          description: Description of any error state
+        tlsCertificateSource:
+          type: string
+          description: Source of the TLS certificate
+          enum:
+            - None
+            - ACME
+            - Other
+    HostList:
+      type: object
+      description: List of Host resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: HostList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Host'
+    TLSContext:
+      type: object
+      description: >-
+        An Ambassador TLSContext resource that configures TLS settings for
+        inbound or outbound connections, including certificates, protocols,
+        and cipher suites.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: TLSContext
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/TLSContextSpec'
+    TLSContextSpec:
+      type: object
+      description: Specification for a TLSContext resource
+      properties:
+        hosts:
+          type: array
+          description: Hostnames this TLSContext applies to
+          items:
+            type: string
+        secret:
+          type: string
+          description: Name of the Kubernetes Secret containing TLS certificates
+        cert_chain_file:
+          type: string
+          description: Path to the certificate chain PEM file (alternative to secret)
+        private_key_file:
+          type: string
+          description: Path to the private key PEM file (alternative to secret)
+        ca_secret:
+          type: string
+          description: Name of the Kubernetes Secret containing CA certificates for client verification
+        cert_required:
+          type: boolean
+          description: Whether client TLS certificates are required (mTLS)
+          default: false
+        min_tls_version:
+          type: string
+          description: Minimum TLS version to accept
+          enum:
+            - v1.0
+            - v1.1
+            - v1.2
+            - v1.3
+          default: v1.2
+        max_tls_version:
+          type: string
+          description: Maximum TLS version to accept
+          enum:
+            - v1.0
+            - v1.1
+            - v1.2
+            - v1.3
+          default: v1.3
+        cipher_suites:
+          type: array
+          description: Allowed TLS cipher suites
+          items:
+            type: string
+        ecdh_curves:
+          type: array
+          description: Allowed ECDH curves
+          items:
+            type: string
+        alpn_protocols:
+          type: string
+          description: ALPN protocols to advertise
+        redirect_cleartext_from:
+          type: integer
+          description: Port number from which to redirect cleartext traffic to TLS
+        sni:
+          type: string
+          description: SNI hostname to present for outbound TLS connections
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should use this TLSContext
+          items:
+            type: string
+    TLSContextList:
+      type: object
+      description: List of TLSContext resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: TLSContextList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSContext'
+    RateLimit:
+      type: object
+      description: >-
+        An Ambassador RateLimit resource that defines rate limiting policies
+        using descriptors and rate values. Works with the built-in Ambassador
+        Edge Stack rate limiting service.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: RateLimit
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RateLimitSpec'
+    RateLimitSpec:
+      type: object
+      description: Specification for a RateLimit resource
+      required:
+        - domain
+        - limits
+      properties:
+        domain:
+          type: string
+          description: >-
+            Rate limiting domain that groups related rate limit configurations.
+            Typically set to 'ambassador'.
+          example: ambassador
+        limits:
+          type: array
+          description: List of rate limit rules
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
+    RateLimitRule:
+      type: object
+      description: A single rate limiting rule with a pattern and rate
+      required:
+        - pattern
+        - rate
+      properties:
+        pattern:
+          type: array
+          description: >-
+            Descriptor entries to match against. Each entry is a key-value
+            pair that must match the labels sent with the request.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+            - generic_key: my-rate-limit
+        rate:
+          type: integer
+          description: Maximum number of requests allowed in the specified unit of time
+          minimum: 1
+          example: 10
+        unit:
+          type: string
+          description: Time unit for the rate limit
+          enum:
+            - second
+            - minute
+            - hour
+            - day
+          default: minute
+        injectRequestHeaders:
+          type: array
+          description: Headers to inject into the request when the rate limit is applied
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+    RateLimitList:
+      type: object
+      description: List of RateLimit resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: RateLimitList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+    Module:
+      type: object
+      description: >-
+        An Ambassador Module resource for configuring global Ambassador settings
+        such as diagnostics, tracing, circuit breaking defaults, and retry policies.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: Module
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ModuleSpec'
+    ModuleSpec:
+      type: object
+      description: Specification for a Module resource
+      properties:
+        config:
+          type: object
+          description: >-
+            Module configuration. The shape depends on the module name
+            (e.g., ambassador, authentication, tracing).
+          additionalProperties: true
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should apply this Module
+          items:
+            type: string
+    ModuleList:
+      type: object
+      description: List of Module resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+        kind:
+          type: string
+          const: ModuleList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+    CORSPolicy:
+      type: object
+      description: Cross-Origin Resource Sharing configuration
+      properties:
+        origins:
+          type: array
+          description: >-
+            Allowed origins. Use a string for exact match or a regex pattern.
+          items:
+            type: string
+          example:
+            - https://example.com
+            - https://*.example.com
+        methods:
+          type: array
+          description: Allowed HTTP methods
+          items:
+            type: string
+          example:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+        headers:
+          type: array
+          description: Allowed request headers
+          items:
+            type: string
+        credentials:
+          type: boolean
+          description: Whether to allow credentials (cookies, authorization headers)
+        exposed_headers:
+          type: array
+          description: Headers exposed to the browser
+          items:
+            type: string
+        max_age:
+          type: string
+          description: How long the preflight response can be cached (e.g., '86400')
+    RetryPolicy:
+      type: object
+      description: Retry configuration for failed requests
+      properties:
+        retry_on:
+          type: string
+          description: >-
+            Envoy retry condition. Common values include 5xx, gateway-error,
+            connect-failure, retriable-4xx.
+          example: 5xx
+        num_retries:
+          type: integer
+          description: Maximum number of retry attempts
+          minimum: 0
+          example: 3
+        per_try_timeout:
+          type: string
+          description: Timeout per retry attempt (e.g., '3s', '500ms')
+          example: 3s
+    CircuitBreaker:
+      type: object
+      description: Circuit breaker configuration for an upstream cluster
+      properties:
+        priority:
+          type: string
+          description: Envoy routing priority
+          enum:
+            - default
+            - high
+        max_connections:
+          type: integer
+          description: Maximum number of connections to the upstream cluster
+          minimum: 1
+        max_pending_requests:
+          type: integer
+          description: Maximum number of pending requests to the upstream cluster
+          minimum: 1
+        max_requests:
+          type: integer
+          description: Maximum number of parallel requests to the upstream cluster
+          minimum: 1
+        max_retries:
+          type: integer
+          description: Maximum number of parallel retries to the upstream cluster
+          minimum: 1
+    LoadBalancer:
+      type: object
+      description: Load balancing configuration for an upstream cluster
+      properties:
+        policy:
+          type: string
+          description: Load balancing algorithm
+          enum:
+            - round_robin
+            - least_request
+            - ring_hash
+            - maglev
+        cookie:
+          type: object
+          description: Cookie-based session affinity configuration (for ring_hash policy)
+          properties:
+            name:
+              type: string
+              description: Name of the session affinity cookie
+            ttl:
+              type: string
+              description: Time-to-live for the cookie
+            path:
+              type: string
+              description: Cookie path
+        header:
+          type: string
+          description: Header to use for hash-based load balancing
+        source_ip:
+          type: boolean
+          description: Whether to use source IP for hash-based load balancing
+    DiagnosticsOverview:
+      type: object
+      description: Diagnostic overview of an Ambassador instance
+      properties:
+        system:
+          type: object
+          description: System-level information
+          properties:
+            version:
+              type: string
+              description: Ambassador version
+            hostname:
+              type: string
+              description: Hostname of the Ambassador pod
+            ambassador_id:
+              type: string
+              description: Ambassador instance ID
+            cluster_id:
+              type: string
+              description: Kubernetes cluster identifier
+            boot_time:
+              type: string
+              format: date-time
+              description: When this Ambassador instance started
+        ambassador_config:
+          type: object
+          description: Active Ambassador configuration summary
+          additionalProperties: true
+        envoy_status:
+          type: object
+          description: Status of the underlying Envoy proxy
+          properties:
+            alive:
+              type: boolean
+            ready:
+              type: boolean
+            uptime:
+              type: integer
+              description: Envoy uptime in seconds
+        route_info:
+          type: array
+          description: Summary of active routes
+          items:
+            type: object
+            properties:
+              prefix:
+                type: string
+              service:
+                type: string
+              weight:
+                type: integer
+        errors:
+          type: array
+          description: List of configuration errors
+          items:
+            type: object
+            properties:
+              kind:
+                type: string
+              name:
+                type: string
+              namespace:
+                type: string
+              error:
+                type: string
