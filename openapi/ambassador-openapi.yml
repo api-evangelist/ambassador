@@ -34,38 +34,38 @@ servers:
         default: localhost
         description: Hostname or IP of the Ambassador Edge Stack service
 tags:
-  - name: Mappings
+  - name: Diagnostics
     description: >-
-      Manage Mapping resources that associate URL prefixes or paths with backend
-      services. Mappings are the core routing mechanism in Ambassador.
-    externalDocs:
-      url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/intro-mappings
+      Access diagnostic and health check endpoints for monitoring Ambassador
+      Edge Stack operational status.
   - name: Hosts
     description: >-
       Manage Host resources that configure TLS termination, ACME certificate
       management, and hostname-based routing rules.
     externalDocs:
       url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/host-crd
-  - name: TLSContexts
+  - name: Mappings
     description: >-
-      Manage TLSContext resources that configure TLS settings for Ambassador,
-      including certificates, protocols, and cipher suites.
+      Manage Mapping resources that associate URL prefixes or paths with backend
+      services. Mappings are the core routing mechanism in Ambassador.
     externalDocs:
-      url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/tls/
+      url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/intro-mappings
+  - name: Modules
+    description: >-
+      Manage Ambassador Module resources for global configuration of the
+      Ambassador gateway including diagnostics, tracing, and circuit breaking.
   - name: RateLimits
     description: >-
       Manage rate limiting configuration for controlling request throughput
       to backend services using labels and descriptors.
     externalDocs:
       url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/rate-limits
-  - name: Modules
+  - name: TLSContexts
     description: >-
-      Manage Ambassador Module resources for global configuration of the
-      Ambassador gateway including diagnostics, tracing, and circuit breaking.
-  - name: Diagnostics
-    description: >-
-      Access diagnostic and health check endpoints for monitoring Ambassador
-      Edge Stack operational status.
+      Manage TLSContext resources that configure TLS settings for Ambassador,
+      including certificates, protocols, and cipher suites.
+    externalDocs:
+      url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/tls/
 security:
   - bearerAuth: []
 paths:
