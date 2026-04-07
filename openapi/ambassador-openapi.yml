@@ -72,7 +72,7 @@ paths:
   /ambassador/v0/diag:
     get:
       operationId: getDiagnostics
-      summary: Retrieve diagnostic overview
+      summary: Ambassador Retrieve diagnostic overview
       description: >-
         Returns a comprehensive diagnostic overview of the Ambassador instance
         including active configuration, cluster state, Envoy status, and any
@@ -93,7 +93,7 @@ paths:
   /ambassador/v0/check_ready:
     get:
       operationId: checkReady
-      summary: Readiness health check
+      summary: Ambassador Readiness health check
       description: >-
         Returns whether Ambassador is ready to serve traffic. Used by
         Kubernetes readiness probes.
@@ -108,7 +108,7 @@ paths:
   /ambassador/v0/check_alive:
     get:
       operationId: checkAlive
-      summary: Liveness health check
+      summary: Ambassador Liveness health check
       description: >-
         Returns whether the Ambassador process is alive. Used by Kubernetes
         liveness probes.
@@ -123,7 +123,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings:
     get:
       operationId: listMappings
-      summary: List all Mappings in a namespace
+      summary: Ambassador List all Mappings in a namespace
       description: >-
         Returns a list of all Mapping resources in the specified Kubernetes
         namespace. Mappings associate URL prefixes or exact paths with backend
@@ -148,7 +148,7 @@ paths:
           description: Insufficient permissions
     post:
       operationId: createMapping
-      summary: Create a new Mapping
+      summary: Ambassador Create a new Mapping
       description: >-
         Creates a new Mapping resource in the specified namespace. A Mapping
         defines how requests matching a URL prefix, path, or header should be
@@ -179,7 +179,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}:
     get:
       operationId: getMapping
-      summary: Get a specific Mapping
+      summary: Ambassador Get a specific Mapping
       description: >-
         Retrieves the full specification and status of a specific Mapping
         resource identified by name and namespace.
@@ -201,7 +201,7 @@ paths:
           description: Mapping not found
     put:
       operationId: updateMapping
-      summary: Update a Mapping
+      summary: Ambassador Update a Mapping
       description: >-
         Replaces an existing Mapping resource with the provided specification.
         The full Mapping object must be provided.
@@ -231,7 +231,7 @@ paths:
           description: Mapping not found
     delete:
       operationId: deleteMapping
-      summary: Delete a Mapping
+      summary: Ambassador Delete a Mapping
       description: >-
         Deletes a specific Mapping resource. Any traffic previously routed
         by this Mapping will no longer be handled.
@@ -250,7 +250,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
     get:
       operationId: listHosts
-      summary: List all Hosts in a namespace
+      summary: Ambassador List all Hosts in a namespace
       description: >-
         Returns a list of all Host resources in the specified namespace. Hosts
         define how Ambassador should handle requests for specific hostnames,
@@ -275,7 +275,7 @@ paths:
           description: Insufficient permissions
     post:
       operationId: createHost
-      summary: Create a new Host
+      summary: Ambassador Create a new Host
       description: >-
         Creates a new Host resource in the specified namespace. A Host defines
         hostname routing, TLS termination behavior, and optionally configures
@@ -306,7 +306,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
     get:
       operationId: getHost
-      summary: Get a specific Host
+      summary: Ambassador Get a specific Host
       description: >-
         Retrieves the specification and status of a specific Host resource.
       tags:
@@ -327,7 +327,7 @@ paths:
           description: Host not found
     put:
       operationId: updateHost
-      summary: Update a Host
+      summary: Ambassador Update a Host
       description: >-
         Replaces an existing Host resource with the provided specification.
       tags:
@@ -356,7 +356,7 @@ paths:
           description: Host not found
     delete:
       operationId: deleteHost
-      summary: Delete a Host
+      summary: Ambassador Delete a Host
       description: >-
         Deletes a specific Host resource. TLS termination and hostname routing
         for this host will be removed.
@@ -375,7 +375,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts:
     get:
       operationId: listTLSContexts
-      summary: List all TLS contexts in a namespace
+      summary: Ambassador List all TLS contexts in a namespace
       description: >-
         Returns a list of all TLSContext resources in the specified namespace.
         TLSContexts configure TLS settings such as certificates, protocols,
@@ -396,7 +396,7 @@ paths:
           description: Authentication required
     post:
       operationId: createTLSContext
-      summary: Create a new TLS context
+      summary: Ambassador Create a new TLS context
       description: >-
         Creates a new TLSContext resource specifying TLS certificates,
         protocol versions, and cipher suite configuration.
@@ -424,7 +424,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}:
     get:
       operationId: getTLSContext
-      summary: Get a specific TLS context
+      summary: Ambassador Get a specific TLS context
       description: >-
         Retrieves the specification of a specific TLSContext resource.
       tags:
@@ -445,7 +445,7 @@ paths:
           description: TLSContext not found
     put:
       operationId: updateTLSContext
-      summary: Update a TLS context
+      summary: Ambassador Update a TLS context
       description: >-
         Replaces an existing TLSContext resource with the provided specification.
       tags:
@@ -474,7 +474,7 @@ paths:
           description: TLSContext not found
     delete:
       operationId: deleteTLSContext
-      summary: Delete a TLS context
+      summary: Ambassador Delete a TLS context
       description: >-
         Deletes a specific TLSContext resource.
       tags:
@@ -492,7 +492,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits:
     get:
       operationId: listRateLimits
-      summary: List all RateLimit resources in a namespace
+      summary: Ambassador List all RateLimit resources in a namespace
       description: >-
         Returns a list of all RateLimit resources in the specified namespace.
         RateLimits define rate limiting policies using labels and descriptors
@@ -513,7 +513,7 @@ paths:
           description: Authentication required
     post:
       operationId: createRateLimit
-      summary: Create a new RateLimit
+      summary: Ambassador Create a new RateLimit
       description: >-
         Creates a new RateLimit resource in the specified namespace. RateLimits
         define rate limiting policies using domain, descriptors, and rate
@@ -542,7 +542,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}:
     get:
       operationId: getRateLimit
-      summary: Get a specific RateLimit
+      summary: Ambassador Get a specific RateLimit
       description: >-
         Retrieves the specification of a specific RateLimit resource.
       tags:
@@ -563,7 +563,7 @@ paths:
           description: RateLimit not found
     put:
       operationId: updateRateLimit
-      summary: Update a RateLimit
+      summary: Ambassador Update a RateLimit
       description: >-
         Replaces an existing RateLimit resource with the provided specification.
       tags:
@@ -592,7 +592,7 @@ paths:
           description: RateLimit not found
     delete:
       operationId: deleteRateLimit
-      summary: Delete a RateLimit
+      summary: Ambassador Delete a RateLimit
       description: >-
         Deletes a specific RateLimit resource.
       tags:
@@ -610,7 +610,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules:
     get:
       operationId: listModules
-      summary: List all Modules in a namespace
+      summary: Ambassador List all Modules in a namespace
       description: >-
         Returns a list of all Module resources in the specified namespace.
         Modules configure global settings for Ambassador such as diagnostics,
@@ -631,7 +631,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}:
     get:
       operationId: getModule
-      summary: Get a specific Module
+      summary: Ambassador Get a specific Module
       description: >-
         Retrieves the specification of a specific Module resource.
       tags:
@@ -652,7 +652,7 @@ paths:
           description: Module not found
     put:
       operationId: updateModule
-      summary: Update a Module
+      summary: Ambassador Update a Module
       description: >-
         Replaces an existing Module resource with the provided configuration.
       tags:
