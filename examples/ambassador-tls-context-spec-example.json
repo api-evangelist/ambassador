@@ -1,0 +1,16 @@
+{
+  "hosts": [],
+  "secret": "example_value",
+  "cert_chain_file": "example_value",
+  "private_key_file": "example_value",
+  "ca_secret": "example_value",
+  "cert_required": true,
+  "min_tls_version": "example_value",
+  "max_tls_version": "example_value",
+  "cipher_suites": [],
+  "ecdh_curves": [],
+  "alpn_protocols": "example_value",
+  "redirect_cleartext_from": 10,
+  "sni": "example_value",
+  "ambassador_id": "500123"
+}

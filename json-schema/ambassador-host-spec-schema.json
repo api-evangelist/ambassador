@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HostSpec",
+  "type": "object",
+  "description": "Specification for an Ambassador Host",
+  "properties": {
+    "hostname": {
+      "type": "string",
+      "description": "Hostname that this Host resource applies to. Supports wildcard patterns like *.example.com."
+    },
+    "ambassador_id": {
+      "type": "array",
+      "description": "Ambassador IDs that should apply this Host"
+    },
+    "acmeProvider": {
+      "type": "object",
+      "description": "ACME certificate provider configuration for automatic TLS certificates"
+    },
+    "tlsContext": {
+      "type": "object",
+      "description": "Reference to a TLSContext resource for TLS configuration"
+    },
+    "tlsSecret": {
+      "type": "object",
+      "description": "Reference to a Kubernetes TLS Secret containing certificates"
+    },
+    "requestPolicy": {
+      "type": "object",
+      "description": "Policy for handling insecure requests"
+    },
+    "selector": {
+      "type": "object",
+      "description": "Label selector for Mappings this Host should be associated with"
+    }
+  }
+}

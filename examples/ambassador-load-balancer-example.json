@@ -1,0 +1,6 @@
+{
+  "policy": "example_value",
+  "cookie": "example_value",
+  "header": "example_value",
+  "source_ip": true
+}

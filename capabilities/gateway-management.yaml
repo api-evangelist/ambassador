@@ -1,0 +1,450 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Ambassador Gateway Management"
+  description: "Unified gateway management workflow for platform engineers and DevOps teams to configure API routing, TLS termination, rate limiting, and health monitoring across Ambassador Edge Stack instances."
+  tags:
+    - Ambassador
+    - API Gateway
+    - Kubernetes
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      AMBASSADOR_API_TOKEN: AMBASSADOR_API_TOKEN
+
+capability:
+  consumes:
+    - import: edge-stack
+      location: ./shared/edge-stack.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: gateway-management-api
+      description: "Unified REST API for managing Ambassador Edge Stack gateway resources."
+      resources:
+        - path: /v1/diagnostics
+          name: diagnostics
+          description: "Gateway health and diagnostics."
+          operations:
+            - method: GET
+              name: get-diagnostics
+              description: "Retrieve diagnostic overview."
+              call: "edge-stack.get-diagnostics"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/health/ready
+          name: readiness
+          description: "Gateway readiness check."
+          operations:
+            - method: GET
+              name: check-ready
+              description: "Check gateway readiness."
+              call: "edge-stack.check-ready"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/health/alive
+          name: liveness
+          description: "Gateway liveness check."
+          operations:
+            - method: GET
+              name: check-alive
+              description: "Check gateway liveness."
+              call: "edge-stack.check-alive"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/routes
+          name: routes
+          description: "API route mappings."
+          operations:
+            - method: GET
+              name: list-routes
+              description: "List all route mappings."
+              call: "edge-stack.list-mappings"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-route
+              description: "Create a new route mapping."
+              call: "edge-stack.create-mapping"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/routes/{name}
+          name: route
+          description: "Individual route mapping."
+          operations:
+            - method: GET
+              name: get-route
+              description: "Get a specific route mapping."
+              call: "edge-stack.get-mapping"
+              with:
+                namespace: "rest.namespace"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-route
+              description: "Update a route mapping."
+              call: "edge-stack.update-mapping"
+              with:
+                namespace: "rest.namespace"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-route
+              description: "Delete a route mapping."
+              call: "edge-stack.delete-mapping"
+              with:
+                namespace: "rest.namespace"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/hosts
+          name: hosts
+          description: "TLS hosts and hostname routing."
+          operations:
+            - method: GET
+              name: list-hosts
+              description: "List all hosts."
+              call: "edge-stack.list-hosts"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-host
+              description: "Create a new host."
+              call: "edge-stack.create-host"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/tls-contexts
+          name: tls-contexts
+          description: "TLS certificate contexts."
+          operations:
+            - method: GET
+              name: list-tls-contexts
+              description: "List all TLS contexts."
+              call: "edge-stack.list-tls-contexts"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/rate-limits
+          name: rate-limits
+          description: "Rate limiting configurations."
+          operations:
+            - method: GET
+              name: list-rate-limits
+              description: "List all rate limits."
+              call: "edge-stack.list-rate-limits"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: gateway-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted Ambassador Edge Stack gateway management."
+      tools:
+        - name: get-diagnostics
+          description: "Retrieve diagnostic overview of the Ambassador gateway instance."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "edge-stack.get-diagnostics"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: check-ready
+          description: "Check if the Ambassador gateway is ready to serve traffic."
+          hints:
+            readOnly: true
+          call: "edge-stack.check-ready"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: check-alive
+          description: "Check if the Ambassador gateway process is alive."
+          hints:
+            readOnly: true
+          call: "edge-stack.check-alive"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-mappings
+          description: "List all route mappings in a Kubernetes namespace."
+          hints:
+            readOnly: true
+          call: "edge-stack.list-mappings"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-mapping
+          description: "Create a new route mapping for a backend service."
+          hints:
+            readOnly: false
+          call: "edge-stack.create-mapping"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-mapping
+          description: "Retrieve a specific route mapping by name."
+          hints:
+            readOnly: true
+          call: "edge-stack.get-mapping"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-mapping
+          description: "Update an existing route mapping."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "edge-stack.update-mapping"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-mapping
+          description: "Delete a route mapping."
+          hints:
+            destructive: true
+            idempotent: true
+          call: "edge-stack.delete-mapping"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-hosts
+          description: "List all Host resources for TLS and hostname routing."
+          hints:
+            readOnly: true
+          call: "edge-stack.list-hosts"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-host
+          description: "Create a new Host resource for TLS termination."
+          hints:
+            readOnly: false
+          call: "edge-stack.create-host"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-host
+          description: "Retrieve a specific Host by name."
+          hints:
+            readOnly: true
+          call: "edge-stack.get-host"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-host
+          description: "Update an existing Host resource."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "edge-stack.update-host"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-host
+          description: "Delete a Host resource."
+          hints:
+            destructive: true
+            idempotent: true
+          call: "edge-stack.delete-host"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-tls-contexts
+          description: "List all TLSContext resources."
+          hints:
+            readOnly: true
+          call: "edge-stack.list-tls-contexts"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-tls-context
+          description: "Create a new TLSContext for TLS configuration."
+          hints:
+            readOnly: false
+          call: "edge-stack.create-tls-context"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-tls-context
+          description: "Retrieve a specific TLSContext by name."
+          hints:
+            readOnly: true
+          call: "edge-stack.get-tls-context"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-tls-context
+          description: "Update an existing TLSContext."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "edge-stack.update-tls-context"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-tls-context
+          description: "Delete a TLSContext resource."
+          hints:
+            destructive: true
+            idempotent: true
+          call: "edge-stack.delete-tls-context"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-rate-limits
+          description: "List all RateLimit resources."
+          hints:
+            readOnly: true
+          call: "edge-stack.list-rate-limits"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-rate-limit
+          description: "Create a new RateLimit resource."
+          hints:
+            readOnly: false
+          call: "edge-stack.create-rate-limit"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-rate-limit
+          description: "Retrieve a specific RateLimit by name."
+          hints:
+            readOnly: true
+          call: "edge-stack.get-rate-limit"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-rate-limit
+          description: "Update an existing RateLimit."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "edge-stack.update-rate-limit"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-rate-limit
+          description: "Delete a RateLimit resource."
+          hints:
+            destructive: true
+            idempotent: true
+          call: "edge-stack.delete-rate-limit"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-modules
+          description: "List all Module resources for global gateway config."
+          hints:
+            readOnly: true
+          call: "edge-stack.list-modules"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-module
+          description: "Retrieve a specific Module by name."
+          hints:
+            readOnly: true
+          call: "edge-stack.get-module"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-module
+          description: "Update a Module resource."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "edge-stack.update-module"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."

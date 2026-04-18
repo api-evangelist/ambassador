@@ -1,0 +1,9 @@
+{
+  "hostname": "example_value",
+  "ambassador_id": "500123",
+  "acmeProvider": "example_value",
+  "tlsContext": "example_value",
+  "tlsSecret": "example_value",
+  "requestPolicy": "example_value",
+  "selector": "example_value"
+}

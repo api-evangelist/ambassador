@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MappingList",
+  "type": "object",
+  "description": "List of Mapping resources",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "items": {
+      "type": "array",
+      "description": "List of Mapping resources"
+    }
+  }
+}

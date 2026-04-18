@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "MappingSpec",
+  "type": "object",
+  "properties": {
+    "hostname": {
+      "type": "string"
+    },
+    "prefix": {
+      "type": "string"
+    },
+    "prefix_regex": {
+      "type": "boolean"
+    },
+    "prefix_exact": {
+      "type": "boolean"
+    },
+    "service": {
+      "type": "string"
+    },
+    "rewrite": {
+      "type": "string"
+    },
+    "method": {
+      "type": "string"
+    },
+    "method_regex": {
+      "type": "boolean"
+    },
+    "headers": {
+      "type": "object"
+    },
+    "query_parameters": {
+      "type": "object"
+    },
+    "host": {
+      "type": "string"
+    },
+    "host_regex": {
+      "type": "boolean"
+    },
+    "timeout_ms": {
+      "type": "integer"
+    },
+    "idle_timeout_ms": {
+      "type": "integer"
+    },
+    "connect_timeout_ms": {
+      "type": "integer"
+    },
+    "cluster_idle_timeout_ms": {
+      "type": "integer"
+    },
+    "weight": {
+      "type": "integer"
+    },
+    "bypass_auth": {
+      "type": "boolean"
+    },
+    "circuit_breakers": {
+      "type": "array"
+    },
+    "labels": {
+      "type": "object"
+    },
+    "add_request_headers": {
+      "type": "object"
+    },
+    "add_response_headers": {
+      "type": "object"
+    },
+    "remove_request_headers": {
+      "type": "array"
+    },
+    "remove_response_headers": {
+      "type": "array"
+    },
+    "allow_upgrade": {
+      "type": "array"
+    },
+    "grpc": {
+      "type": "boolean"
+    },
+    "enable_ipv4": {
+      "type": "boolean"
+    },
+    "enable_ipv6": {
+      "type": "boolean"
+    },
+    "ambassador_id": {
+      "type": "array"
+    }
+  }
+}

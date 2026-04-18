@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModuleSpec",
+  "type": "object",
+  "description": "Specification for a Module resource",
+  "properties": {
+    "config": {
+      "type": "object",
+      "description": "Module configuration. The shape depends on the module name (e.g., ambassador, authentication, tracing)."
+    },
+    "ambassador_id": {
+      "type": "array",
+      "description": "Ambassador IDs that should apply this Module"
+    }
+  }
+}

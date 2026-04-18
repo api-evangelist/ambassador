@@ -1,0 +1,8 @@
+{
+  "origins": [],
+  "methods": [],
+  "headers": [],
+  "credentials": true,
+  "exposed_headers": [],
+  "max_age": "example_value"
+}

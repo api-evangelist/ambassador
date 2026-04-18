@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CircuitBreaker",
+  "type": "object",
+  "properties": {
+    "priority": {
+      "type": "string"
+    },
+    "max_connections": {
+      "type": "integer"
+    },
+    "max_pending_requests": {
+      "type": "integer"
+    },
+    "max_requests": {
+      "type": "integer"
+    },
+    "max_retries": {
+      "type": "integer"
+    }
+  }
+}

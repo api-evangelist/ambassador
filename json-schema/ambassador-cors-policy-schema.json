@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CORSPolicy",
+  "type": "object",
+  "description": "Cross-Origin Resource Sharing configuration",
+  "properties": {
+    "origins": {
+      "type": "array",
+      "description": "Allowed origins. Use a string for exact match or a regex pattern."
+    },
+    "methods": {
+      "type": "array",
+      "description": "Allowed HTTP methods"
+    },
+    "headers": {
+      "type": "array",
+      "description": "Allowed request headers"
+    },
+    "credentials": {
+      "type": "boolean",
+      "description": "Whether to allow credentials (cookies, authorization headers)"
+    },
+    "exposed_headers": {
+      "type": "array",
+      "description": "Headers exposed to the browser"
+    },
+    "max_age": {
+      "type": "string",
+      "description": "How long the preflight response can be cached (e.g., '86400')"
+    }
+  }
+}

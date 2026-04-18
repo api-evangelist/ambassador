@@ -1,0 +1,10 @@
+{
+  "name": "Example Title",
+  "namespace": "example_value",
+  "labels": "example_value",
+  "annotations": "example_value",
+  "creationTimestamp": "example_value",
+  "generation": 10,
+  "resourceVersion": "example_value",
+  "uid": "500123"
+}

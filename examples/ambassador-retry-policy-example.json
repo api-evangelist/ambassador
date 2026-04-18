@@ -1,0 +1,5 @@
+{
+  "retry_on": "example_value",
+  "num_retries": 10,
+  "per_try_timeout": "example_value"
+}

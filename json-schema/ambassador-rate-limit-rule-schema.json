@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RateLimitRule",
+  "type": "object",
+  "description": "A single rate limiting rule with a pattern and rate",
+  "properties": {
+    "pattern": {
+      "type": "array",
+      "description": "Descriptor entries to match against. Each entry is a key-value pair that must match the labels sent with the request."
+    },
+    "rate": {
+      "type": "integer",
+      "description": "Maximum number of requests allowed in the specified unit of time"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Time unit for the rate limit"
+    },
+    "injectRequestHeaders": {
+      "type": "array",
+      "description": "Headers to inject into the request when the rate limit is applied"
+    }
+  }
+}

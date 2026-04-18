@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ObjectMeta",
+  "type": "object",
+  "description": "Standard Kubernetes object metadata",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the resource, unique within a namespace"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Kubernetes namespace the resource belongs to"
+    },
+    "labels": {
+      "type": "object",
+      "description": "Key-value pairs for organizing and selecting resources"
+    },
+    "annotations": {
+      "type": "object",
+      "description": "Key-value pairs for storing arbitrary non-identifying metadata"
+    },
+    "creationTimestamp": {
+      "type": "string",
+      "description": "Timestamp when the resource was created"
+    },
+    "generation": {
+      "type": "integer",
+      "description": "Sequence number representing a specific generation of the resource"
+    },
+    "resourceVersion": {
+      "type": "string",
+      "description": "Opaque value for optimistic concurrency control"
+    },
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier for the resource"
+    }
+  }
+}

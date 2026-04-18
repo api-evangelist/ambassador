@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "LoadBalancer",
+  "type": "object",
+  "properties": {
+    "policy": {
+      "type": "string"
+    },
+    "cookie": {
+      "type": "object"
+    },
+    "header": {
+      "type": "string"
+    },
+    "source_ip": {
+      "type": "boolean"
+    }
+  }
+}

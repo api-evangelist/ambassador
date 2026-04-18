@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "HostSpec",
+  "type": "object",
+  "properties": {
+    "hostname": {
+      "type": "string"
+    },
+    "ambassador_id": {
+      "type": "array"
+    },
+    "acmeProvider": {
+      "type": "object"
+    },
+    "tlsContext": {
+      "type": "object"
+    },
+    "tlsSecret": {
+      "type": "object"
+    },
+    "requestPolicy": {
+      "type": "object"
+    },
+    "selector": {
+      "type": "object"
+    }
+  }
+}

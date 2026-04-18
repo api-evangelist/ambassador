@@ -1,0 +1,7 @@
+{
+  "system": "example_value",
+  "ambassador_config": "example_value",
+  "envoy_status": "example_value",
+  "route_info": [],
+  "errors": []
+}

@@ -1,0 +1,6 @@
+{
+  "pattern": [],
+  "rate": 10,
+  "unit": "example_value",
+  "injectRequestHeaders": []
+}

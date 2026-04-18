@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Host",
+  "type": "object",
+  "description": "An Ambassador Host resource that configures how Ambassador handles requests for a specific hostname, including TLS termination and ACME certificate management.",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    }
+  }
+}

@@ -21,64 +21,64 @@ externalDocs:
   description: Ambassador Edge Stack Documentation
   url: https://www.getambassador.io/docs/edge-stack/latest/
 servers:
-  - url: https://{ambassador-host}:8877
-    description: Ambassador Edge Stack Admin API
-    variables:
-      ambassador-host:
-        default: localhost
-        description: Hostname or IP of the Ambassador Edge Stack admin interface
-  - url: https://{ambassador-host}/edge_stack/api
-    description: Ambassador Edge Stack Management API
-    variables:
-      ambassador-host:
-        default: localhost
-        description: Hostname or IP of the Ambassador Edge Stack service
+- url: https://{ambassador-host}:8877
+  description: Ambassador Edge Stack Admin API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack admin interface
+- url: https://{ambassador-host}/edge_stack/api
+  description: Ambassador Edge Stack Management API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack service
 tags:
-  - name: Diagnostics
-    description: >-
-      Access diagnostic and health check endpoints for monitoring Ambassador
-      Edge Stack operational status.
-  - name: Hosts
-    description: >-
-      Manage Host resources that configure TLS termination, ACME certificate
-      management, and hostname-based routing rules.
-    externalDocs:
-      url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/host-crd
-  - name: Mappings
-    description: >-
-      Manage Mapping resources that associate URL prefixes or paths with backend
-      services. Mappings are the core routing mechanism in Ambassador.
-    externalDocs:
-      url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/intro-mappings
-  - name: Modules
-    description: >-
-      Manage Ambassador Module resources for global configuration of the
-      Ambassador gateway including diagnostics, tracing, and circuit breaking.
-  - name: RateLimits
-    description: >-
-      Manage rate limiting configuration for controlling request throughput
-      to backend services using labels and descriptors.
-    externalDocs:
-      url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/rate-limits
-  - name: TLSContexts
-    description: >-
-      Manage TLSContext resources that configure TLS settings for Ambassador,
-      including certificates, protocols, and cipher suites.
-    externalDocs:
-      url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/tls/
+- name: Diagnostics
+  description: >-
+    Access diagnostic and health check endpoints for monitoring Ambassador
+    Edge Stack operational status.
+- name: Hosts
+  description: >-
+    Manage Host resources that configure TLS termination, ACME certificate
+    management, and hostname-based routing rules.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/host-crd
+- name: Mappings
+  description: >-
+    Manage Mapping resources that associate URL prefixes or paths with backend
+    services. Mappings are the core routing mechanism in Ambassador.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/intro-mappings
+- name: Modules
+  description: >-
+    Manage Ambassador Module resources for global configuration of the
+    Ambassador gateway including diagnostics, tracing, and circuit breaking.
+- name: RateLimits
+  description: >-
+    Manage rate limiting configuration for controlling request throughput
+    to backend services using labels and descriptors.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/rate-limits
+- name: TLSContexts
+  description: >-
+    Manage TLSContext resources that configure TLS settings for Ambassador,
+    including certificates, protocols, and cipher suites.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/tls/
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /ambassador/v0/diag:
     get:
       operationId: getDiagnostics
-      summary: Ambassador Retrieve diagnostic overview
+      summary: Ambassador Retrieve Diagnostic Overview
       description: >-
         Returns a comprehensive diagnostic overview of the Ambassador instance
         including active configuration, cluster state, Envoy status, and any
         configuration errors or warnings.
       tags:
-        - Diagnostics
+      - Diagnostics
       responses:
         '200':
           description: Diagnostic information retrieved successfully
@@ -86,55 +86,89 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DiagnosticsOverview'
+              examples:
+                Getdiagnostics200Example:
+                  summary: Default getDiagnostics 200 response
+                  x-microcks-default: true
+                  value:
+                    system:
+                      version: example_value
+                      hostname: example_value
+                      ambassador_id: '500123'
+                      cluster_id: '500123'
+                      boot_time: '2026-01-15T10:30:00Z'
+                    ambassador_config: example_value
+                    envoy_status:
+                      alive: true
+                      ready: true
+                      uptime: 10
+                    route_info:
+                    - prefix: example_value
+                      service: example_value
+                      weight: 10
+                    errors:
+                    - kind: example_value
+                      name: Example Title
+                      namespace: example_value
+                      error: example_value
         '401':
           description: Authentication required
         '503':
           description: Ambassador not ready
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ambassador/v0/check_ready:
     get:
       operationId: checkReady
-      summary: Ambassador Readiness health check
+      summary: Ambassador Readiness Health Check
       description: >-
         Returns whether Ambassador is ready to serve traffic. Used by
         Kubernetes readiness probes.
       tags:
-        - Diagnostics
+      - Diagnostics
       security: []
       responses:
         '200':
           description: Ambassador is ready
         '503':
           description: Ambassador is not ready
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ambassador/v0/check_alive:
     get:
       operationId: checkAlive
-      summary: Ambassador Liveness health check
+      summary: Ambassador Liveness Health Check
       description: >-
         Returns whether the Ambassador process is alive. Used by Kubernetes
         liveness probes.
       tags:
-        - Diagnostics
+      - Diagnostics
       security: []
       responses:
         '200':
           description: Ambassador is alive
         '503':
           description: Ambassador is not alive
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings:
     get:
       operationId: listMappings
-      summary: Ambassador List all Mappings in a namespace
+      summary: Ambassador List All Mappings in a Namespace
       description: >-
         Returns a list of all Mapping resources in the specified Kubernetes
         namespace. Mappings associate URL prefixes or exact paths with backend
         services and configure routing behavior.
       tags:
-        - Mappings
+      - Mappings
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/LabelSelector'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Continue'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Continue'
       responses:
         '200':
           description: Mapping list retrieved successfully
@@ -142,27 +176,97 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MappingList'
+              examples:
+                Listmappings200Example:
+                  summary: Default listMappings 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
         '401':
           description: Authentication required
         '403':
           description: Insufficient permissions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createMapping
-      summary: Ambassador Create a new Mapping
+      summary: Ambassador Create a New Mapping
       description: >-
         Creates a new Mapping resource in the specified namespace. A Mapping
         defines how requests matching a URL prefix, path, or header should be
         routed to a backend service.
       tags:
-        - Mappings
+      - Mappings
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Mapping'
+            examples:
+              CreatemappingRequestExample:
+                summary: Default createMapping request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hostname: example_value
+                    prefix: example_value
+                    prefix_regex: true
+                    prefix_exact: true
+                    service: example_value
+                    rewrite: example_value
+                    method: GET
+                    method_regex: true
+                    headers: example_value
+                    query_parameters: example_value
+                    host: example_value
+                    host_regex: true
+                    timeout_ms: 10
+                    idle_timeout_ms: 10
+                    connect_timeout_ms: 10
+                    cluster_idle_timeout_ms: 10
+                    weight: 10
+                    bypass_auth: true
+                    circuit_breakers:
+                    - {}
+                    labels: example_value
+                    add_request_headers: example_value
+                    add_response_headers: example_value
+                    remove_request_headers:
+                    - {}
+                    remove_response_headers:
+                    - {}
+                    allow_upgrade:
+                    - {}
+                    grpc: true
+                    enable_ipv4: true
+                    enable_ipv6: true
+                    ambassador_id:
+                    - {}
+                  status:
+                    state: Inactive
+                    reason: example_value
       responses:
         '201':
           description: Mapping created successfully
@@ -170,24 +274,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Mapping'
+              examples:
+                Createmapping201Example:
+                  summary: Default createMapping 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      prefix: example_value
+                      prefix_regex: true
+                      prefix_exact: true
+                      service: example_value
+                      rewrite: example_value
+                      method: GET
+                      method_regex: true
+                      headers: example_value
+                      query_parameters: example_value
+                      host: example_value
+                      host_regex: true
+                      timeout_ms: 10
+                      idle_timeout_ms: 10
+                      connect_timeout_ms: 10
+                      cluster_idle_timeout_ms: 10
+                      weight: 10
+                      bypass_auth: true
+                      circuit_breakers:
+                      - {}
+                      labels: example_value
+                      add_request_headers: example_value
+                      add_response_headers: example_value
+                      remove_request_headers:
+                      - {}
+                      remove_response_headers:
+                      - {}
+                      allow_upgrade:
+                      - {}
+                      grpc: true
+                      enable_ipv4: true
+                      enable_ipv6: true
+                      ambassador_id:
+                      - {}
+                    status:
+                      state: Inactive
+                      reason: example_value
         '400':
           description: Invalid Mapping specification
         '401':
           description: Authentication required
         '409':
           description: Mapping with this name already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}:
     get:
       operationId: getMapping
-      summary: Ambassador Get a specific Mapping
+      summary: Ambassador Get a Specific Mapping
       description: >-
         Retrieves the full specification and status of a specific Mapping
         resource identified by name and namespace.
       tags:
-        - Mappings
+      - Mappings
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: Mapping retrieved successfully
@@ -195,10 +356,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Mapping'
+              examples:
+                Getmapping200Example:
+                  summary: Default getMapping 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      prefix: example_value
+                      prefix_regex: true
+                      prefix_exact: true
+                      service: example_value
+                      rewrite: example_value
+                      method: GET
+                      method_regex: true
+                      headers: example_value
+                      query_parameters: example_value
+                      host: example_value
+                      host_regex: true
+                      timeout_ms: 10
+                      idle_timeout_ms: 10
+                      connect_timeout_ms: 10
+                      cluster_idle_timeout_ms: 10
+                      weight: 10
+                      bypass_auth: true
+                      circuit_breakers:
+                      - {}
+                      labels: example_value
+                      add_request_headers: example_value
+                      add_response_headers: example_value
+                      remove_request_headers:
+                      - {}
+                      remove_response_headers:
+                      - {}
+                      allow_upgrade:
+                      - {}
+                      grpc: true
+                      enable_ipv4: true
+                      enable_ipv6: true
+                      ambassador_id:
+                      - {}
+                    status:
+                      state: Inactive
+                      reason: example_value
         '401':
           description: Authentication required
         '404':
           description: Mapping not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateMapping
       summary: Ambassador Update a Mapping
@@ -206,16 +424,70 @@ paths:
         Replaces an existing Mapping resource with the provided specification.
         The full Mapping object must be provided.
       tags:
-        - Mappings
+      - Mappings
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Mapping'
+            examples:
+              UpdatemappingRequestExample:
+                summary: Default updateMapping request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hostname: example_value
+                    prefix: example_value
+                    prefix_regex: true
+                    prefix_exact: true
+                    service: example_value
+                    rewrite: example_value
+                    method: GET
+                    method_regex: true
+                    headers: example_value
+                    query_parameters: example_value
+                    host: example_value
+                    host_regex: true
+                    timeout_ms: 10
+                    idle_timeout_ms: 10
+                    connect_timeout_ms: 10
+                    cluster_idle_timeout_ms: 10
+                    weight: 10
+                    bypass_auth: true
+                    circuit_breakers:
+                    - {}
+                    labels: example_value
+                    add_request_headers: example_value
+                    add_response_headers: example_value
+                    remove_request_headers:
+                    - {}
+                    remove_response_headers:
+                    - {}
+                    allow_upgrade:
+                    - {}
+                    grpc: true
+                    enable_ipv4: true
+                    enable_ipv6: true
+                    ambassador_id:
+                    - {}
+                  status:
+                    state: Inactive
+                    reason: example_value
       responses:
         '200':
           description: Mapping updated successfully
@@ -223,12 +495,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Mapping'
+              examples:
+                Updatemapping200Example:
+                  summary: Default updateMapping 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      prefix: example_value
+                      prefix_regex: true
+                      prefix_exact: true
+                      service: example_value
+                      rewrite: example_value
+                      method: GET
+                      method_regex: true
+                      headers: example_value
+                      query_parameters: example_value
+                      host: example_value
+                      host_regex: true
+                      timeout_ms: 10
+                      idle_timeout_ms: 10
+                      connect_timeout_ms: 10
+                      cluster_idle_timeout_ms: 10
+                      weight: 10
+                      bypass_auth: true
+                      circuit_breakers:
+                      - {}
+                      labels: example_value
+                      add_request_headers: example_value
+                      add_response_headers: example_value
+                      remove_request_headers:
+                      - {}
+                      remove_response_headers:
+                      - {}
+                      allow_upgrade:
+                      - {}
+                      grpc: true
+                      enable_ipv4: true
+                      enable_ipv6: true
+                      ambassador_id:
+                      - {}
+                    status:
+                      state: Inactive
+                      reason: example_value
         '400':
           description: Invalid Mapping specification
         '401':
           description: Authentication required
         '404':
           description: Mapping not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteMapping
       summary: Ambassador Delete a Mapping
@@ -236,10 +565,10 @@ paths:
         Deletes a specific Mapping resource. Any traffic previously routed
         by this Mapping will no longer be handled.
       tags:
-        - Mappings
+      - Mappings
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: Mapping deleted successfully
@@ -247,21 +576,24 @@ paths:
           description: Authentication required
         '404':
           description: Mapping not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
     get:
       operationId: listHosts
-      summary: Ambassador List all Hosts in a namespace
+      summary: Ambassador List All Hosts in a Namespace
       description: >-
         Returns a list of all Host resources in the specified namespace. Hosts
         define how Ambassador should handle requests for specific hostnames,
         including TLS termination and ACME certificate provisioning.
       tags:
-        - Hosts
+      - Hosts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/LabelSelector'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Continue'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Continue'
       responses:
         '200':
           description: Host list retrieved successfully
@@ -269,27 +601,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HostList'
+              examples:
+                Listhosts200Example:
+                  summary: Default listHosts 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
         '401':
           description: Authentication required
         '403':
           description: Insufficient permissions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createHost
-      summary: Ambassador Create a new Host
+      summary: Ambassador Create a New Host
       description: >-
         Creates a new Host resource in the specified namespace. A Host defines
         hostname routing, TLS termination behavior, and optionally configures
         ACME-based automatic certificate management.
       tags:
-        - Hosts
+      - Hosts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Host'
+            examples:
+              CreatehostRequestExample:
+                summary: Default createHost request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hostname: example_value
+                    ambassador_id:
+                    - {}
+                    acmeProvider:
+                      authority: example_value
+                      email: user@example.com
+                      privateKeySecret: {}
+                      registration: example_value
+                    tlsContext:
+                      name: Example Title
+                    tlsSecret:
+                      name: Example Title
+                    requestPolicy:
+                      insecure: {}
+                    selector:
+                      matchLabels: example_value
+                  status:
+                    state: Initial
+                    phaseCompleted: NA
+                    errorReason: example_value
+                    tlsCertificateSource: None
       responses:
         '201':
           description: Host created successfully
@@ -297,23 +683,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Host'
+              examples:
+                Createhost201Example:
+                  summary: Default createHost 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      ambassador_id:
+                      - {}
+                      acmeProvider:
+                        authority: example_value
+                        email: user@example.com
+                        privateKeySecret: {}
+                        registration: example_value
+                      tlsContext:
+                        name: Example Title
+                      tlsSecret:
+                        name: Example Title
+                      requestPolicy:
+                        insecure: {}
+                      selector:
+                        matchLabels: example_value
+                    status:
+                      state: Initial
+                      phaseCompleted: NA
+                      errorReason: example_value
+                      tlsCertificateSource: None
         '400':
           description: Invalid Host specification
         '401':
           description: Authentication required
         '409':
           description: Host with this name already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
     get:
       operationId: getHost
-      summary: Ambassador Get a specific Host
+      summary: Ambassador Get a Specific Host
       description: >-
         Retrieves the specification and status of a specific Host resource.
       tags:
-        - Hosts
+      - Hosts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: Host retrieved successfully
@@ -321,26 +748,105 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Host'
+              examples:
+                Gethost200Example:
+                  summary: Default getHost 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      ambassador_id:
+                      - {}
+                      acmeProvider:
+                        authority: example_value
+                        email: user@example.com
+                        privateKeySecret: {}
+                        registration: example_value
+                      tlsContext:
+                        name: Example Title
+                      tlsSecret:
+                        name: Example Title
+                      requestPolicy:
+                        insecure: {}
+                      selector:
+                        matchLabels: example_value
+                    status:
+                      state: Initial
+                      phaseCompleted: NA
+                      errorReason: example_value
+                      tlsCertificateSource: None
         '401':
           description: Authentication required
         '404':
           description: Host not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateHost
       summary: Ambassador Update a Host
       description: >-
         Replaces an existing Host resource with the provided specification.
       tags:
-        - Hosts
+      - Hosts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Host'
+            examples:
+              UpdatehostRequestExample:
+                summary: Default updateHost request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hostname: example_value
+                    ambassador_id:
+                    - {}
+                    acmeProvider:
+                      authority: example_value
+                      email: user@example.com
+                      privateKeySecret: {}
+                      registration: example_value
+                    tlsContext:
+                      name: Example Title
+                    tlsSecret:
+                      name: Example Title
+                    requestPolicy:
+                      insecure: {}
+                    selector:
+                      matchLabels: example_value
+                  status:
+                    state: Initial
+                    phaseCompleted: NA
+                    errorReason: example_value
+                    tlsCertificateSource: None
       responses:
         '200':
           description: Host updated successfully
@@ -348,12 +854,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Host'
+              examples:
+                Updatehost200Example:
+                  summary: Default updateHost 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      ambassador_id:
+                      - {}
+                      acmeProvider:
+                        authority: example_value
+                        email: user@example.com
+                        privateKeySecret: {}
+                        registration: example_value
+                      tlsContext:
+                        name: Example Title
+                      tlsSecret:
+                        name: Example Title
+                      requestPolicy:
+                        insecure: {}
+                      selector:
+                        matchLabels: example_value
+                    status:
+                      state: Initial
+                      phaseCompleted: NA
+                      errorReason: example_value
+                      tlsCertificateSource: None
         '400':
           description: Invalid Host specification
         '401':
           description: Authentication required
         '404':
           description: Host not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteHost
       summary: Ambassador Delete a Host
@@ -361,10 +908,10 @@ paths:
         Deletes a specific Host resource. TLS termination and hostname routing
         for this host will be removed.
       tags:
-        - Hosts
+      - Hosts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: Host deleted successfully
@@ -372,19 +919,22 @@ paths:
           description: Authentication required
         '404':
           description: Host not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts:
     get:
       operationId: listTLSContexts
-      summary: Ambassador List all TLS contexts in a namespace
+      summary: Ambassador List All Tls Contexts in a Namespace
       description: >-
         Returns a list of all TLSContext resources in the specified namespace.
         TLSContexts configure TLS settings such as certificates, protocols,
         and cipher suites.
       tags:
-        - TLSContexts
+      - TLSContexts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
       responses:
         '200':
           description: TLSContext list retrieved successfully
@@ -392,24 +942,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TLSContextList'
+              examples:
+                Listtlscontexts200Example:
+                  summary: Default listTLSContexts 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
         '401':
           description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createTLSContext
-      summary: Ambassador Create a new TLS context
+      summary: Ambassador Create a New Tls Context
       description: >-
         Creates a new TLSContext resource specifying TLS certificates,
         protocol versions, and cipher suite configuration.
       tags:
-        - TLSContexts
+      - TLSContexts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TLSContext'
+            examples:
+              CreatetlscontextRequestExample:
+                summary: Default createTLSContext request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hosts:
+                    - {}
+                    secret: example_value
+                    cert_chain_file: example_value
+                    private_key_file: example_value
+                    ca_secret: example_value
+                    cert_required: true
+                    min_tls_version: v1.0
+                    max_tls_version: v1.0
+                    cipher_suites:
+                    - {}
+                    ecdh_curves:
+                    - {}
+                    alpn_protocols: example_value
+                    redirect_cleartext_from: 10
+                    sni: example_value
+                    ambassador_id:
+                    - {}
       responses:
         '201':
           description: TLSContext created successfully
@@ -417,21 +1018,59 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TLSContext'
+              examples:
+                Createtlscontext201Example:
+                  summary: Default createTLSContext 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hosts:
+                      - {}
+                      secret: example_value
+                      cert_chain_file: example_value
+                      private_key_file: example_value
+                      ca_secret: example_value
+                      cert_required: true
+                      min_tls_version: v1.0
+                      max_tls_version: v1.0
+                      cipher_suites:
+                      - {}
+                      ecdh_curves:
+                      - {}
+                      alpn_protocols: example_value
+                      redirect_cleartext_from: 10
+                      sni: example_value
+                      ambassador_id:
+                      - {}
         '400':
           description: Invalid TLSContext specification
         '401':
           description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}:
     get:
       operationId: getTLSContext
-      summary: Ambassador Get a specific TLS context
+      summary: Ambassador Get a Specific Tls Context
       description: >-
         Retrieves the specification of a specific TLSContext resource.
       tags:
-        - TLSContexts
+      - TLSContexts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: TLSContext retrieved successfully
@@ -439,26 +1078,99 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TLSContext'
+              examples:
+                Gettlscontext200Example:
+                  summary: Default getTLSContext 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hosts:
+                      - {}
+                      secret: example_value
+                      cert_chain_file: example_value
+                      private_key_file: example_value
+                      ca_secret: example_value
+                      cert_required: true
+                      min_tls_version: v1.0
+                      max_tls_version: v1.0
+                      cipher_suites:
+                      - {}
+                      ecdh_curves:
+                      - {}
+                      alpn_protocols: example_value
+                      redirect_cleartext_from: 10
+                      sni: example_value
+                      ambassador_id:
+                      - {}
         '401':
           description: Authentication required
         '404':
           description: TLSContext not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateTLSContext
-      summary: Ambassador Update a TLS context
+      summary: Ambassador Update a Tls Context
       description: >-
         Replaces an existing TLSContext resource with the provided specification.
       tags:
-        - TLSContexts
+      - TLSContexts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TLSContext'
+            examples:
+              UpdatetlscontextRequestExample:
+                summary: Default updateTLSContext request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hosts:
+                    - {}
+                    secret: example_value
+                    cert_chain_file: example_value
+                    private_key_file: example_value
+                    ca_secret: example_value
+                    cert_required: true
+                    min_tls_version: v1.0
+                    max_tls_version: v1.0
+                    cipher_suites:
+                    - {}
+                    ecdh_curves:
+                    - {}
+                    alpn_protocols: example_value
+                    redirect_cleartext_from: 10
+                    sni: example_value
+                    ambassador_id:
+                    - {}
       responses:
         '200':
           description: TLSContext updated successfully
@@ -466,22 +1178,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TLSContext'
+              examples:
+                Updatetlscontext200Example:
+                  summary: Default updateTLSContext 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hosts:
+                      - {}
+                      secret: example_value
+                      cert_chain_file: example_value
+                      private_key_file: example_value
+                      ca_secret: example_value
+                      cert_required: true
+                      min_tls_version: v1.0
+                      max_tls_version: v1.0
+                      cipher_suites:
+                      - {}
+                      ecdh_curves:
+                      - {}
+                      alpn_protocols: example_value
+                      redirect_cleartext_from: 10
+                      sni: example_value
+                      ambassador_id:
+                      - {}
         '400':
           description: Invalid TLSContext specification
         '401':
           description: Authentication required
         '404':
           description: TLSContext not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteTLSContext
-      summary: Ambassador Delete a TLS context
+      summary: Ambassador Delete a Tls Context
       description: >-
         Deletes a specific TLSContext resource.
       tags:
-        - TLSContexts
+      - TLSContexts
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: TLSContext deleted successfully
@@ -489,19 +1239,22 @@ paths:
           description: Authentication required
         '404':
           description: TLSContext not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits:
     get:
       operationId: listRateLimits
-      summary: Ambassador List all RateLimit resources in a namespace
+      summary: Ambassador List All Ratelimit Resources in a Namespace
       description: >-
         Returns a list of all RateLimit resources in the specified namespace.
         RateLimits define rate limiting policies using labels and descriptors
         that control request throughput to backend services.
       tags:
-        - RateLimits
+      - RateLimits
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
       responses:
         '200':
           description: RateLimit list retrieved successfully
@@ -509,25 +1262,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RateLimitList'
+              examples:
+                Listratelimits200Example:
+                  summary: Default listRateLimits 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
         '401':
           description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createRateLimit
-      summary: Ambassador Create a new RateLimit
+      summary: Ambassador Create a New Ratelimit
       description: >-
         Creates a new RateLimit resource in the specified namespace. RateLimits
         define rate limiting policies using domain, descriptors, and rate
         values to control traffic flow.
       tags:
-        - RateLimits
+      - RateLimits
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RateLimit'
+            examples:
+              CreateratelimitRequestExample:
+                summary: Default createRateLimit request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    domain: example_value
+                    limits:
+                    - {}
       responses:
         '201':
           description: RateLimit created successfully
@@ -535,21 +1324,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RateLimit'
+              examples:
+                Createratelimit201Example:
+                  summary: Default createRateLimit 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      domain: example_value
+                      limits:
+                      - {}
         '400':
           description: Invalid RateLimit specification
         '401':
           description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}:
     get:
       operationId: getRateLimit
-      summary: Ambassador Get a specific RateLimit
+      summary: Ambassador Get a Specific Ratelimit
       description: >-
         Retrieves the specification of a specific RateLimit resource.
       tags:
-        - RateLimits
+      - RateLimits
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: RateLimit retrieved successfully
@@ -557,26 +1369,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RateLimit'
+              examples:
+                Getratelimit200Example:
+                  summary: Default getRateLimit 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      domain: example_value
+                      limits:
+                      - {}
         '401':
           description: Authentication required
         '404':
           description: RateLimit not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateRateLimit
-      summary: Ambassador Update a RateLimit
+      summary: Ambassador Update a Ratelimit
       description: >-
         Replaces an existing RateLimit resource with the provided specification.
       tags:
-        - RateLimits
+      - RateLimits
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RateLimit'
+            examples:
+              UpdateratelimitRequestExample:
+                summary: Default updateRateLimit request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    domain: example_value
+                    limits:
+                    - {}
       responses:
         '200':
           description: RateLimit updated successfully
@@ -584,22 +1439,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RateLimit'
+              examples:
+                Updateratelimit200Example:
+                  summary: Default updateRateLimit 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      domain: example_value
+                      limits:
+                      - {}
         '400':
           description: Invalid RateLimit specification
         '401':
           description: Authentication required
         '404':
           description: RateLimit not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteRateLimit
-      summary: Ambassador Delete a RateLimit
+      summary: Ambassador Delete a Ratelimit
       description: >-
         Deletes a specific RateLimit resource.
       tags:
-        - RateLimits
+      - RateLimits
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: RateLimit deleted successfully
@@ -607,18 +1485,21 @@ paths:
           description: Authentication required
         '404':
           description: RateLimit not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules:
     get:
       operationId: listModules
-      summary: Ambassador List all Modules in a namespace
+      summary: Ambassador List All Modules in a Namespace
       description: >-
         Returns a list of all Module resources in the specified namespace.
         Modules configure global settings for Ambassador such as diagnostics,
         tracing, circuit breaking, and retry policies.
       tags:
-        - Modules
+      - Modules
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       responses:
         '200':
           description: Module list retrieved successfully
@@ -626,19 +1507,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ModuleList'
+              examples:
+                Listmodules200Example:
+                  summary: Default listModules 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
         '401':
           description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}:
     get:
       operationId: getModule
-      summary: Ambassador Get a specific Module
+      summary: Ambassador Get a Specific Module
       description: >-
         Retrieves the specification of a specific Module resource.
       tags:
-        - Modules
+      - Modules
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       responses:
         '200':
           description: Module retrieved successfully
@@ -646,26 +1543,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Module'
+              examples:
+                Getmodule200Example:
+                  summary: Default getModule 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      config: example_value
+                      ambassador_id:
+                      - {}
         '401':
           description: Authentication required
         '404':
           description: Module not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateModule
       summary: Ambassador Update a Module
       description: >-
         Replaces an existing Module resource with the provided configuration.
       tags:
-        - Modules
+      - Modules
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/ResourceName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Module'
+            examples:
+              UpdatemoduleRequestExample:
+                summary: Default updateModule request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    config: example_value
+                    ambassador_id:
+                    - {}
       responses:
         '200':
           description: Module updated successfully
@@ -673,12 +1613,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Module'
+              examples:
+                Updatemodule200Example:
+                  summary: Default updateModule 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      config: example_value
+                      ambassador_id:
+                      - {}
         '400':
           description: Invalid Module specification
         '401':
           description: Authentication required
         '404':
           description: Module not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -734,35 +1697,43 @@ components:
         name:
           type: string
           description: Name of the resource, unique within a namespace
+          example: Example Title
         namespace:
           type: string
           description: Kubernetes namespace the resource belongs to
+          example: example_value
         labels:
           type: object
           description: Key-value pairs for organizing and selecting resources
           additionalProperties:
             type: string
+          example: example_value
         annotations:
           type: object
           description: Key-value pairs for storing arbitrary non-identifying metadata
           additionalProperties:
             type: string
+          example: example_value
         creationTimestamp:
           type: string
           format: date-time
           description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
         generation:
           type: integer
           description: Sequence number representing a specific generation of the resource
+          example: 10
         resourceVersion:
           type: string
           description: Opaque value for optimistic concurrency control
+          example: example_value
         uid:
           type: string
           description: Unique identifier for the resource
+          example: '500123'
       required:
-        - name
-        - namespace
+      - name
+      - namespace
     Mapping:
       type: object
       description: >-
@@ -770,19 +1741,21 @@ components:
         with a backend service. Mappings are the primary mechanism for
         configuring routing in Ambassador Edge Stack.
       required:
-        - apiVersion
-        - kind
-        - metadata
-        - spec
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
         apiVersion:
           type: string
           description: API version for the Mapping resource
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           description: Resource kind
           const: Mapping
+          example: example_value
         metadata:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
@@ -793,9 +1766,9 @@ components:
       type: object
       description: Specification for an Ambassador Mapping
       required:
-        - hostname
-        - prefix
-        - service
+      - hostname
+      - prefix
+      - service
       properties:
         hostname:
           type: string
@@ -810,10 +1783,12 @@ components:
           type: boolean
           description: Whether the prefix should be interpreted as a regular expression
           default: false
+          example: true
         prefix_exact:
           type: boolean
           description: Whether the prefix should be matched exactly rather than as a prefix
           default: false
+          example: true
         service:
           type: string
           description: >-
@@ -830,17 +1805,19 @@ components:
           type: string
           description: HTTP method to match
           enum:
-            - GET
-            - POST
-            - PUT
-            - DELETE
-            - PATCH
-            - HEAD
-            - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - HEAD
+          - OPTIONS
+          example: GET
         method_regex:
           type: boolean
           description: Whether the method value is a regular expression
           default: false
+          example: true
         headers:
           type: object
           description: >-
@@ -848,19 +1825,23 @@ components:
             to match. Values can be exact strings or regular expressions.
           additionalProperties:
             type: string
+          example: example_value
         query_parameters:
           type: object
           description: Query parameters that must be present for this Mapping to match
           additionalProperties:
             type: string
+          example: example_value
         host:
           type: string
           description: Deprecated. Use hostname instead.
           deprecated: true
+          example: example_value
         host_regex:
           type: boolean
           description: Deprecated. Whether host is a regular expression.
           deprecated: true
+          example: true
         timeout_ms:
           type: integer
           description: Request timeout in milliseconds
@@ -870,14 +1851,17 @@ components:
           type: integer
           description: Idle timeout for streaming connections in milliseconds
           minimum: 0
+          example: 10
         connect_timeout_ms:
           type: integer
           description: Upstream connection timeout in milliseconds
           minimum: 0
+          example: 10
         cluster_idle_timeout_ms:
           type: integer
           description: Idle timeout for upstream connections in the cluster in milliseconds
           minimum: 0
+          example: 10
         weight:
           type: integer
           description: >-
@@ -885,10 +1869,12 @@ components:
             same prefix. Used in canary deployments.
           minimum: 0
           maximum: 100
+          example: 10
         bypass_auth:
           type: boolean
           description: Whether to bypass the external authentication service for this Mapping
           default: false
+          example: true
         cors:
           $ref: '#/components/schemas/CORSPolicy'
         retry_policy:
@@ -898,6 +1884,7 @@ components:
           description: Circuit breaker configurations for the upstream cluster
           items:
             $ref: '#/components/schemas/CircuitBreaker'
+          example: []
         load_balancer:
           $ref: '#/components/schemas/LoadBalancer'
         labels:
@@ -906,26 +1893,31 @@ components:
             Rate limiting labels to apply to requests matching this Mapping.
             Labels are sent to the rate limiting service for evaluation.
           additionalProperties: true
+          example: example_value
         add_request_headers:
           type: object
           description: Headers to add to the request before forwarding to the upstream
           additionalProperties:
             type: string
+          example: example_value
         add_response_headers:
           type: object
           description: Headers to add to the response before sending to the client
           additionalProperties:
             type: string
+          example: example_value
         remove_request_headers:
           type: array
           description: Header names to remove from the request
           items:
             type: string
+          example: []
         remove_response_headers:
           type: array
           description: Header names to remove from the response
           items:
             type: string
+          example: []
         allow_upgrade:
           type: array
           description: >-
@@ -933,17 +1925,20 @@ components:
           items:
             type: string
           example:
-            - websocket
+          - websocket
         grpc:
           type: boolean
           description: Whether the upstream service uses gRPC
           default: false
+          example: true
         enable_ipv4:
           type: boolean
           description: Whether to enable IPv4 DNS lookups for the upstream service
+          example: true
         enable_ipv6:
           type: boolean
           description: Whether to enable IPv6 DNS lookups for the upstream service
+          example: true
         ambassador_id:
           type: array
           description: >-
@@ -952,6 +1947,7 @@ components:
             instances.
           items:
             type: string
+          example: '500123'
     MappingStatus:
       type: object
       description: Status information for a Mapping resource
@@ -960,12 +1956,14 @@ components:
           type: string
           description: Current state of the Mapping
           enum:
-            - Inactive
-            - Running
-            - Error
+          - Inactive
+          - Running
+          - Error
+          example: Inactive
         reason:
           type: string
           description: Human-readable reason for the current state
+          example: example_value
     MappingList:
       type: object
       description: List of Mapping resources
@@ -973,9 +1971,11 @@ components:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: MappingList
+          example: example_value
         metadata:
           type: object
           properties:
@@ -984,11 +1984,13 @@ components:
               description: Continuation token for pagination
             resourceVersion:
               type: string
+          example: example_value
         items:
           type: array
           description: List of Mapping resources
           items:
             $ref: '#/components/schemas/Mapping'
+          example: []
     Host:
       type: object
       description: >-
@@ -996,17 +1998,19 @@ components:
         requests for a specific hostname, including TLS termination and
         ACME certificate management.
       required:
-        - apiVersion
-        - kind
-        - metadata
-        - spec
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: Host
+          example: example_value
         metadata:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
@@ -1017,7 +2021,7 @@ components:
       type: object
       description: Specification for an Ambassador Host
       required:
-        - hostname
+      - hostname
       properties:
         hostname:
           type: string
@@ -1030,6 +2034,7 @@ components:
           description: Ambassador IDs that should apply this Host
           items:
             type: string
+          example: '500123'
         acmeProvider:
           type: object
           description: ACME certificate provider configuration for automatic TLS certificates
@@ -1051,6 +2056,7 @@ components:
             registration:
               type: string
               description: ACME registration URL (automatically managed)
+          example: example_value
         tlsContext:
           type: object
           description: Reference to a TLSContext resource for TLS configuration
@@ -1058,6 +2064,7 @@ components:
             name:
               type: string
               description: Name of the TLSContext to use
+          example: example_value
         tlsSecret:
           type: object
           description: Reference to a Kubernetes TLS Secret containing certificates
@@ -1065,6 +2072,7 @@ components:
             name:
               type: string
               description: Name of the Kubernetes Secret
+          example: example_value
         requestPolicy:
           type: object
           description: Policy for handling insecure requests
@@ -1076,12 +2084,13 @@ components:
                   type: string
                   description: How to handle insecure (non-TLS) requests
                   enum:
-                    - Redirect
-                    - Reject
-                    - Route
+                  - Redirect
+                  - Reject
+                  - Route
                 additionalPort:
                   type: integer
                   description: Additional port to listen on for insecure requests
+          example: example_value
         selector:
           type: object
           description: Label selector for Mappings this Host should be associated with
@@ -1090,6 +2099,7 @@ components:
               type: object
               additionalProperties:
                 type: string
+          example: example_value
     HostStatus:
       type: object
       description: Status information for a Host resource
@@ -1098,29 +2108,33 @@ components:
           type: string
           description: Current state of the Host
           enum:
-            - Initial
-            - Pending
-            - Ready
-            - Error
+          - Initial
+          - Pending
+          - Ready
+          - Error
+          example: Initial
         phaseCompleted:
           type: string
           description: Last completed phase of the Host lifecycle
           enum:
-            - NA
-            - DefaultsFilled
-            - ACMEUserPrivateKeyCreated
-            - ACMEUserRegistered
-            - ACMECertificateChallenge
+          - NA
+          - DefaultsFilled
+          - ACMEUserPrivateKeyCreated
+          - ACMEUserRegistered
+          - ACMECertificateChallenge
+          example: NA
         errorReason:
           type: string
           description: Description of any error state
+          example: example_value
         tlsCertificateSource:
           type: string
           description: Source of the TLS certificate
           enum:
-            - None
-            - ACME
-            - Other
+          - None
+          - ACME
+          - Other
+          example: None
     HostList:
       type: object
       description: List of Host resources
@@ -1128,9 +2142,11 @@ components:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: HostList
+          example: example_value
         metadata:
           type: object
           properties:
@@ -1138,10 +2154,12 @@ components:
               type: string
             resourceVersion:
               type: string
+          example: example_value
         items:
           type: array
           items:
             $ref: '#/components/schemas/Host'
+          example: []
     TLSContext:
       type: object
       description: >-
@@ -1149,17 +2167,19 @@ components:
         inbound or outbound connections, including certificates, protocols,
         and cipher suites.
       required:
-        - apiVersion
-        - kind
-        - metadata
-        - spec
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: TLSContext
+          example: example_value
         metadata:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
@@ -1173,64 +2193,78 @@ components:
           description: Hostnames this TLSContext applies to
           items:
             type: string
+          example: []
         secret:
           type: string
           description: Name of the Kubernetes Secret containing TLS certificates
+          example: example_value
         cert_chain_file:
           type: string
           description: Path to the certificate chain PEM file (alternative to secret)
+          example: example_value
         private_key_file:
           type: string
           description: Path to the private key PEM file (alternative to secret)
+          example: example_value
         ca_secret:
           type: string
           description: Name of the Kubernetes Secret containing CA certificates for client verification
+          example: example_value
         cert_required:
           type: boolean
           description: Whether client TLS certificates are required (mTLS)
           default: false
+          example: true
         min_tls_version:
           type: string
           description: Minimum TLS version to accept
           enum:
-            - v1.0
-            - v1.1
-            - v1.2
-            - v1.3
+          - v1.0
+          - v1.1
+          - v1.2
+          - v1.3
           default: v1.2
+          example: v1.0
         max_tls_version:
           type: string
           description: Maximum TLS version to accept
           enum:
-            - v1.0
-            - v1.1
-            - v1.2
-            - v1.3
+          - v1.0
+          - v1.1
+          - v1.2
+          - v1.3
           default: v1.3
+          example: v1.0
         cipher_suites:
           type: array
           description: Allowed TLS cipher suites
           items:
             type: string
+          example: []
         ecdh_curves:
           type: array
           description: Allowed ECDH curves
           items:
             type: string
+          example: []
         alpn_protocols:
           type: string
           description: ALPN protocols to advertise
+          example: example_value
         redirect_cleartext_from:
           type: integer
           description: Port number from which to redirect cleartext traffic to TLS
+          example: 10
         sni:
           type: string
           description: SNI hostname to present for outbound TLS connections
+          example: example_value
         ambassador_id:
           type: array
           description: Ambassador IDs that should use this TLSContext
           items:
             type: string
+          example: '500123'
     TLSContextList:
       type: object
       description: List of TLSContext resources
@@ -1238,9 +2272,11 @@ components:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: TLSContextList
+          example: example_value
         metadata:
           type: object
           properties:
@@ -1248,10 +2284,12 @@ components:
               type: string
             resourceVersion:
               type: string
+          example: example_value
         items:
           type: array
           items:
             $ref: '#/components/schemas/TLSContext'
+          example: []
     RateLimit:
       type: object
       description: >-
@@ -1259,17 +2297,19 @@ components:
         using descriptors and rate values. Works with the built-in Ambassador
         Edge Stack rate limiting service.
       required:
-        - apiVersion
-        - kind
-        - metadata
-        - spec
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: RateLimit
+          example: example_value
         metadata:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
@@ -1278,8 +2318,8 @@ components:
       type: object
       description: Specification for a RateLimit resource
       required:
-        - domain
-        - limits
+      - domain
+      - limits
       properties:
         domain:
           type: string
@@ -1292,12 +2332,13 @@ components:
           description: List of rate limit rules
           items:
             $ref: '#/components/schemas/RateLimitRule'
+          example: []
     RateLimitRule:
       type: object
       description: A single rate limiting rule with a pattern and rate
       required:
-        - pattern
-        - rate
+      - pattern
+      - rate
       properties:
         pattern:
           type: array
@@ -1309,7 +2350,7 @@ components:
             additionalProperties:
               type: string
           example:
-            - generic_key: my-rate-limit
+          - generic_key: my-rate-limit
         rate:
           type: integer
           description: Maximum number of requests allowed in the specified unit of time
@@ -1319,11 +2360,12 @@ components:
           type: string
           description: Time unit for the rate limit
           enum:
-            - second
-            - minute
-            - hour
-            - day
+          - second
+          - minute
+          - hour
+          - day
           default: minute
+          example: second
         injectRequestHeaders:
           type: array
           description: Headers to inject into the request when the rate limit is applied
@@ -1334,6 +2376,7 @@ components:
                 type: string
               value:
                 type: string
+          example: []
     RateLimitList:
       type: object
       description: List of RateLimit resources
@@ -1341,9 +2384,11 @@ components:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: RateLimitList
+          example: example_value
         metadata:
           type: object
           properties:
@@ -1351,27 +2396,31 @@ components:
               type: string
             resourceVersion:
               type: string
+          example: example_value
         items:
           type: array
           items:
             $ref: '#/components/schemas/RateLimit'
+          example: []
     Module:
       type: object
       description: >-
         An Ambassador Module resource for configuring global Ambassador settings
         such as diagnostics, tracing, circuit breaking defaults, and retry policies.
       required:
-        - apiVersion
-        - kind
-        - metadata
-        - spec
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: Module
+          example: example_value
         metadata:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
@@ -1386,11 +2435,13 @@ components:
             Module configuration. The shape depends on the module name
             (e.g., ambassador, authentication, tracing).
           additionalProperties: true
+          example: example_value
         ambassador_id:
           type: array
           description: Ambassador IDs that should apply this Module
           items:
             type: string
+          example: '500123'
     ModuleList:
       type: object
       description: List of Module resources
@@ -1398,9 +2449,11 @@ components:
         apiVersion:
           type: string
           const: getambassador.io/v3alpha1
+          example: example_value
         kind:
           type: string
           const: ModuleList
+          example: example_value
         metadata:
           type: object
           properties:
@@ -1408,10 +2461,12 @@ components:
               type: string
             resourceVersion:
               type: string
+          example: example_value
         items:
           type: array
           items:
             $ref: '#/components/schemas/Module'
+          example: []
     CORSPolicy:
       type: object
       description: Cross-Origin Resource Sharing configuration
@@ -1423,34 +2478,38 @@ components:
           items:
             type: string
           example:
-            - https://example.com
-            - https://*.example.com
+          - https://example.com
+          - https://*.example.com
         methods:
           type: array
           description: Allowed HTTP methods
           items:
             type: string
           example:
-            - GET
-            - POST
-            - PUT
-            - DELETE
+          - GET
+          - POST
+          - PUT
+          - DELETE
         headers:
           type: array
           description: Allowed request headers
           items:
             type: string
+          example: []
         credentials:
           type: boolean
           description: Whether to allow credentials (cookies, authorization headers)
+          example: true
         exposed_headers:
           type: array
           description: Headers exposed to the browser
           items:
             type: string
+          example: []
         max_age:
           type: string
           description: How long the preflight response can be cached (e.g., '86400')
+          example: example_value
     RetryPolicy:
       type: object
       description: Retry configuration for failed requests
@@ -1478,24 +2537,29 @@ components:
           type: string
           description: Envoy routing priority
           enum:
-            - default
-            - high
+          - default
+          - high
+          example: default
         max_connections:
           type: integer
           description: Maximum number of connections to the upstream cluster
           minimum: 1
+          example: 10
         max_pending_requests:
           type: integer
           description: Maximum number of pending requests to the upstream cluster
           minimum: 1
+          example: 10
         max_requests:
           type: integer
           description: Maximum number of parallel requests to the upstream cluster
           minimum: 1
+          example: 10
         max_retries:
           type: integer
           description: Maximum number of parallel retries to the upstream cluster
           minimum: 1
+          example: 10
     LoadBalancer:
       type: object
       description: Load balancing configuration for an upstream cluster
@@ -1504,10 +2568,11 @@ components:
           type: string
           description: Load balancing algorithm
           enum:
-            - round_robin
-            - least_request
-            - ring_hash
-            - maglev
+          - round_robin
+          - least_request
+          - ring_hash
+          - maglev
+          example: round_robin
         cookie:
           type: object
           description: Cookie-based session affinity configuration (for ring_hash policy)
@@ -1521,12 +2586,15 @@ components:
             path:
               type: string
               description: Cookie path
+          example: example_value
         header:
           type: string
           description: Header to use for hash-based load balancing
+          example: example_value
         source_ip:
           type: boolean
           description: Whether to use source IP for hash-based load balancing
+          example: true
     DiagnosticsOverview:
       type: object
       description: Diagnostic overview of an Ambassador instance
@@ -1551,10 +2619,12 @@ components:
               type: string
               format: date-time
               description: When this Ambassador instance started
+          example: example_value
         ambassador_config:
           type: object
           description: Active Ambassador configuration summary
           additionalProperties: true
+          example: example_value
         envoy_status:
           type: object
           description: Status of the underlying Envoy proxy
@@ -1566,6 +2636,7 @@ components:
             uptime:
               type: integer
               description: Envoy uptime in seconds
+          example: example_value
         route_info:
           type: array
           description: Summary of active routes
@@ -1578,6 +2649,7 @@ components:
                 type: string
               weight:
                 type: integer
+          example: []
         errors:
           type: array
           description: List of configuration errors
@@ -1592,3 +2664,4 @@ components:
                 type: string
               error:
                 type: string
+          example: []

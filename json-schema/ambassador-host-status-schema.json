@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HostStatus",
+  "type": "object",
+  "description": "Status information for a Host resource",
+  "properties": {
+    "state": {
+      "type": "string",
+      "description": "Current state of the Host"
+    },
+    "phaseCompleted": {
+      "type": "string",
+      "description": "Last completed phase of the Host lifecycle"
+    },
+    "errorReason": {
+      "type": "string",
+      "description": "Description of any error state"
+    },
+    "tlsCertificateSource": {
+      "type": "string",
+      "description": "Source of the TLS certificate"
+    }
+  }
+}

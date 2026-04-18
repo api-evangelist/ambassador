@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MappingSpec",
+  "type": "object",
+  "description": "Specification for an Ambassador Mapping",
+  "properties": {
+    "hostname": {
+      "type": "string",
+      "description": "Hostname to match for this Mapping. Use '*' to match all hostnames."
+    },
+    "prefix": {
+      "type": "string",
+      "description": "URL prefix to match for routing"
+    },
+    "prefix_regex": {
+      "type": "boolean",
+      "description": "Whether the prefix should be interpreted as a regular expression"
+    },
+    "prefix_exact": {
+      "type": "boolean",
+      "description": "Whether the prefix should be matched exactly rather than as a prefix"
+    },
+    "service": {
+      "type": "string",
+      "description": "Target service to route to, in the format service-name.namespace:port or a full URL"
+    },
+    "rewrite": {
+      "type": "string",
+      "description": "Prefix rewrite rule applied to the URL before forwarding to the backend service. Set to empty string to disable rewriting."
+    },
+    "method": {
+      "type": "string",
+      "description": "HTTP method to match"
+    },
+    "method_regex": {
+      "type": "boolean",
+      "description": "Whether the method value is a regular expression"
+    },
+    "headers": {
+      "type": "object",
+      "description": "HTTP headers that must be present on the request for this Mapping to match. Values can be exact strings or regular expressions."
+    },
+    "query_parameters": {
+      "type": "object",
+      "description": "Query parameters that must be present for this Mapping to match"
+    },
+    "host": {
+      "type": "string",
+      "description": "Deprecated. Use hostname instead."
+    },
+    "host_regex": {
+      "type": "boolean",
+      "description": "Deprecated. Whether host is a regular expression."
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "description": "Request timeout in milliseconds"
+    },
+    "idle_timeout_ms": {
+      "type": "integer",
+      "description": "Idle timeout for streaming connections in milliseconds"
+    },
+    "connect_timeout_ms": {
+      "type": "integer",
+      "description": "Upstream connection timeout in milliseconds"
+    },
+    "cluster_idle_timeout_ms": {
+      "type": "integer",
+      "description": "Idle timeout for upstream connections in the cluster in milliseconds"
+    },
+    "weight": {
+      "type": "integer",
+      "description": "Weight for traffic splitting when multiple Mappings match the same prefix. Used in canary deployments."
+    },
+    "bypass_auth": {
+      "type": "boolean",
+      "description": "Whether to bypass the external authentication service for this Mapping"
+    },
+    "circuit_breakers": {
+      "type": "array",
+      "description": "Circuit breaker configurations for the upstream cluster"
+    },
+    "labels": {
+      "type": "object",
+      "description": "Rate limiting labels to apply to requests matching this Mapping. Labels are sent to the rate limiting service for evaluation."
+    },
+    "add_request_headers": {
+      "type": "object",
+      "description": "Headers to add to the request before forwarding to the upstream"
+    },
+    "add_response_headers": {
+      "type": "object",
+      "description": "Headers to add to the response before sending to the client"
+    },
+    "remove_request_headers": {
+      "type": "array",
+      "description": "Header names to remove from the request"
+    },
+    "remove_response_headers": {
+      "type": "array",
+      "description": "Header names to remove from the response"
+    },
+    "allow_upgrade": {
+      "type": "array",
+      "description": "Protocols to allow upgrade to, such as websocket"
+    },
+    "grpc": {
+      "type": "boolean",
+      "description": "Whether the upstream service uses gRPC"
+    },
+    "enable_ipv4": {
+      "type": "boolean",
+      "description": "Whether to enable IPv4 DNS lookups for the upstream service"
+    },
+    "enable_ipv6": {
+      "type": "boolean",
+      "description": "Whether to enable IPv6 DNS lookups for the upstream service"
+    },
+    "ambassador_id": {
+      "type": "array",
+      "description": "List of Ambassador IDs that should apply this Mapping. Used to partition a single Kubernetes cluster among multiple Ambassador instances."
+    }
+  }
+}

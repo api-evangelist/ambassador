@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DiagnosticsOverview",
+  "type": "object",
+  "description": "Diagnostic overview of an Ambassador instance",
+  "properties": {
+    "system": {
+      "type": "object",
+      "description": "System-level information"
+    },
+    "ambassador_config": {
+      "type": "object",
+      "description": "Active Ambassador configuration summary"
+    },
+    "envoy_status": {
+      "type": "object",
+      "description": "Status of the underlying Envoy proxy"
+    },
+    "route_info": {
+      "type": "array",
+      "description": "Summary of active routes"
+    },
+    "errors": {
+      "type": "array",
+      "description": "List of configuration errors"
+    }
+  }
+}

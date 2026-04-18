@@ -1,0 +1,7 @@
+{
+  "priority": "example_value",
+  "max_connections": 10,
+  "max_pending_requests": 10,
+  "max_requests": 10,
+  "max_retries": 10
+}

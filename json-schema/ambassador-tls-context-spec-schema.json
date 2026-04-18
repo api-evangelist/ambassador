@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TLSContextSpec",
+  "type": "object",
+  "description": "Specification for a TLSContext resource",
+  "properties": {
+    "hosts": {
+      "type": "array",
+      "description": "Hostnames this TLSContext applies to"
+    },
+    "secret": {
+      "type": "string",
+      "description": "Name of the Kubernetes Secret containing TLS certificates"
+    },
+    "cert_chain_file": {
+      "type": "string",
+      "description": "Path to the certificate chain PEM file (alternative to secret)"
+    },
+    "private_key_file": {
+      "type": "string",
+      "description": "Path to the private key PEM file (alternative to secret)"
+    },
+    "ca_secret": {
+      "type": "string",
+      "description": "Name of the Kubernetes Secret containing CA certificates for client verification"
+    },
+    "cert_required": {
+      "type": "boolean",
+      "description": "Whether client TLS certificates are required (mTLS)"
+    },
+    "min_tls_version": {
+      "type": "string",
+      "description": "Minimum TLS version to accept"
+    },
+    "max_tls_version": {
+      "type": "string",
+      "description": "Maximum TLS version to accept"
+    },
+    "cipher_suites": {
+      "type": "array",
+      "description": "Allowed TLS cipher suites"
+    },
+    "ecdh_curves": {
+      "type": "array",
+      "description": "Allowed ECDH curves"
+    },
+    "alpn_protocols": {
+      "type": "string",
+      "description": "ALPN protocols to advertise"
+    },
+    "redirect_cleartext_from": {
+      "type": "integer",
+      "description": "Port number from which to redirect cleartext traffic to TLS"
+    },
+    "sni": {
+      "type": "string",
+      "description": "SNI hostname to present for outbound TLS connections"
+    },
+    "ambassador_id": {
+      "type": "array",
+      "description": "Ambassador IDs that should use this TLSContext"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Module",
+  "type": "object",
+  "description": "An Ambassador Module resource for configuring global Ambassador settings such as diagnostics, tracing, circuit breaking defaults, and retry policies.",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    }
+  }
+}

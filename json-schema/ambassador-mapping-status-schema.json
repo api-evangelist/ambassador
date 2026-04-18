@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MappingStatus",
+  "type": "object",
+  "description": "Status information for a Mapping resource",
+  "properties": {
+    "state": {
+      "type": "string",
+      "description": "Current state of the Mapping"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Human-readable reason for the current state"
+    }
+  }
+}

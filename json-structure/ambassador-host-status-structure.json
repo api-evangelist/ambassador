@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "HostStatus",
+  "type": "object",
+  "properties": {
+    "state": {
+      "type": "string"
+    },
+    "phaseCompleted": {
+      "type": "string"
+    },
+    "errorReason": {
+      "type": "string"
+    },
+    "tlsCertificateSource": {
+      "type": "string"
+    }
+  }
+}

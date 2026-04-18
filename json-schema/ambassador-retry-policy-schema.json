@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RetryPolicy",
+  "type": "object",
+  "description": "Retry configuration for failed requests",
+  "properties": {
+    "retry_on": {
+      "type": "string",
+      "description": "Envoy retry condition. Common values include 5xx, gateway-error, connect-failure, retriable-4xx."
+    },
+    "num_retries": {
+      "type": "integer",
+      "description": "Maximum number of retry attempts"
+    },
+    "per_try_timeout": {
+      "type": "string",
+      "description": "Timeout per retry attempt (e.g., '3s', '500ms')"
+    }
+  }
+}

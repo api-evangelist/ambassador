@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CORSPolicy",
+  "type": "object",
+  "properties": {
+    "origins": {
+      "type": "array"
+    },
+    "methods": {
+      "type": "array"
+    },
+    "headers": {
+      "type": "array"
+    },
+    "credentials": {
+      "type": "boolean"
+    },
+    "exposed_headers": {
+      "type": "array"
+    },
+    "max_age": {
+      "type": "string"
+    }
+  }
+}

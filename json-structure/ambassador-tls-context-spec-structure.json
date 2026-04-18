@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "TLSContextSpec",
+  "type": "object",
+  "properties": {
+    "hosts": {
+      "type": "array"
+    },
+    "secret": {
+      "type": "string"
+    },
+    "cert_chain_file": {
+      "type": "string"
+    },
+    "private_key_file": {
+      "type": "string"
+    },
+    "ca_secret": {
+      "type": "string"
+    },
+    "cert_required": {
+      "type": "boolean"
+    },
+    "min_tls_version": {
+      "type": "string"
+    },
+    "max_tls_version": {
+      "type": "string"
+    },
+    "cipher_suites": {
+      "type": "array"
+    },
+    "ecdh_curves": {
+      "type": "array"
+    },
+    "alpn_protocols": {
+      "type": "string"
+    },
+    "redirect_cleartext_from": {
+      "type": "integer"
+    },
+    "sni": {
+      "type": "string"
+    },
+    "ambassador_id": {
+      "type": "array"
+    }
+  }
+}

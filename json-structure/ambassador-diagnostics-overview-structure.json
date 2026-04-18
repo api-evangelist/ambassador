@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "DiagnosticsOverview",
+  "type": "object",
+  "properties": {
+    "system": {
+      "type": "object"
+    },
+    "ambassador_config": {
+      "type": "object"
+    },
+    "envoy_status": {
+      "type": "object"
+    },
+    "route_info": {
+      "type": "array"
+    },
+    "errors": {
+      "type": "array"
+    }
+  }
+}
