@@ -1,187 +1,93 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Ambassador
+providerId: ambassador
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - API Gateway
+  - Kubernetes
+  - Ambassador
+  - Gravitee
+description: 'FOCUS-aligned FinOps for Ambassador Edge Stack (now under Gravitee): flat per-month subscription
+  scaled by production-gateway count and event-broker count, with unlimited users and API calls. Open-source
+  Emissary-Ingress and Telepresence are free; cost arises from the underlying Kubernetes cluster (compute,
+  network, storage).'
+sources:
+  - https://www.gravitee.io/pricing
+  - https://www.getambassador.io
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: Ambassador
-providerId: ambassador
-publisherName: Ambassador
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - API Development
-  - Gateways
-  - Ingress
-  - Kubernetes
-  - Mock Servers
-  - Mocks
-  - Platform
-  - Testing
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Ambassador API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: Gravitee SAS (formerly Ambassador Labs / Datawire)
+serviceCategory: API Management / Gateway
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Subscription
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Credit
 focusColumns:
-  ServiceName: Ambassador
-  ServiceCategory: Developer Tools / API
-  ProviderName: Ambassador
-  PublisherName: Ambassador
-  InvoiceIssuerName: Ambassador
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: Ambassador Edge Stack
+  ServiceCategory: Developer Tools
+  ServiceSubcategory: API Gateway
+  ProviderName: Gravitee
+  PublisherName: Gravitee SAS
+  InvoiceIssuerName: Gravitee SAS
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Purchase
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: subscription_months
+    unit: month
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
       - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
+  - name: production_gateways
+    unit: gateway
+    aggregation: max
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
       - tier
-apis:
-  - name: Ambassador
-    baseURL: ''
-    tags:
-      - Gateways
-      - Mocking
-      - Testing
-    serviceName: Ambassador
-    serviceCategory: API
-  - name: Ambassador Edge Stack API Gateway
-    baseURL: ''
-    tags:
-      - API Management
-      - Envoy
-      - Gateways
-      - Ingress
-      - Kubernetes
-    serviceName: Ambassador Edge Stack API Gateway
-    serviceCategory: API
-  - name: Emissary-Ingress
-    baseURL: ''
-    tags:
-      - CNCF
-      - Envoy
-      - Gateways
-      - Ingress
-      - Kubernetes
-      - Open Source
-    serviceName: Emissary-Ingress
-    serviceCategory: API
-  - name: Ambassador Telepresence RESTful API
-    baseURL: ''
-    tags:
-      - Debugging
-      - Development
-      - Intercepts
-      - Kubernetes
-    serviceName: Ambassador Telepresence RESTful API
-    serviceCategory: API
-  - name: Ambassador Blackbird API Development Platform
-    baseURL: ''
-    tags:
-      - API Development
-      - Code Generation
-      - Mocking
-      - OpenAPI
-      - Testing
-    serviceName: Ambassador Blackbird API Development Platform
-    serviceCategory: API
-  - name: Ambassador Edge Stack Developer Portal
-    baseURL: ''
-    tags:
-      - API Catalog
-      - Developer Portal
-      - Documentation
-      - OpenAPI
-    serviceName: Ambassador Edge Stack Developer Portal
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - cluster
+  - name: event_brokers
+    unit: broker
+    aggregation: max
+    dimensions:
+      - tier
+      - cluster
+  - name: cluster_compute_underlying
+    unit: vCPU-hour
+    aggregation: sum
+    dimensions:
+      - cluster
+      - environment
+principles:
+  - name: Visibility
+    description: Track Edge Stack subscription as a flat SaaS line; observe gateway resource usage via
+      Kubernetes metrics (Prometheus, OpenTelemetry) and the underlying cloud provider's CUR for cluster
+      cost attribution.
+  - name: Allocation
+    description: Tag the gateway namespace and event-broker deployments with team, environment, and product;
+      allocate flat subscription cost via gateway-count weighting.
+  - name: Optimization
+    description: Consolidate routes onto fewer production gateways to stay within the tier's gateway quota;
+      use Emissary-Ingress (OSS) for non-production / dev clusters; right-size gateway pods (HPA, requests/limits).
+  - name: Accountability
+    description: Owner of the platform team owns the subscription; chargeback gateway and cluster cost
+      to consuming product teams via namespace tagging.
 maintainers:
-  - FN: Kin Lane
+  - name: Kin Lane
     email: kin@apievangelist.com
-  - name: Ambassador Labs (Datawire)
-    email: support@datawire.io
-    url: https://www.getambassador.io
+    url: https://apievangelist.com
+  - name: Gravitee (Ambassador Labs)
+    email: support@gravitee.io
+    url: https://www.gravitee.io

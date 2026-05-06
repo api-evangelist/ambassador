@@ -4,117 +4,55 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Ambassador
 providerId: ambassador
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - API Development
-  - Gateways
-  - Ingress
-  - Kubernetes
-  - Mock Servers
-  - Mocks
-  - Platform
-  - Testing
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Ambassador API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - API Gateway
+  - Kubernetes
+  - Ambassador
+  - Gravitee
+description: Ambassador Edge Stack and Emissary-Ingress are self-hosted Kubernetes ingress controllers,
+  so request-rate behavior is determined by the operator's own rate-limit policies (RateLimitService,
+  RateLimit CRDs) configured against the bundled Envoy data plane. Edge Stack ships with a built-in rate-limit
+  service supporting per-route, per-IP, and per-header limits; Emissary integrates with external rate-limit
+  services. There are no public per-tier API throttle numbers because the gateway runs in the customer's
+  cluster.
+sources:
+  - https://www.getambassador.io/docs/edge-stack/latest/topics/using/rate-limits/
+  - https://www.gravitee.io/pricing
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Ambassador
-      - Ambassador Edge Stack API Gateway
-      - Emissary-Ingress
-      - Ambassador Telepresence RESTful API
-      - Ambassador Blackbird API Development Platform
-      - Ambassador Edge Stack Developer Portal
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Ambassador
-      - Ambassador Edge Stack API Gateway
-      - Emissary-Ingress
-      - Ambassador Telepresence RESTful API
-      - Ambassador Blackbird API Development Platform
-      - Ambassador Edge Stack Developer Portal
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Ambassador
-      - Ambassador Edge Stack API Gateway
-      - Emissary-Ingress
-      - Ambassador Telepresence RESTful API
-      - Ambassador Blackbird API Development Platform
-      - Ambassador Edge Stack Developer Portal
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Ambassador
-      - Ambassador Edge Stack API Gateway
-      - Emissary-Ingress
-      - Ambassador Telepresence RESTful API
-      - Ambassador Blackbird API Development Platform
-      - Ambassador Edge Stack Developer Portal
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Ambassador
-      - Ambassador Edge Stack API Gateway
-      - Emissary-Ingress
-      - Ambassador Telepresence RESTful API
-      - Ambassador Blackbird API Development Platform
-      - Ambassador Edge Stack Developer Portal
+  - name: Self-hosted Envoy rate limits
+    scope: customer-configured
+    metric: varies
+    limit: configured by RateLimit CRDs in the customer cluster
+    notes: Edge Stack and Emissary-Ingress provide rate-limit primitives via Envoy; throughput is bounded
+      by the customer's data-plane resources (replicas, CPU, memory).
+  - name: Edge Stack RateLimitService
+    scope: customer-configured
+    metric: varies
+    limit: configured per RateLimit CRD
+    notes: Per-route, per-source-IP, per-header limits; supports time windows of seconds, minutes, hours.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Self-hosted operator responsibility
+    description: Customer operates the gateway in their own cluster, so capacity and rate-limit values
+      are controlled by their CRD configuration, not by the vendor.
+  - name: 429 + Retry-After
+    description: Edge Stack RateLimitService returns HTTP 429 when configured thresholds are exceeded;
+      include Retry-After in the response header per RFC 6585.
+  - name: Sidecar scaling
+    description: Throughput scales with the number of Ambassador/Envoy replicas; horizontally scale the
+      gateway deployment to absorb additional load.
+  - name: External RLS
+    description: Emissary-Ingress integrates with external Envoy-compatible RateLimitService implementations
+      for advanced policy.
 maintainers:
-  - FN: Kin Lane
+  - name: Kin Lane
     email: kin@apievangelist.com
-  - name: Ambassador Labs (Datawire)
-    email: support@datawire.io
-    url: https://www.getambassador.io
+    url: https://apievangelist.com
+  - name: Gravitee (Ambassador Labs)
+    email: support@gravitee.io
+    url: https://www.gravitee.io
