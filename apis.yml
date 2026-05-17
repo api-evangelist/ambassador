@@ -148,7 +148,7 @@ tags:
   - Mocks
   - Platform
   - Testing
-type: Contract
+kind: contract
 image: https://www.getambassador.io/images/ambassador-logo.png
 access: 3rd-Party
 common:
