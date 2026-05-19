@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Ambassador Edge Stack API — Mappings
+  description: 'Ambassador Edge Stack API — Mappings. 5 operations. Lead operation: Ambassador List All Mappings in a Namespace.
+    Self-contained Naftiko capability covering one Ambassador business surface.'
+  tags:
+  - Ambassador
+  - Mappings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMBASSADOR_API_KEY: AMBASSADOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ambassador-mappings
+    baseUri: https://{ambassador-host}:8877
+    description: Ambassador Edge Stack API — Mappings business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-getambassador.io-v3alpha1-namespaces-namespace-mappings
+      path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings
+      operations:
+      - name: listmappings
+        method: GET
+        description: Ambassador List All Mappings in a Namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createmapping
+        method: POST
+        description: Ambassador Create a New Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-getambassador.io-v3alpha1-namespaces-namespace-mappings-name
+      path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}
+      operations:
+      - name: getmapping
+        method: GET
+        description: Ambassador Get a Specific Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatemapping
+        method: PUT
+        description: Ambassador Update a Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemapping
+        method: DELETE
+        description: Ambassador Delete a Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AMBASSADOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ambassador-mappings-rest
+    port: 8080
+    description: REST adapter for Ambassador Edge Stack API — Mappings. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/apis/getambassador-io/v3alpha1/namespaces/{namespace}/mappings
+      name: apis-getambassador-io-v3alpha1-namespaces-namespace-mappings
+      description: REST surface for apis-getambassador.io-v3alpha1-namespaces-namespace-mappings.
+      operations:
+      - method: GET
+        name: listmappings
+        description: Ambassador List All Mappings in a Namespace
+        call: ambassador-mappings.listmappings
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmapping
+        description: Ambassador Create a New Mapping
+        call: ambassador-mappings.createmapping
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/getambassador-io/v3alpha1/namespaces/{namespace}/mappings/{name}
+      name: apis-getambassador-io-v3alpha1-namespaces-namespace-mappings-name
+      description: REST surface for apis-getambassador.io-v3alpha1-namespaces-namespace-mappings-name.
+      operations:
+      - method: GET
+        name: getmapping
+        description: Ambassador Get a Specific Mapping
+        call: ambassador-mappings.getmapping
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatemapping
+        description: Ambassador Update a Mapping
+        call: ambassador-mappings.updatemapping
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemapping
+        description: Ambassador Delete a Mapping
+        call: ambassador-mappings.deletemapping
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ambassador-mappings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Ambassador Edge Stack API — Mappings. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: ambassador-list-all-mappings-namespace
+      description: Ambassador List All Mappings in a Namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-mappings.listmappings
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-create-new-mapping
+      description: Ambassador Create a New Mapping
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ambassador-mappings.createmapping
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-get-specific-mapping
+      description: Ambassador Get a Specific Mapping
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-mappings.getmapping
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-update-mapping
+      description: Ambassador Update a Mapping
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ambassador-mappings.updatemapping
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-delete-mapping
+      description: Ambassador Delete a Mapping
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ambassador-mappings.deletemapping
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Ambassador Edge Stack API — Hosts
+  description: 'Ambassador Edge Stack API — Hosts. 5 operations. Lead operation: Ambassador List All Hosts in a Namespace.
+    Self-contained Naftiko capability covering one Ambassador business surface.'
+  tags:
+  - Ambassador
+  - Hosts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMBASSADOR_API_KEY: AMBASSADOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ambassador-hosts
+    baseUri: https://{ambassador-host}:8877
+    description: Ambassador Edge Stack API — Hosts business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-getambassador.io-v3alpha1-namespaces-namespace-hosts
+      path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts
+      operations:
+      - name: listhosts
+        method: GET
+        description: Ambassador List All Hosts in a Namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createhost
+        method: POST
+        description: Ambassador Create a New Host
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-getambassador.io-v3alpha1-namespaces-namespace-hosts-name
+      path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}
+      operations:
+      - name: gethost
+        method: GET
+        description: Ambassador Get a Specific Host
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatehost
+        method: PUT
+        description: Ambassador Update a Host
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletehost
+        method: DELETE
+        description: Ambassador Delete a Host
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AMBASSADOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ambassador-hosts-rest
+    port: 8080
+    description: REST adapter for Ambassador Edge Stack API — Hosts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/apis/getambassador-io/v3alpha1/namespaces/{namespace}/hosts
+      name: apis-getambassador-io-v3alpha1-namespaces-namespace-hosts
+      description: REST surface for apis-getambassador.io-v3alpha1-namespaces-namespace-hosts.
+      operations:
+      - method: GET
+        name: listhosts
+        description: Ambassador List All Hosts in a Namespace
+        call: ambassador-hosts.listhosts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createhost
+        description: Ambassador Create a New Host
+        call: ambassador-hosts.createhost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/getambassador-io/v3alpha1/namespaces/{namespace}/hosts/{name}
+      name: apis-getambassador-io-v3alpha1-namespaces-namespace-hosts-name
+      description: REST surface for apis-getambassador.io-v3alpha1-namespaces-namespace-hosts-name.
+      operations:
+      - method: GET
+        name: gethost
+        description: Ambassador Get a Specific Host
+        call: ambassador-hosts.gethost
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatehost
+        description: Ambassador Update a Host
+        call: ambassador-hosts.updatehost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletehost
+        description: Ambassador Delete a Host
+        call: ambassador-hosts.deletehost
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ambassador-hosts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Ambassador Edge Stack API — Hosts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: ambassador-list-all-hosts-namespace
+      description: Ambassador List All Hosts in a Namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-hosts.listhosts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-create-new-host
+      description: Ambassador Create a New Host
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ambassador-hosts.createhost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-get-specific-host
+      description: Ambassador Get a Specific Host
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-hosts.gethost
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-update-host
+      description: Ambassador Update a Host
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ambassador-hosts.updatehost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-delete-host
+      description: Ambassador Delete a Host
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ambassador-hosts.deletehost
+      outputParameters:
+      - type: object
+        mapping: $.

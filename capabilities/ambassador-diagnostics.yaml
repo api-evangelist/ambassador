@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Ambassador Edge Stack API — Diagnostics
+  description: 'Ambassador Edge Stack API — Diagnostics. 3 operations. Lead operation: Ambassador Liveness Health Check. Self-contained
+    Naftiko capability covering one Ambassador business surface.'
+  tags:
+  - Ambassador
+  - Diagnostics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMBASSADOR_API_KEY: AMBASSADOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ambassador-diagnostics
+    baseUri: https://{ambassador-host}:8877
+    description: Ambassador Edge Stack API — Diagnostics business capability. Self-contained, no shared references.
+    resources:
+    - name: ambassador-v0-check_alive
+      path: /ambassador/v0/check_alive
+      operations:
+      - name: checkalive
+        method: GET
+        description: Ambassador Liveness Health Check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ambassador-v0-check_ready
+      path: /ambassador/v0/check_ready
+      operations:
+      - name: checkready
+        method: GET
+        description: Ambassador Readiness Health Check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ambassador-v0-diag
+      path: /ambassador/v0/diag
+      operations:
+      - name: getdiagnostics
+        method: GET
+        description: Ambassador Retrieve Diagnostic Overview
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AMBASSADOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ambassador-diagnostics-rest
+    port: 8080
+    description: REST adapter for Ambassador Edge Stack API — Diagnostics. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/ambassador/v0/check-alive
+      name: ambassador-v0-check-alive
+      description: REST surface for ambassador-v0-check_alive.
+      operations:
+      - method: GET
+        name: checkalive
+        description: Ambassador Liveness Health Check
+        call: ambassador-diagnostics.checkalive
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ambassador/v0/check-ready
+      name: ambassador-v0-check-ready
+      description: REST surface for ambassador-v0-check_ready.
+      operations:
+      - method: GET
+        name: checkready
+        description: Ambassador Readiness Health Check
+        call: ambassador-diagnostics.checkready
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ambassador/v0/diag
+      name: ambassador-v0-diag
+      description: REST surface for ambassador-v0-diag.
+      operations:
+      - method: GET
+        name: getdiagnostics
+        description: Ambassador Retrieve Diagnostic Overview
+        call: ambassador-diagnostics.getdiagnostics
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ambassador-diagnostics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Ambassador Edge Stack API — Diagnostics. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: ambassador-liveness-health-check
+      description: Ambassador Liveness Health Check
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-diagnostics.checkalive
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-readiness-health-check
+      description: Ambassador Readiness Health Check
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-diagnostics.checkready
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ambassador-retrieve-diagnostic-overview
+      description: Ambassador Retrieve Diagnostic Overview
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ambassador-diagnostics.getdiagnostics
+      outputParameters:
+      - type: object
+        mapping: $.
