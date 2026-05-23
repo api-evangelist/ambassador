@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateLimit",
+  "title": "RateLimit",
+  "type": "object",
+  "description": "An Ambassador RateLimit resource that defines rate limiting policies using descriptors and rate values. Works with the built-in Ambassador Edge Stack rate limiting service.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "getambassador.io/v3alpha1",
+      "example": "example_value"
+    },
+    "kind": {
+      "type": "string",
+      "const": "RateLimit",
+      "example": "example_value"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/RateLimitSpec"
+    }
+  }
+}

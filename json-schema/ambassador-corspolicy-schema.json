@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CORSPolicy",
+  "title": "CORSPolicy",
+  "type": "object",
+  "description": "Cross-Origin Resource Sharing configuration",
+  "properties": {
+    "origins": {
+      "type": "array",
+      "description": "Allowed origins. Use a string for exact match or a regex pattern.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "https://example.com",
+        "https://*.example.com"
+      ]
+    },
+    "methods": {
+      "type": "array",
+      "description": "Allowed HTTP methods",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    "headers": {
+      "type": "array",
+      "description": "Allowed request headers",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "credentials": {
+      "type": "boolean",
+      "description": "Whether to allow credentials (cookies, authorization headers)",
+      "example": true
+    },
+    "exposed_headers": {
+      "type": "array",
+      "description": "Headers exposed to the browser",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "max_age": {
+      "type": "string",
+      "description": "How long the preflight response can be cached (e.g., '86400')",
+      "example": "example_value"
+    }
+  }
+}

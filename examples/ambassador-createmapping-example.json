@@ -1,0 +1,137 @@
+{
+  "operationId": "createMapping",
+  "method": "POST",
+  "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings",
+  "summary": "Ambassador Create a New Mapping",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatemappingRequestExample",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "hostname": "example_value",
+          "prefix": "example_value",
+          "prefix_regex": true,
+          "prefix_exact": true,
+          "service": "example_value",
+          "rewrite": "example_value",
+          "method": "GET",
+          "method_regex": true,
+          "headers": "example_value",
+          "query_parameters": "example_value",
+          "host": "example_value",
+          "host_regex": true,
+          "timeout_ms": 10,
+          "idle_timeout_ms": 10,
+          "connect_timeout_ms": 10,
+          "cluster_idle_timeout_ms": 10,
+          "weight": 10,
+          "bypass_auth": true,
+          "circuit_breakers": [
+            {}
+          ],
+          "labels": "example_value",
+          "add_request_headers": "example_value",
+          "add_response_headers": "example_value",
+          "remove_request_headers": [
+            {}
+          ],
+          "remove_response_headers": [
+            {}
+          ],
+          "allow_upgrade": [
+            {}
+          ],
+          "grpc": true,
+          "enable_ipv4": true,
+          "enable_ipv6": true,
+          "ambassador_id": [
+            {}
+          ]
+        },
+        "status": {
+          "state": "Inactive",
+          "reason": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createmapping201Example",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "hostname": "example_value",
+          "prefix": "example_value",
+          "prefix_regex": true,
+          "prefix_exact": true,
+          "service": "example_value",
+          "rewrite": "example_value",
+          "method": "GET",
+          "method_regex": true,
+          "headers": "example_value",
+          "query_parameters": "example_value",
+          "host": "example_value",
+          "host_regex": true,
+          "timeout_ms": 10,
+          "idle_timeout_ms": 10,
+          "connect_timeout_ms": 10,
+          "cluster_idle_timeout_ms": 10,
+          "weight": 10,
+          "bypass_auth": true,
+          "circuit_breakers": [
+            {}
+          ],
+          "labels": "example_value",
+          "add_request_headers": "example_value",
+          "add_response_headers": "example_value",
+          "remove_request_headers": [
+            {}
+          ],
+          "remove_response_headers": [
+            {}
+          ],
+          "allow_upgrade": [
+            {}
+          ],
+          "grpc": true,
+          "enable_ipv4": true,
+          "enable_ipv6": true,
+          "ambassador_id": [
+            {}
+          ]
+        },
+        "status": {
+          "state": "Inactive",
+          "reason": "example_value"
+        }
+      }
+    }
+  ]
+}

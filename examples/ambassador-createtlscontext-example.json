@@ -1,0 +1,95 @@
+{
+  "operationId": "createTLSContext",
+  "method": "POST",
+  "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts",
+  "summary": "Ambassador Create a New Tls Context",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatetlscontextRequestExample",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "hosts": [
+            {}
+          ],
+          "secret": "example_value",
+          "cert_chain_file": "example_value",
+          "private_key_file": "example_value",
+          "ca_secret": "example_value",
+          "cert_required": true,
+          "min_tls_version": "v1.0",
+          "max_tls_version": "v1.0",
+          "cipher_suites": [
+            {}
+          ],
+          "ecdh_curves": [
+            {}
+          ],
+          "alpn_protocols": "example_value",
+          "redirect_cleartext_from": 10,
+          "sni": "example_value",
+          "ambassador_id": [
+            {}
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createtlscontext201Example",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "hosts": [
+            {}
+          ],
+          "secret": "example_value",
+          "cert_chain_file": "example_value",
+          "private_key_file": "example_value",
+          "ca_secret": "example_value",
+          "cert_required": true,
+          "min_tls_version": "v1.0",
+          "max_tls_version": "v1.0",
+          "cipher_suites": [
+            {}
+          ],
+          "ecdh_curves": [
+            {}
+          ],
+          "alpn_protocols": "example_value",
+          "redirect_cleartext_from": 10,
+          "sni": "example_value",
+          "ambassador_id": [
+            {}
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HostStatus",
+  "title": "HostStatus",
+  "type": "object",
+  "description": "Status information for a Host resource",
+  "properties": {
+    "state": {
+      "type": "string",
+      "description": "Current state of the Host",
+      "enum": [
+        "Initial",
+        "Pending",
+        "Ready",
+        "Error"
+      ],
+      "example": "Initial"
+    },
+    "phaseCompleted": {
+      "type": "string",
+      "description": "Last completed phase of the Host lifecycle",
+      "enum": [
+        "NA",
+        "DefaultsFilled",
+        "ACMEUserPrivateKeyCreated",
+        "ACMEUserRegistered",
+        "ACMECertificateChallenge"
+      ],
+      "example": "NA"
+    },
+    "errorReason": {
+      "type": "string",
+      "description": "Description of any error state",
+      "example": "example_value"
+    },
+    "tlsCertificateSource": {
+      "type": "string",
+      "description": "Source of the TLS certificate",
+      "enum": [
+        "None",
+        "ACME",
+        "Other"
+      ],
+      "example": "None"
+    }
+  }
+}

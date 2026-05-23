@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HostSpec",
+  "title": "HostSpec",
+  "type": "object",
+  "description": "Specification for an Ambassador Host",
+  "required": [
+    "hostname"
+  ],
+  "properties": {
+    "hostname": {
+      "type": "string",
+      "description": "Hostname that this Host resource applies to. Supports wildcard patterns like *.example.com.",
+      "example": "api.example.com"
+    },
+    "ambassador_id": {
+      "type": "array",
+      "description": "Ambassador IDs that should apply this Host",
+      "items": {
+        "type": "string"
+      },
+      "example": "500123"
+    },
+    "acmeProvider": {
+      "type": "object",
+      "description": "ACME certificate provider configuration for automatic TLS certificates",
+      "properties": {
+        "authority": {
+          "type": "string",
+          "description": "ACME server URL",
+          "example": "https://acme-v02.api.letsencrypt.org/directory"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email for ACME registration and certificate notifications"
+        },
+        "privateKeySecret": {
+          "type": "object",
+          "description": "Reference to a Kubernetes Secret for the ACME private key",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "registration": {
+          "type": "string",
+          "description": "ACME registration URL (automatically managed)"
+        }
+      },
+      "example": "example_value"
+    },
+    "tlsContext": {
+      "type": "object",
+      "description": "Reference to a TLSContext resource for TLS configuration",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the TLSContext to use"
+        }
+      },
+      "example": "example_value"
+    },
+    "tlsSecret": {
+      "type": "object",
+      "description": "Reference to a Kubernetes TLS Secret containing certificates",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Kubernetes Secret"
+        }
+      },
+      "example": "example_value"
+    },
+    "requestPolicy": {
+      "type": "object",
+      "description": "Policy for handling insecure requests",
+      "properties": {
+        "insecure": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "How to handle insecure (non-TLS) requests",
+              "enum": [
+                "Redirect",
+                "Reject",
+                "Route"
+              ]
+            },
+            "additionalPort": {
+              "type": "integer",
+              "description": "Additional port to listen on for insecure requests"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "selector": {
+      "type": "object",
+      "description": "Label selector for Mappings this Host should be associated with",
+      "properties": {
+        "matchLabels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

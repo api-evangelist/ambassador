@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ObjectMeta",
+  "title": "ObjectMeta",
+  "type": "object",
+  "description": "Standard Kubernetes object metadata",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the resource, unique within a namespace",
+      "example": "Example Title"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Kubernetes namespace the resource belongs to",
+      "example": "example_value"
+    },
+    "labels": {
+      "type": "object",
+      "description": "Key-value pairs for organizing and selecting resources",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    },
+    "annotations": {
+      "type": "object",
+      "description": "Key-value pairs for storing arbitrary non-identifying metadata",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    },
+    "creationTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the resource was created",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "generation": {
+      "type": "integer",
+      "description": "Sequence number representing a specific generation of the resource",
+      "example": 10
+    },
+    "resourceVersion": {
+      "type": "string",
+      "description": "Opaque value for optimistic concurrency control",
+      "example": "example_value"
+    },
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier for the resource",
+      "example": "500123"
+    }
+  },
+  "required": [
+    "name",
+    "namespace"
+  ]
+}

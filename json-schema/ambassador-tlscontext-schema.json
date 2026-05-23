@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TLSContext",
+  "title": "TLSContext",
+  "type": "object",
+  "description": "An Ambassador TLSContext resource that configures TLS settings for inbound or outbound connections, including certificates, protocols, and cipher suites.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "getambassador.io/v3alpha1",
+      "example": "example_value"
+    },
+    "kind": {
+      "type": "string",
+      "const": "TLSContext",
+      "example": "example_value"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/TLSContextSpec"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TLSContextSpec",
+  "title": "TLSContextSpec",
+  "type": "object",
+  "description": "Specification for a TLSContext resource",
+  "properties": {
+    "hosts": {
+      "type": "array",
+      "description": "Hostnames this TLSContext applies to",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "secret": {
+      "type": "string",
+      "description": "Name of the Kubernetes Secret containing TLS certificates",
+      "example": "example_value"
+    },
+    "cert_chain_file": {
+      "type": "string",
+      "description": "Path to the certificate chain PEM file (alternative to secret)",
+      "example": "example_value"
+    },
+    "private_key_file": {
+      "type": "string",
+      "description": "Path to the private key PEM file (alternative to secret)",
+      "example": "example_value"
+    },
+    "ca_secret": {
+      "type": "string",
+      "description": "Name of the Kubernetes Secret containing CA certificates for client verification",
+      "example": "example_value"
+    },
+    "cert_required": {
+      "type": "boolean",
+      "description": "Whether client TLS certificates are required (mTLS)",
+      "default": false,
+      "example": true
+    },
+    "min_tls_version": {
+      "type": "string",
+      "description": "Minimum TLS version to accept",
+      "enum": [
+        "v1.0",
+        "v1.1",
+        "v1.2",
+        "v1.3"
+      ],
+      "default": "v1.2",
+      "example": "v1.0"
+    },
+    "max_tls_version": {
+      "type": "string",
+      "description": "Maximum TLS version to accept",
+      "enum": [
+        "v1.0",
+        "v1.1",
+        "v1.2",
+        "v1.3"
+      ],
+      "default": "v1.3",
+      "example": "v1.0"
+    },
+    "cipher_suites": {
+      "type": "array",
+      "description": "Allowed TLS cipher suites",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "ecdh_curves": {
+      "type": "array",
+      "description": "Allowed ECDH curves",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "alpn_protocols": {
+      "type": "string",
+      "description": "ALPN protocols to advertise",
+      "example": "example_value"
+    },
+    "redirect_cleartext_from": {
+      "type": "integer",
+      "description": "Port number from which to redirect cleartext traffic to TLS",
+      "example": 10
+    },
+    "sni": {
+      "type": "string",
+      "description": "SNI hostname to present for outbound TLS connections",
+      "example": "example_value"
+    },
+    "ambassador_id": {
+      "type": "array",
+      "description": "Ambassador IDs that should use this TLSContext",
+      "items": {
+        "type": "string"
+      },
+      "example": "500123"
+    }
+  }
+}

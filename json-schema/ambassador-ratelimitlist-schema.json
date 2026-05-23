@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateLimitList",
+  "title": "RateLimitList",
+  "type": "object",
+  "description": "List of RateLimit resources",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "getambassador.io/v3alpha1",
+      "example": "example_value"
+    },
+    "kind": {
+      "type": "string",
+      "const": "RateLimitList",
+      "example": "example_value"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "continue": {
+          "type": "string"
+        },
+        "resourceVersion": {
+          "type": "string"
+        }
+      },
+      "example": "example_value"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RateLimit"
+      },
+      "example": []
+    }
+  }
+}

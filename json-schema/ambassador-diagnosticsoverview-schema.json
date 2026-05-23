@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DiagnosticsOverview",
+  "title": "DiagnosticsOverview",
+  "type": "object",
+  "description": "Diagnostic overview of an Ambassador instance",
+  "properties": {
+    "system": {
+      "type": "object",
+      "description": "System-level information",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Ambassador version"
+        },
+        "hostname": {
+          "type": "string",
+          "description": "Hostname of the Ambassador pod"
+        },
+        "ambassador_id": {
+          "type": "string",
+          "description": "Ambassador instance ID"
+        },
+        "cluster_id": {
+          "type": "string",
+          "description": "Kubernetes cluster identifier"
+        },
+        "boot_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this Ambassador instance started"
+        }
+      },
+      "example": "example_value"
+    },
+    "ambassador_config": {
+      "type": "object",
+      "description": "Active Ambassador configuration summary",
+      "additionalProperties": true,
+      "example": "example_value"
+    },
+    "envoy_status": {
+      "type": "object",
+      "description": "Status of the underlying Envoy proxy",
+      "properties": {
+        "alive": {
+          "type": "boolean"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "uptime": {
+          "type": "integer",
+          "description": "Envoy uptime in seconds"
+        }
+      },
+      "example": "example_value"
+    },
+    "route_info": {
+      "type": "array",
+      "description": "Summary of active routes",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        }
+      },
+      "example": []
+    },
+    "errors": {
+      "type": "array",
+      "description": "List of configuration errors",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

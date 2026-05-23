@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoadBalancer",
+  "title": "LoadBalancer",
+  "type": "object",
+  "description": "Load balancing configuration for an upstream cluster",
+  "properties": {
+    "policy": {
+      "type": "string",
+      "description": "Load balancing algorithm",
+      "enum": [
+        "round_robin",
+        "least_request",
+        "ring_hash",
+        "maglev"
+      ],
+      "example": "round_robin"
+    },
+    "cookie": {
+      "type": "object",
+      "description": "Cookie-based session affinity configuration (for ring_hash policy)",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the session affinity cookie"
+        },
+        "ttl": {
+          "type": "string",
+          "description": "Time-to-live for the cookie"
+        },
+        "path": {
+          "type": "string",
+          "description": "Cookie path"
+        }
+      },
+      "example": "example_value"
+    },
+    "header": {
+      "type": "string",
+      "description": "Header to use for hash-based load balancing",
+      "example": "example_value"
+    },
+    "source_ip": {
+      "type": "boolean",
+      "description": "Whether to use source IP for hash-based load balancing",
+      "example": true
+    }
+  }
+}

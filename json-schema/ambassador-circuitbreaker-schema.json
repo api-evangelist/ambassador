@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CircuitBreaker",
+  "title": "CircuitBreaker",
+  "type": "object",
+  "description": "Circuit breaker configuration for an upstream cluster",
+  "properties": {
+    "priority": {
+      "type": "string",
+      "description": "Envoy routing priority",
+      "enum": [
+        "default",
+        "high"
+      ],
+      "example": "default"
+    },
+    "max_connections": {
+      "type": "integer",
+      "description": "Maximum number of connections to the upstream cluster",
+      "minimum": 1,
+      "example": 10
+    },
+    "max_pending_requests": {
+      "type": "integer",
+      "description": "Maximum number of pending requests to the upstream cluster",
+      "minimum": 1,
+      "example": 10
+    },
+    "max_requests": {
+      "type": "integer",
+      "description": "Maximum number of parallel requests to the upstream cluster",
+      "minimum": 1,
+      "example": 10
+    },
+    "max_retries": {
+      "type": "integer",
+      "description": "Maximum number of parallel retries to the upstream cluster",
+      "minimum": 1,
+      "example": 10
+    }
+  }
+}

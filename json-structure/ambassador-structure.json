@@ -1,0 +1,430 @@
+{
+  "provider": "Ambassador",
+  "providerId": "ambassador",
+  "kind": "json-structure",
+  "description": "Structural overview of the Ambassador API surface; extracted from openapi/.",
+  "schemaCount": 24,
+  "operationCount": 26,
+  "schemas": [
+    {
+      "name": "ObjectMeta",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name",
+        "namespace"
+      ]
+    },
+    {
+      "name": "Mapping",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "MappingSpec",
+      "type": "object",
+      "propertyCount": 32,
+      "required": [
+        "hostname",
+        "prefix",
+        "service"
+      ]
+    },
+    {
+      "name": "MappingStatus",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "MappingList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Host",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "HostSpec",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "hostname"
+      ]
+    },
+    {
+      "name": "HostStatus",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "HostList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "TLSContext",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "TLSContextSpec",
+      "type": "object",
+      "propertyCount": 14,
+      "required": []
+    },
+    {
+      "name": "TLSContextList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "RateLimit",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "RateLimitSpec",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "domain",
+        "limits"
+      ]
+    },
+    {
+      "name": "RateLimitRule",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "pattern",
+        "rate"
+      ]
+    },
+    {
+      "name": "RateLimitList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Module",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "ModuleSpec",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ModuleList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CORSPolicy",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "RetryPolicy",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CircuitBreaker",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "LoadBalancer",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "DiagnosticsOverview",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/ambassador/v0/diag",
+      "operationId": "getDiagnostics",
+      "summary": "Ambassador Retrieve Diagnostic Overview",
+      "tags": [
+        "Diagnostics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ambassador/v0/check_ready",
+      "operationId": "checkReady",
+      "summary": "Ambassador Readiness Health Check",
+      "tags": [
+        "Diagnostics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ambassador/v0/check_alive",
+      "operationId": "checkAlive",
+      "summary": "Ambassador Liveness Health Check",
+      "tags": [
+        "Diagnostics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings",
+      "operationId": "listMappings",
+      "summary": "Ambassador List All Mappings in a Namespace",
+      "tags": [
+        "Mappings"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings",
+      "operationId": "createMapping",
+      "summary": "Ambassador Create a New Mapping",
+      "tags": [
+        "Mappings"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}",
+      "operationId": "getMapping",
+      "summary": "Ambassador Get a Specific Mapping",
+      "tags": [
+        "Mappings"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}",
+      "operationId": "updateMapping",
+      "summary": "Ambassador Update a Mapping",
+      "tags": [
+        "Mappings"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}",
+      "operationId": "deleteMapping",
+      "summary": "Ambassador Delete a Mapping",
+      "tags": [
+        "Mappings"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts",
+      "operationId": "listHosts",
+      "summary": "Ambassador List All Hosts in a Namespace",
+      "tags": [
+        "Hosts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts",
+      "operationId": "createHost",
+      "summary": "Ambassador Create a New Host",
+      "tags": [
+        "Hosts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}",
+      "operationId": "getHost",
+      "summary": "Ambassador Get a Specific Host",
+      "tags": [
+        "Hosts"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}",
+      "operationId": "updateHost",
+      "summary": "Ambassador Update a Host",
+      "tags": [
+        "Hosts"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}",
+      "operationId": "deleteHost",
+      "summary": "Ambassador Delete a Host",
+      "tags": [
+        "Hosts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts",
+      "operationId": "listTLSContexts",
+      "summary": "Ambassador List All Tls Contexts in a Namespace",
+      "tags": [
+        "TLSContexts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts",
+      "operationId": "createTLSContext",
+      "summary": "Ambassador Create a New Tls Context",
+      "tags": [
+        "TLSContexts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}",
+      "operationId": "getTLSContext",
+      "summary": "Ambassador Get a Specific Tls Context",
+      "tags": [
+        "TLSContexts"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}",
+      "operationId": "updateTLSContext",
+      "summary": "Ambassador Update a Tls Context",
+      "tags": [
+        "TLSContexts"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}",
+      "operationId": "deleteTLSContext",
+      "summary": "Ambassador Delete a Tls Context",
+      "tags": [
+        "TLSContexts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits",
+      "operationId": "listRateLimits",
+      "summary": "Ambassador List All Ratelimit Resources in a Namespace",
+      "tags": [
+        "RateLimits"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits",
+      "operationId": "createRateLimit",
+      "summary": "Ambassador Create a New Ratelimit",
+      "tags": [
+        "RateLimits"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}",
+      "operationId": "getRateLimit",
+      "summary": "Ambassador Get a Specific Ratelimit",
+      "tags": [
+        "RateLimits"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}",
+      "operationId": "updateRateLimit",
+      "summary": "Ambassador Update a Ratelimit",
+      "tags": [
+        "RateLimits"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}",
+      "operationId": "deleteRateLimit",
+      "summary": "Ambassador Delete a Ratelimit",
+      "tags": [
+        "RateLimits"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules",
+      "operationId": "listModules",
+      "summary": "Ambassador List All Modules in a Namespace",
+      "tags": [
+        "Modules"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}",
+      "operationId": "getModule",
+      "summary": "Ambassador Get a Specific Module",
+      "tags": [
+        "Modules"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}",
+      "operationId": "updateModule",
+      "summary": "Ambassador Update a Module",
+      "tags": [
+        "Modules"
+      ]
+    }
+  ]
+}

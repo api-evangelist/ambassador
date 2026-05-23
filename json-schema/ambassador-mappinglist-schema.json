@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MappingList",
+  "title": "MappingList",
+  "type": "object",
+  "description": "List of Mapping resources",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "getambassador.io/v3alpha1",
+      "example": "example_value"
+    },
+    "kind": {
+      "type": "string",
+      "const": "MappingList",
+      "example": "example_value"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "continue": {
+          "type": "string",
+          "description": "Continuation token for pagination"
+        },
+        "resourceVersion": {
+          "type": "string"
+        }
+      },
+      "example": "example_value"
+    },
+    "items": {
+      "type": "array",
+      "description": "List of Mapping resources",
+      "items": {
+        "$ref": "#/components/schemas/Mapping"
+      },
+      "example": []
+    }
+  }
+}

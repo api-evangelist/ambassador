@@ -1,0 +1,107 @@
+{
+  "operationId": "createHost",
+  "method": "POST",
+  "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts",
+  "summary": "Ambassador Create a New Host",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatehostRequestExample",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "hostname": "example_value",
+          "ambassador_id": [
+            {}
+          ],
+          "acmeProvider": {
+            "authority": "example_value",
+            "email": "user@example.com",
+            "privateKeySecret": {},
+            "registration": "example_value"
+          },
+          "tlsContext": {
+            "name": "Example Title"
+          },
+          "tlsSecret": {
+            "name": "Example Title"
+          },
+          "requestPolicy": {
+            "insecure": {}
+          },
+          "selector": {
+            "matchLabels": "example_value"
+          }
+        },
+        "status": {
+          "state": "Initial",
+          "phaseCompleted": "NA",
+          "errorReason": "example_value",
+          "tlsCertificateSource": "None"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createhost201Example",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "hostname": "example_value",
+          "ambassador_id": [
+            {}
+          ],
+          "acmeProvider": {
+            "authority": "example_value",
+            "email": "user@example.com",
+            "privateKeySecret": {},
+            "registration": "example_value"
+          },
+          "tlsContext": {
+            "name": "Example Title"
+          },
+          "tlsSecret": {
+            "name": "Example Title"
+          },
+          "requestPolicy": {
+            "insecure": {}
+          },
+          "selector": {
+            "matchLabels": "example_value"
+          }
+        },
+        "status": {
+          "state": "Initial",
+          "phaseCompleted": "NA",
+          "errorReason": "example_value",
+          "tlsCertificateSource": "None"
+        }
+      }
+    }
+  ]
+}

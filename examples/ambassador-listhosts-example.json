@@ -1,0 +1,28 @@
+{
+  "operationId": "listHosts",
+  "method": "GET",
+  "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts",
+  "summary": "Ambassador List All Hosts in a Namespace",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listhosts200Example",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "continue": "example_value",
+          "resourceVersion": "example_value"
+        },
+        "items": [
+          {
+            "apiVersion": "example_value",
+            "kind": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

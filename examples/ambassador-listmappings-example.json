@@ -1,0 +1,28 @@
+{
+  "operationId": "listMappings",
+  "method": "GET",
+  "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings",
+  "summary": "Ambassador List All Mappings in a Namespace",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmappings200Example",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "continue": "example_value",
+          "resourceVersion": "example_value"
+        },
+        "items": [
+          {
+            "apiVersion": "example_value",
+            "kind": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "operationId": "getModule",
+  "method": "GET",
+  "path": "/apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}",
+  "summary": "Ambassador Get a Specific Module",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getmodule200Example",
+      "example": {
+        "apiVersion": "example_value",
+        "kind": "example_value",
+        "metadata": {
+          "name": "Example Title",
+          "namespace": "example_value",
+          "labels": "example_value",
+          "annotations": "example_value",
+          "creationTimestamp": "2026-01-15T10:30:00Z",
+          "generation": 10,
+          "resourceVersion": "example_value",
+          "uid": "500123"
+        },
+        "spec": {
+          "config": "example_value",
+          "ambassador_id": [
+            {}
+          ]
+        }
+      }
+    }
+  ]
+}

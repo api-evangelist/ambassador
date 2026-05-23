@@ -1,0 +1,22 @@
+name: Ambassador Domain Vocabulary
+provider: Ambassador
+providerId: ambassador
+description: Tag-derived vocabulary for the Ambassador API surface; sourced from openapi/ tags.
+terms:
+- term: Diagnostics
+  description: Access diagnostic and health check endpoints for monitoring Ambassador Edge Stack operational status.
+- term: Hosts
+  description: Manage Host resources that configure TLS termination, ACME certificate management, and hostname-based routing
+    rules.
+- term: Mappings
+  description: Manage Mapping resources that associate URL prefixes or paths with backend services. Mappings are the core
+    routing mechanism in Ambassador.
+- term: Modules
+  description: Manage Ambassador Module resources for global configuration of the Ambassador gateway including diagnostics,
+    tracing, and circuit breaking.
+- term: RateLimits
+  description: Manage rate limiting configuration for controlling request throughput to backend services using labels and
+    descriptors.
+- term: TLSContexts
+  description: Manage TLSContext resources that configure TLS settings for Ambassador, including certificates, protocols,
+    and cipher suites.

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateLimitSpec",
+  "title": "RateLimitSpec",
+  "type": "object",
+  "description": "Specification for a RateLimit resource",
+  "required": [
+    "domain",
+    "limits"
+  ],
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.",
+      "example": "ambassador"
+    },
+    "limits": {
+      "type": "array",
+      "description": "List of rate limit rules",
+      "items": {
+        "$ref": "#/components/schemas/RateLimitRule"
+      },
+      "example": []
+    }
+  }
+}

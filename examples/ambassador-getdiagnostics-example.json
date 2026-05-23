@@ -1,0 +1,44 @@
+{
+  "operationId": "getDiagnostics",
+  "method": "GET",
+  "path": "/ambassador/v0/diag",
+  "summary": "Ambassador Retrieve Diagnostic Overview",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdiagnostics200Example",
+      "example": {
+        "system": {
+          "version": "example_value",
+          "hostname": "example_value",
+          "ambassador_id": "500123",
+          "cluster_id": "500123",
+          "boot_time": "2026-01-15T10:30:00Z"
+        },
+        "ambassador_config": "example_value",
+        "envoy_status": {
+          "alive": true,
+          "ready": true,
+          "uptime": 10
+        },
+        "route_info": [
+          {
+            "prefix": "example_value",
+            "service": "example_value",
+            "weight": 10
+          }
+        ],
+        "errors": [
+          {
+            "kind": "example_value",
+            "name": "Example Title",
+            "namespace": "example_value",
+            "error": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}
