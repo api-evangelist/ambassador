@@ -1,0 +1,702 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambassador Edge Stack API",
+    "version": "3.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Diagnostics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador Retrieve Diagnostic Overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/ambassador/v0/diag"
+          },
+          "docs": "Returns a comprehensive diagnostic overview of the Ambassador instance including active configuration, cluster state, Envoy status, and any configuration errors or warnings."
+        },
+        {
+          "info": {
+            "name": "Ambassador Readiness Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/ambassador/v0/check_ready"
+          },
+          "docs": "Returns whether Ambassador is ready to serve traffic. Used by Kubernetes readiness probes."
+        },
+        {
+          "info": {
+            "name": "Ambassador Liveness Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/ambassador/v0/check_alive"
+          },
+          "docs": "Returns whether the Ambassador process is alive. Used by Kubernetes liveness probes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Mappings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Mappings in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return"
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Mapping resources in the specified Kubernetes namespace. Mappings associate URL prefixes or exact paths with backend services and configure routing behavior."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Mapping resource in the specified namespace. A Mapping defines how requests matching a URL prefix, path, or header should be routed to a backend service."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the full specification and status of a specific Mapping resource identified by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing Mapping resource with the provided specification. The full Mapping object must be provided."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific Mapping resource. Any traffic previously routed by this Mapping will no longer be handled."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Hosts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Hosts in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return"
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Host resources in the specified namespace. Hosts define how Ambassador should handle requests for specific hostnames, including TLS termination and ACME certificate provisioning."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Host",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Host resource in the specified namespace. A Host defines hostname routing, TLS termination behavior, and optionally configures ACME-based automatic certificate management."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Host",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the specification and status of a specific Host resource."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Host",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing Host resource with the provided specification."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Host",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific Host resource. TLS termination and hostname routing for this host will be removed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "TLSContexts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Tls Contexts in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              }
+            ]
+          },
+          "docs": "Returns a list of all TLSContext resources in the specified namespace. TLSContexts configure TLS settings such as certificates, protocols, and cipher suites."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new TLSContext resource specifying TLS certificates, protocol versions, and cipher suite configuration."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the specification of a specific TLSContext resource."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing TLSContext resource with the provided specification."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific TLSContext resource."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "RateLimits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Ratelimit Resources in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              }
+            ]
+          },
+          "docs": "Returns a list of all RateLimit resources in the specified namespace. RateLimits define rate limiting policies using labels and descriptors that control request throughput to backend services."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new RateLimit resource in the specified namespace. RateLimits define rate limiting policies using domain, descriptors, and rate values to control traffic flow."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the specification of a specific RateLimit resource."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing RateLimit resource with the provided specification."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific RateLimit resource."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Modules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Modules in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Module resources in the specified namespace. Modules configure global settings for Ambassador such as diagnostics, tracing, circuit breaking, and retry policies."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Module",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the specification of a specific Module resource."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Module",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing Module resource with the provided configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
