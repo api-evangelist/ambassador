@@ -208,7 +208,7 @@ common:
   - url: https://www.linkedin.com/company/ambassadorlabs
     type: LinkedIn
   - url: https://app.getambassador.io/
-    type: SignUp
+    type: Signup
   - url: https://github.com/datawire/ambassador-docs
     type: GitHubRepository
   - url: https://github.com/datawire
