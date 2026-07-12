@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ambassador-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token authentication. Tokens are managed through the Ambassador Edge Stack
+    management interface or Kubernetes service account tokens.
+  sources:
+  - openapi/ambassador-openapi.yml

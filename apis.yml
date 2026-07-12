@@ -170,6 +170,10 @@ kind: contract
 image: https://www.getambassador.io/images/ambassador-logo.png
 access: 3rd-Party
 common:
+  - type: DomainSecurity
+    url: security/ambassador-domain-security.yml
+  - type: Authentication
+    url: authentication/ambassador-authentication.yml
   - url: https://www.getambassador.io/case-studies
     name: 'Empowering Journeys: Customer Success Stories That Speak Volumes'
     type: Customers
