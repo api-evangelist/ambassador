@@ -170,6 +170,8 @@ kind: contract
 image: https://www.getambassador.io/images/ambassador-logo.png
 access: 3rd-Party
 common:
+  - type: AgenticAccess
+    url: agentic-access/ambassador-agentic-access.yml
   - type: DomainSecurity
     url: security/ambassador-domain-security.yml
   - type: Authentication
