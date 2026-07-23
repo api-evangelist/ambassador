@@ -1,0 +1,623 @@
+openapi: 3.1.0
+info:
+  title: Ambassador Edge Stack Diagnostics Hosts API
+  description: API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.
+  version: 3.x
+  contact:
+    name: Ambassador Labs
+    url: https://www.getambassador.io
+    email: support@datawire.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{ambassador-host}:8877
+  description: Ambassador Edge Stack Admin API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack admin interface
+- url: https://{ambassador-host}/edge_stack/api
+  description: Ambassador Edge Stack Management API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack service
+security:
+- bearerAuth: []
+tags:
+- name: Hosts
+  description: Manage Host resources that configure TLS termination, ACME certificate management, and hostname-based routing rules.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/host-crd
+paths:
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
+    get:
+      operationId: listHosts
+      summary: Ambassador List All Hosts in a Namespace
+      description: Returns a list of all Host resources in the specified namespace. Hosts define how Ambassador should handle requests for specific hostnames, including TLS termination and ACME certificate provisioning.
+      tags:
+      - Hosts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Host list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostList'
+              examples:
+                Listhosts200Example:
+                  summary: Default listHosts 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
+        '401':
+          description: Authentication required
+        '403':
+          description: Insufficient permissions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createHost
+      summary: Ambassador Create a New Host
+      description: Creates a new Host resource in the specified namespace. A Host defines hostname routing, TLS termination behavior, and optionally configures ACME-based automatic certificate management.
+      tags:
+      - Hosts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+            examples:
+              CreatehostRequestExample:
+                summary: Default createHost request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hostname: example_value
+                    ambassador_id:
+                    - {}
+                    acmeProvider:
+                      authority: example_value
+                      email: user@example.com
+                      privateKeySecret: {}
+                      registration: example_value
+                    tlsContext:
+                      name: Example Title
+                    tlsSecret:
+                      name: Example Title
+                    requestPolicy:
+                      insecure: {}
+                    selector:
+                      matchLabels: example_value
+                  status:
+                    state: Initial
+                    phaseCompleted: NA
+                    errorReason: example_value
+                    tlsCertificateSource: None
+      responses:
+        '201':
+          description: Host created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+              examples:
+                Createhost201Example:
+                  summary: Default createHost 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      ambassador_id:
+                      - {}
+                      acmeProvider:
+                        authority: example_value
+                        email: user@example.com
+                        privateKeySecret: {}
+                        registration: example_value
+                      tlsContext:
+                        name: Example Title
+                      tlsSecret:
+                        name: Example Title
+                      requestPolicy:
+                        insecure: {}
+                      selector:
+                        matchLabels: example_value
+                    status:
+                      state: Initial
+                      phaseCompleted: NA
+                      errorReason: example_value
+                      tlsCertificateSource: None
+        '400':
+          description: Invalid Host specification
+        '401':
+          description: Authentication required
+        '409':
+          description: Host with this name already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
+    get:
+      operationId: getHost
+      summary: Ambassador Get a Specific Host
+      description: Retrieves the specification and status of a specific Host resource.
+      tags:
+      - Hosts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Host retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+              examples:
+                Gethost200Example:
+                  summary: Default getHost 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      ambassador_id:
+                      - {}
+                      acmeProvider:
+                        authority: example_value
+                        email: user@example.com
+                        privateKeySecret: {}
+                        registration: example_value
+                      tlsContext:
+                        name: Example Title
+                      tlsSecret:
+                        name: Example Title
+                      requestPolicy:
+                        insecure: {}
+                      selector:
+                        matchLabels: example_value
+                    status:
+                      state: Initial
+                      phaseCompleted: NA
+                      errorReason: example_value
+                      tlsCertificateSource: None
+        '401':
+          description: Authentication required
+        '404':
+          description: Host not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateHost
+      summary: Ambassador Update a Host
+      description: Replaces an existing Host resource with the provided specification.
+      tags:
+      - Hosts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+            examples:
+              UpdatehostRequestExample:
+                summary: Default updateHost request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hostname: example_value
+                    ambassador_id:
+                    - {}
+                    acmeProvider:
+                      authority: example_value
+                      email: user@example.com
+                      privateKeySecret: {}
+                      registration: example_value
+                    tlsContext:
+                      name: Example Title
+                    tlsSecret:
+                      name: Example Title
+                    requestPolicy:
+                      insecure: {}
+                    selector:
+                      matchLabels: example_value
+                  status:
+                    state: Initial
+                    phaseCompleted: NA
+                    errorReason: example_value
+                    tlsCertificateSource: None
+      responses:
+        '200':
+          description: Host updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+              examples:
+                Updatehost200Example:
+                  summary: Default updateHost 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hostname: example_value
+                      ambassador_id:
+                      - {}
+                      acmeProvider:
+                        authority: example_value
+                        email: user@example.com
+                        privateKeySecret: {}
+                        registration: example_value
+                      tlsContext:
+                        name: Example Title
+                      tlsSecret:
+                        name: Example Title
+                      requestPolicy:
+                        insecure: {}
+                      selector:
+                        matchLabels: example_value
+                    status:
+                      state: Initial
+                      phaseCompleted: NA
+                      errorReason: example_value
+                      tlsCertificateSource: None
+        '400':
+          description: Invalid Host specification
+        '401':
+          description: Authentication required
+        '404':
+          description: Host not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteHost
+      summary: Ambassador Delete a Host
+      description: Deletes a specific Host resource. TLS termination and hostname routing for this host will be removed.
+      tags:
+      - Hosts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Host deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: Host not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    HostSpec:
+      type: object
+      description: Specification for an Ambassador Host
+      required:
+      - hostname
+      properties:
+        hostname:
+          type: string
+          description: Hostname that this Host resource applies to. Supports wildcard patterns like *.example.com.
+          example: api.example.com
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should apply this Host
+          items:
+            type: string
+          example: '500123'
+        acmeProvider:
+          type: object
+          description: ACME certificate provider configuration for automatic TLS certificates
+          properties:
+            authority:
+              type: string
+              description: ACME server URL
+              example: https://acme-v02.api.letsencrypt.org/directory
+            email:
+              type: string
+              format: email
+              description: Email for ACME registration and certificate notifications
+            privateKeySecret:
+              type: object
+              description: Reference to a Kubernetes Secret for the ACME private key
+              properties:
+                name:
+                  type: string
+            registration:
+              type: string
+              description: ACME registration URL (automatically managed)
+          example: example_value
+        tlsContext:
+          type: object
+          description: Reference to a TLSContext resource for TLS configuration
+          properties:
+            name:
+              type: string
+              description: Name of the TLSContext to use
+          example: example_value
+        tlsSecret:
+          type: object
+          description: Reference to a Kubernetes TLS Secret containing certificates
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret
+          example: example_value
+        requestPolicy:
+          type: object
+          description: Policy for handling insecure requests
+          properties:
+            insecure:
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: How to handle insecure (non-TLS) requests
+                  enum:
+                  - Redirect
+                  - Reject
+                  - Route
+                additionalPort:
+                  type: integer
+                  description: Additional port to listen on for insecure requests
+          example: example_value
+        selector:
+          type: object
+          description: Label selector for Mappings this Host should be associated with
+          properties:
+            matchLabels:
+              type: object
+              additionalProperties:
+                type: string
+          example: example_value
+    HostList:
+      type: object
+      description: List of Host resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: HostList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Host'
+          example: []
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
+    HostStatus:
+      type: object
+      description: Status information for a Host resource
+      properties:
+        state:
+          type: string
+          description: Current state of the Host
+          enum:
+          - Initial
+          - Pending
+          - Ready
+          - Error
+          example: Initial
+        phaseCompleted:
+          type: string
+          description: Last completed phase of the Host lifecycle
+          enum:
+          - NA
+          - DefaultsFilled
+          - ACMEUserPrivateKeyCreated
+          - ACMEUserRegistered
+          - ACMECertificateChallenge
+          example: NA
+        errorReason:
+          type: string
+          description: Description of any error state
+          example: example_value
+        tlsCertificateSource:
+          type: string
+          description: Source of the TLS certificate
+          enum:
+          - None
+          - ACME
+          - Other
+          example: None
+    Host:
+      type: object
+      description: An Ambassador Host resource that configures how Ambassador handles requests for a specific hostname, including TLS termination and ACME certificate management.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: Host
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return
+      schema:
+        type: integer
+        minimum: 1
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continuation token for paginated results
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Tokens are managed through the Ambassador Edge Stack management interface or Kubernetes service account tokens.
+externalDocs:
+  description: Ambassador Edge Stack Documentation
+  url: https://www.getambassador.io/docs/edge-stack/latest/

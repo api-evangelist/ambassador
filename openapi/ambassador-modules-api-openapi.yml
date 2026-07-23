@@ -1,0 +1,311 @@
+openapi: 3.1.0
+info:
+  title: Ambassador Edge Stack Diagnostics Modules API
+  description: API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.
+  version: 3.x
+  contact:
+    name: Ambassador Labs
+    url: https://www.getambassador.io
+    email: support@datawire.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{ambassador-host}:8877
+  description: Ambassador Edge Stack Admin API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack admin interface
+- url: https://{ambassador-host}/edge_stack/api
+  description: Ambassador Edge Stack Management API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack service
+security:
+- bearerAuth: []
+tags:
+- name: Modules
+  description: Manage Ambassador Module resources for global configuration of the Ambassador gateway including diagnostics, tracing, and circuit breaking.
+paths:
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules:
+    get:
+      operationId: listModules
+      summary: Ambassador List All Modules in a Namespace
+      description: Returns a list of all Module resources in the specified namespace. Modules configure global settings for Ambassador such as diagnostics, tracing, circuit breaking, and retry policies.
+      tags:
+      - Modules
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      responses:
+        '200':
+          description: Module list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleList'
+              examples:
+                Listmodules200Example:
+                  summary: Default listModules 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
+        '401':
+          description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/modules/{name}:
+    get:
+      operationId: getModule
+      summary: Ambassador Get a Specific Module
+      description: Retrieves the specification of a specific Module resource.
+      tags:
+      - Modules
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: Module retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+              examples:
+                Getmodule200Example:
+                  summary: Default getModule 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      config: example_value
+                      ambassador_id:
+                      - {}
+        '401':
+          description: Authentication required
+        '404':
+          description: Module not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateModule
+      summary: Ambassador Update a Module
+      description: Replaces an existing Module resource with the provided configuration.
+      tags:
+      - Modules
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+            examples:
+              UpdatemoduleRequestExample:
+                summary: Default updateModule request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    config: example_value
+                    ambassador_id:
+                    - {}
+      responses:
+        '200':
+          description: Module updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+              examples:
+                Updatemodule200Example:
+                  summary: Default updateModule 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      config: example_value
+                      ambassador_id:
+                      - {}
+        '400':
+          description: Invalid Module specification
+        '401':
+          description: Authentication required
+        '404':
+          description: Module not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Module:
+      type: object
+      description: An Ambassador Module resource for configuring global Ambassador settings such as diagnostics, tracing, circuit breaking defaults, and retry policies.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: Module
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ModuleSpec'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
+    ModuleList:
+      type: object
+      description: List of Module resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: ModuleList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+          example: []
+    ModuleSpec:
+      type: object
+      description: Specification for a Module resource
+      properties:
+        config:
+          type: object
+          description: Module configuration. The shape depends on the module name (e.g., ambassador, authentication, tracing).
+          additionalProperties: true
+          example: example_value
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should apply this Module
+          items:
+            type: string
+          example: '500123'
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Tokens are managed through the Ambassador Edge Stack management interface or Kubernetes service account tokens.
+externalDocs:
+  description: Ambassador Edge Stack Documentation
+  url: https://www.getambassador.io/docs/edge-stack/latest/

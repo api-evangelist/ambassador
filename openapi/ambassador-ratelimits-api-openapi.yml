@@ -1,0 +1,453 @@
+openapi: 3.1.0
+info:
+  title: Ambassador Edge Stack Diagnostics RateLimits API
+  description: API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.
+  version: 3.x
+  contact:
+    name: Ambassador Labs
+    url: https://www.getambassador.io
+    email: support@datawire.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{ambassador-host}:8877
+  description: Ambassador Edge Stack Admin API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack admin interface
+- url: https://{ambassador-host}/edge_stack/api
+  description: Ambassador Edge Stack Management API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack service
+security:
+- bearerAuth: []
+tags:
+- name: RateLimits
+  description: Manage rate limiting configuration for controlling request throughput to backend services using labels and descriptors.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/using/rate-limits
+paths:
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits:
+    get:
+      operationId: listRateLimits
+      summary: Ambassador List All Ratelimit Resources in a Namespace
+      description: Returns a list of all RateLimit resources in the specified namespace. RateLimits define rate limiting policies using labels and descriptors that control request throughput to backend services.
+      tags:
+      - RateLimits
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
+      responses:
+        '200':
+          description: RateLimit list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitList'
+              examples:
+                Listratelimits200Example:
+                  summary: Default listRateLimits 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
+        '401':
+          description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createRateLimit
+      summary: Ambassador Create a New Ratelimit
+      description: Creates a new RateLimit resource in the specified namespace. RateLimits define rate limiting policies using domain, descriptors, and rate values to control traffic flow.
+      tags:
+      - RateLimits
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateLimit'
+            examples:
+              CreateratelimitRequestExample:
+                summary: Default createRateLimit request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    domain: example_value
+                    limits:
+                    - {}
+      responses:
+        '201':
+          description: RateLimit created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimit'
+              examples:
+                Createratelimit201Example:
+                  summary: Default createRateLimit 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      domain: example_value
+                      limits:
+                      - {}
+        '400':
+          description: Invalid RateLimit specification
+        '401':
+          description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimits/{name}:
+    get:
+      operationId: getRateLimit
+      summary: Ambassador Get a Specific Ratelimit
+      description: Retrieves the specification of a specific RateLimit resource.
+      tags:
+      - RateLimits
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: RateLimit retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimit'
+              examples:
+                Getratelimit200Example:
+                  summary: Default getRateLimit 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      domain: example_value
+                      limits:
+                      - {}
+        '401':
+          description: Authentication required
+        '404':
+          description: RateLimit not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateRateLimit
+      summary: Ambassador Update a Ratelimit
+      description: Replaces an existing RateLimit resource with the provided specification.
+      tags:
+      - RateLimits
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateLimit'
+            examples:
+              UpdateratelimitRequestExample:
+                summary: Default updateRateLimit request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    domain: example_value
+                    limits:
+                    - {}
+      responses:
+        '200':
+          description: RateLimit updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimit'
+              examples:
+                Updateratelimit200Example:
+                  summary: Default updateRateLimit 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      domain: example_value
+                      limits:
+                      - {}
+        '400':
+          description: Invalid RateLimit specification
+        '401':
+          description: Authentication required
+        '404':
+          description: RateLimit not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteRateLimit
+      summary: Ambassador Delete a Ratelimit
+      description: Deletes a specific RateLimit resource.
+      tags:
+      - RateLimits
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: RateLimit deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: RateLimit not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RateLimit:
+      type: object
+      description: An Ambassador RateLimit resource that defines rate limiting policies using descriptors and rate values. Works with the built-in Ambassador Edge Stack rate limiting service.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: RateLimit
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RateLimitSpec'
+    RateLimitList:
+      type: object
+      description: List of RateLimit resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: RateLimitList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          example: []
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
+    RateLimitRule:
+      type: object
+      description: A single rate limiting rule with a pattern and rate
+      required:
+      - pattern
+      - rate
+      properties:
+        pattern:
+          type: array
+          description: Descriptor entries to match against. Each entry is a key-value pair that must match the labels sent with the request.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+          - generic_key: my-rate-limit
+        rate:
+          type: integer
+          description: Maximum number of requests allowed in the specified unit of time
+          minimum: 1
+          example: 10
+        unit:
+          type: string
+          description: Time unit for the rate limit
+          enum:
+          - second
+          - minute
+          - hour
+          - day
+          default: minute
+          example: second
+        injectRequestHeaders:
+          type: array
+          description: Headers to inject into the request when the rate limit is applied
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+          example: []
+    RateLimitSpec:
+      type: object
+      description: Specification for a RateLimit resource
+      required:
+      - domain
+      - limits
+      properties:
+        domain:
+          type: string
+          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
+          example: ambassador
+        limits:
+          type: array
+          description: List of rate limit rules
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
+          example: []
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Tokens are managed through the Ambassador Edge Stack management interface or Kubernetes service account tokens.
+externalDocs:
+  description: Ambassador Edge Stack Documentation
+  url: https://www.getambassador.io/docs/edge-stack/latest/

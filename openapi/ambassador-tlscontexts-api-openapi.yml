@@ -1,0 +1,550 @@
+openapi: 3.1.0
+info:
+  title: Ambassador Edge Stack Diagnostics TLSContexts API
+  description: API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.
+  version: 3.x
+  contact:
+    name: Ambassador Labs
+    url: https://www.getambassador.io
+    email: support@datawire.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{ambassador-host}:8877
+  description: Ambassador Edge Stack Admin API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack admin interface
+- url: https://{ambassador-host}/edge_stack/api
+  description: Ambassador Edge Stack Management API
+  variables:
+    ambassador-host:
+      default: localhost
+      description: Hostname or IP of the Ambassador Edge Stack service
+security:
+- bearerAuth: []
+tags:
+- name: TLSContexts
+  description: Manage TLSContext resources that configure TLS settings for Ambassador, including certificates, protocols, and cipher suites.
+  externalDocs:
+    url: https://www.getambassador.io/docs/edge-stack/latest/topics/running/tls/
+paths:
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts:
+    get:
+      operationId: listTLSContexts
+      summary: Ambassador List All Tls Contexts in a Namespace
+      description: Returns a list of all TLSContext resources in the specified namespace. TLSContexts configure TLS settings such as certificates, protocols, and cipher suites.
+      tags:
+      - TLSContexts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
+      responses:
+        '200':
+          description: TLSContext list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContextList'
+              examples:
+                Listtlscontexts200Example:
+                  summary: Default listTLSContexts 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      continue: example_value
+                      resourceVersion: example_value
+                    items:
+                    - apiVersion: example_value
+                      kind: example_value
+        '401':
+          description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createTLSContext
+      summary: Ambassador Create a New Tls Context
+      description: Creates a new TLSContext resource specifying TLS certificates, protocol versions, and cipher suite configuration.
+      tags:
+      - TLSContexts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSContext'
+            examples:
+              CreatetlscontextRequestExample:
+                summary: Default createTLSContext request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hosts:
+                    - {}
+                    secret: example_value
+                    cert_chain_file: example_value
+                    private_key_file: example_value
+                    ca_secret: example_value
+                    cert_required: true
+                    min_tls_version: v1.0
+                    max_tls_version: v1.0
+                    cipher_suites:
+                    - {}
+                    ecdh_curves:
+                    - {}
+                    alpn_protocols: example_value
+                    redirect_cleartext_from: 10
+                    sni: example_value
+                    ambassador_id:
+                    - {}
+      responses:
+        '201':
+          description: TLSContext created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+              examples:
+                Createtlscontext201Example:
+                  summary: Default createTLSContext 201 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hosts:
+                      - {}
+                      secret: example_value
+                      cert_chain_file: example_value
+                      private_key_file: example_value
+                      ca_secret: example_value
+                      cert_required: true
+                      min_tls_version: v1.0
+                      max_tls_version: v1.0
+                      cipher_suites:
+                      - {}
+                      ecdh_curves:
+                      - {}
+                      alpn_protocols: example_value
+                      redirect_cleartext_from: 10
+                      sni: example_value
+                      ambassador_id:
+                      - {}
+        '400':
+          description: Invalid TLSContext specification
+        '401':
+          description: Authentication required
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}:
+    get:
+      operationId: getTLSContext
+      summary: Ambassador Get a Specific Tls Context
+      description: Retrieves the specification of a specific TLSContext resource.
+      tags:
+      - TLSContexts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: TLSContext retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+              examples:
+                Gettlscontext200Example:
+                  summary: Default getTLSContext 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hosts:
+                      - {}
+                      secret: example_value
+                      cert_chain_file: example_value
+                      private_key_file: example_value
+                      ca_secret: example_value
+                      cert_required: true
+                      min_tls_version: v1.0
+                      max_tls_version: v1.0
+                      cipher_suites:
+                      - {}
+                      ecdh_curves:
+                      - {}
+                      alpn_protocols: example_value
+                      redirect_cleartext_from: 10
+                      sni: example_value
+                      ambassador_id:
+                      - {}
+        '401':
+          description: Authentication required
+        '404':
+          description: TLSContext not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateTLSContext
+      summary: Ambassador Update a Tls Context
+      description: Replaces an existing TLSContext resource with the provided specification.
+      tags:
+      - TLSContexts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSContext'
+            examples:
+              UpdatetlscontextRequestExample:
+                summary: Default updateTLSContext request
+                x-microcks-default: true
+                value:
+                  apiVersion: example_value
+                  kind: example_value
+                  metadata:
+                    name: Example Title
+                    namespace: example_value
+                    labels: example_value
+                    annotations: example_value
+                    creationTimestamp: '2026-01-15T10:30:00Z'
+                    generation: 10
+                    resourceVersion: example_value
+                    uid: '500123'
+                  spec:
+                    hosts:
+                    - {}
+                    secret: example_value
+                    cert_chain_file: example_value
+                    private_key_file: example_value
+                    ca_secret: example_value
+                    cert_required: true
+                    min_tls_version: v1.0
+                    max_tls_version: v1.0
+                    cipher_suites:
+                    - {}
+                    ecdh_curves:
+                    - {}
+                    alpn_protocols: example_value
+                    redirect_cleartext_from: 10
+                    sni: example_value
+                    ambassador_id:
+                    - {}
+      responses:
+        '200':
+          description: TLSContext updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+              examples:
+                Updatetlscontext200Example:
+                  summary: Default updateTLSContext 200 response
+                  x-microcks-default: true
+                  value:
+                    apiVersion: example_value
+                    kind: example_value
+                    metadata:
+                      name: Example Title
+                      namespace: example_value
+                      labels: example_value
+                      annotations: example_value
+                      creationTimestamp: '2026-01-15T10:30:00Z'
+                      generation: 10
+                      resourceVersion: example_value
+                      uid: '500123'
+                    spec:
+                      hosts:
+                      - {}
+                      secret: example_value
+                      cert_chain_file: example_value
+                      private_key_file: example_value
+                      ca_secret: example_value
+                      cert_required: true
+                      min_tls_version: v1.0
+                      max_tls_version: v1.0
+                      cipher_suites:
+                      - {}
+                      ecdh_curves:
+                      - {}
+                      alpn_protocols: example_value
+                      redirect_cleartext_from: 10
+                      sni: example_value
+                      ambassador_id:
+                      - {}
+        '400':
+          description: Invalid TLSContext specification
+        '401':
+          description: Authentication required
+        '404':
+          description: TLSContext not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteTLSContext
+      summary: Ambassador Delete a Tls Context
+      description: Deletes a specific TLSContext resource.
+      tags:
+      - TLSContexts
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/ResourceName'
+      responses:
+        '200':
+          description: TLSContext deleted successfully
+        '401':
+          description: Authentication required
+        '404':
+          description: TLSContext not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TLSContextList:
+      type: object
+      description: List of TLSContext resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: TLSContextList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSContext'
+          example: []
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
+    TLSContext:
+      type: object
+      description: An Ambassador TLSContext resource that configures TLS settings for inbound or outbound connections, including certificates, protocols, and cipher suites.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: TLSContext
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/TLSContextSpec'
+    TLSContextSpec:
+      type: object
+      description: Specification for a TLSContext resource
+      properties:
+        hosts:
+          type: array
+          description: Hostnames this TLSContext applies to
+          items:
+            type: string
+          example: []
+        secret:
+          type: string
+          description: Name of the Kubernetes Secret containing TLS certificates
+          example: example_value
+        cert_chain_file:
+          type: string
+          description: Path to the certificate chain PEM file (alternative to secret)
+          example: example_value
+        private_key_file:
+          type: string
+          description: Path to the private key PEM file (alternative to secret)
+          example: example_value
+        ca_secret:
+          type: string
+          description: Name of the Kubernetes Secret containing CA certificates for client verification
+          example: example_value
+        cert_required:
+          type: boolean
+          description: Whether client TLS certificates are required (mTLS)
+          default: false
+          example: true
+        min_tls_version:
+          type: string
+          description: Minimum TLS version to accept
+          enum:
+          - v1.0
+          - v1.1
+          - v1.2
+          - v1.3
+          default: v1.2
+          example: v1.0
+        max_tls_version:
+          type: string
+          description: Maximum TLS version to accept
+          enum:
+          - v1.0
+          - v1.1
+          - v1.2
+          - v1.3
+          default: v1.3
+          example: v1.0
+        cipher_suites:
+          type: array
+          description: Allowed TLS cipher suites
+          items:
+            type: string
+          example: []
+        ecdh_curves:
+          type: array
+          description: Allowed ECDH curves
+          items:
+            type: string
+          example: []
+        alpn_protocols:
+          type: string
+          description: ALPN protocols to advertise
+          example: example_value
+        redirect_cleartext_from:
+          type: integer
+          description: Port number from which to redirect cleartext traffic to TLS
+          example: 10
+        sni:
+          type: string
+          description: SNI hostname to present for outbound TLS connections
+          example: example_value
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should use this TLSContext
+          items:
+            type: string
+          example: '500123'
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Tokens are managed through the Ambassador Edge Stack management interface or Kubernetes service account tokens.
+externalDocs:
+  description: Ambassador Edge Stack Documentation
+  url: https://www.getambassador.io/docs/edge-stack/latest/
