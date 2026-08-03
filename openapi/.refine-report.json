@@ -1,0 +1,24 @@
+{
+  "provider": "ambassador",
+  "sources": [
+    "ambassador-diagnostics-api-openapi.yml",
+    "ambassador-hosts-api-openapi.yml",
+    "ambassador-mappings-api-openapi.yml",
+    "ambassador-modules-api-openapi.yml",
+    "ambassador-ratelimits-api-openapi.yml",
+    "ambassador-tlscontexts-api-openapi.yml"
+  ],
+  "outputs": [
+    "ambassador-diagnostics-api-openapi.yml",
+    "ambassador-hosts-api-openapi.yml",
+    "ambassador-mappings-api-openapi.yml",
+    "ambassador-modules-api-openapi.yml",
+    "ambassador-ratelimits-api-openapi.yml",
+    "ambassador-tlscontexts-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
