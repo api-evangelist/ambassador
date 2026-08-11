@@ -362,6 +362,13 @@ accessModel:
 image: https://www.getambassador.io/images/ambassador-logo.png
 access: 3rd-Party
 common:
+  - type: IssueTracker
+    url: https://github.com/datawire/edge-stack/issues
+  - type: Releases
+    url: https://github.com/datawire/edge-stack/releases
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/datawire/edge-stack/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/ambassador-agentic-access.yml
   - type: DomainSecurity
