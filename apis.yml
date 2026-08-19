@@ -482,4 +482,4 @@ maintainers:
   - name: Ambassador Labs (Datawire)
     email: support@datawire.io
     url: https://www.getambassador.io
-specificationVersion: '0.19'
+specificationVersion: '0.23'
