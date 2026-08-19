@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambassador Edge Stack Diagnostics API",
+    "version": "3.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Diagnostics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador Retrieve Diagnostic Overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/ambassador/v0/diag"
+          },
+          "docs": "Returns a comprehensive diagnostic overview of the Ambassador instance including active configuration, cluster state, Envoy status, and any configuration errors or warnings."
+        },
+        {
+          "info": {
+            "name": "Ambassador Readiness Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/ambassador/v0/check_ready"
+          },
+          "docs": "Returns whether Ambassador is ready to serve traffic. Used by Kubernetes readiness probes."
+        },
+        {
+          "info": {
+            "name": "Ambassador Liveness Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/ambassador/v0/check_alive"
+          },
+          "docs": "Returns whether the Ambassador process is alive. Used by Kubernetes liveness probes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

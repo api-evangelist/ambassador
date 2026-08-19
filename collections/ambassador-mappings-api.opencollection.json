@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambassador Edge Stack Diagnostics Mappings API",
+    "version": "3.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mappings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Mappings in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return"
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Mapping resources in the specified Kubernetes namespace. Mappings associate URL prefixes or exact paths with backend services and configure routing behavior."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Mapping resource in the specified namespace. A Mapping defines how requests matching a URL prefix, path, or header should be routed to a backend service."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the full specification and status of a specific Mapping resource identified by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing Mapping resource with the provided specification. The full Mapping object must be provided."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific Mapping resource. Any traffic previously routed by this Mapping will no longer be handled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

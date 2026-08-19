@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambassador Edge Stack Diagnostics RateLimits API",
+    "version": "3.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RateLimits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Ratelimit Resources in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              }
+            ]
+          },
+          "docs": "Returns a list of all RateLimit resources in the specified namespace. RateLimits define rate limiting policies using labels and descriptors that control request throughput to backend services."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new RateLimit resource in the specified namespace. RateLimits define rate limiting policies using domain, descriptors, and rate values to control traffic flow."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the specification of a specific RateLimit resource."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing RateLimit resource with the provided specification."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Ratelimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific RateLimit resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

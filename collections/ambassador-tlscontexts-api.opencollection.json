@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambassador Edge Stack Diagnostics TLSContexts API",
+    "version": "3.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLSContexts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ambassador List All Tls Contexts in a Namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "labelSelector",
+                "value": "app=my-service",
+                "type": "query",
+                "description": "Kubernetes label selector to filter resources"
+              }
+            ]
+          },
+          "docs": "Returns a list of all TLSContext resources in the specified namespace. TLSContexts configure TLS settings such as certificates, protocols, and cipher suites."
+        },
+        {
+          "info": {
+            "name": "Ambassador Create a New Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new TLSContext resource specifying TLS certificates, protocol versions, and cipher suite configuration."
+        },
+        {
+          "info": {
+            "name": "Ambassador Get a Specific Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the specification of a specific TLSContext resource."
+        },
+        {
+          "info": {
+            "name": "Ambassador Update a Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing TLSContext resource with the provided specification."
+        },
+        {
+          "info": {
+            "name": "Ambassador Delete a Tls Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{ambassador-host}:8877/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "default",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a specific TLSContext resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
