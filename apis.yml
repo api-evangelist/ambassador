@@ -23,6 +23,13 @@ apis:
   - Gateways
   - Ingress
   - Kubernetes
+  - Open-Source
+  tags_raw:
+  - CNCF
+  - Envoy
+  - Gateways
+  - Ingress
+  - Kubernetes
   - Open Source
   humanURL: https://www.getambassador.io/docs/emissary
   properties:
@@ -268,6 +275,8 @@ apis:
     and descriptors.
   humanURL: https://www.getambassador.io/
   tags:
+  - Rate Limits
+  tags_raw:
   - RateLimits
   properties:
   - type: OpenAPI
