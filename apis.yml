@@ -275,7 +275,7 @@ apis:
     and descriptors.
   humanURL: https://www.getambassador.io/
   tags:
-  - Rate Limits
+  - RateLimits
   tags_raw:
   - RateLimits
   properties:
