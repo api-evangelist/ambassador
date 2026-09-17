@@ -268,19 +268,17 @@ apis:
     url: https://www.getambassador.io/docs/edge-stack/latest/tutorials/quickstart-demo
   - type: GitHubRepository
     url: https://github.com/datawire/edge-stack
-- aid: ambassador:ambassador-ratelimits-api
-  name: Ambassador RateLimits API
+- aid: ambassador:ambassador-tlscontexts-api
+  name: Ambassador TLSContexts API
   description: >-
-    Manage rate limiting configuration for controlling request throughput to backend services using labels
-    and descriptors.
+    Manage TLSContext resources that configure TLS settings for Ambassador, including certificates, protocols,
+    and cipher suites.
   humanURL: https://www.getambassador.io/
   tags:
-  - Rate Limits
-  tags_raw:
-  - RateLimits
+  - TLSContexts
   properties:
   - type: OpenAPI
-    url: openapi/ambassador-ratelimits-api-openapi.yml
+    url: openapi/ambassador-tlscontexts-api-openapi.yml
   - type: Documentation
     url: https://www.getambassador.io/products/edge-stack/api-gateway
   - type: GettingStarted
@@ -307,17 +305,17 @@ apis:
     url: https://www.getambassador.io/docs/edge-stack/latest/tutorials/quickstart-demo
   - type: GitHubRepository
     url: https://github.com/datawire/edge-stack
-- aid: ambassador:ambassador-tlscontexts-api
-  name: Ambassador TLSContexts API
+- aid: ambassador:ambassador-rate-limits-api
+  name: Ambassador Rate Limits API
   description: >-
-    Manage TLSContext resources that configure TLS settings for Ambassador, including certificates, protocols,
-    and cipher suites.
+    Manage rate limiting configuration for controlling request throughput to backend services using labels
+    and descriptors.
   humanURL: https://www.getambassador.io/
   tags:
-  - TLSContexts
+  - Rate Limits
   properties:
   - type: OpenAPI
-    url: openapi/ambassador-tlscontexts-api-openapi.yml
+    url: openapi/ambassador-rate-limits-api-openapi.yml
   - type: Documentation
     url: https://www.getambassador.io/products/edge-stack/api-gateway
   - type: GettingStarted
