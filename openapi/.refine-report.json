@@ -1,12 +1,7 @@
 {
   "provider": "ambassador",
   "sources": [
-    "ambassador-diagnostics-api-openapi.yml",
-    "ambassador-hosts-api-openapi.yml",
-    "ambassador-mappings-api-openapi.yml",
-    "ambassador-modules-api-openapi.yml",
-    "ambassador-ratelimits-api-openapi.yml",
-    "ambassador-tlscontexts-api-openapi.yml"
+    "_original/ambassador-openapi.yml"
   ],
   "outputs": [
     "ambassador-diagnostics-api-openapi.yml",
@@ -16,9 +11,23 @@
     "ambassador-ratelimits-api-openapi.yml",
     "ambassador-tlscontexts-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ambassador-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: ambassador-rate-limits-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 11 total)"
+  ],
+  "skipped": [
+    "ambassador-diagnostics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambassador-hosts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambassador-mappings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambassador-modules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambassador-rate-limits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambassador-tlscontexts-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

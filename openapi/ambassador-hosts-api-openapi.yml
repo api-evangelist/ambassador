@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ambassador Edge Stack Diagnostics Hosts API
+  title: Ambassador Edge Stack Hosts API
   description: API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.
   version: 3.x
   contact:
@@ -366,6 +366,133 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
+    HostStatus:
+      type: object
+      description: Status information for a Host resource
+      properties:
+        state:
+          type: string
+          description: Current state of the Host
+          enum:
+          - Initial
+          - Pending
+          - Ready
+          - Error
+          example: Initial
+        phaseCompleted:
+          type: string
+          description: Last completed phase of the Host lifecycle
+          enum:
+          - NA
+          - DefaultsFilled
+          - ACMEUserPrivateKeyCreated
+          - ACMEUserRegistered
+          - ACMECertificateChallenge
+          example: NA
+        errorReason:
+          type: string
+          description: Description of any error state
+          example: example_value
+        tlsCertificateSource:
+          type: string
+          description: Source of the TLS certificate
+          enum:
+          - None
+          - ACME
+          - Other
+          example: None
+    HostList:
+      type: object
+      description: List of Host resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: HostList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Host'
+          example: []
+    Host:
+      type: object
+      description: An Ambassador Host resource that configures how Ambassador handles requests for a specific hostname, including TLS termination and ACME certificate management.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: Host
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
     HostSpec:
       type: object
       description: Specification for an Ambassador Host
@@ -447,142 +574,7 @@ components:
               additionalProperties:
                 type: string
           example: example_value
-    HostList:
-      type: object
-      description: List of Host resources
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: HostList
-          example: example_value
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-          example: example_value
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Host'
-          example: []
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata
-      properties:
-        name:
-          type: string
-          description: Name of the resource, unique within a namespace
-          example: Example Title
-        namespace:
-          type: string
-          description: Kubernetes namespace the resource belongs to
-          example: example_value
-        labels:
-          type: object
-          description: Key-value pairs for organizing and selecting resources
-          additionalProperties:
-            type: string
-          example: example_value
-        annotations:
-          type: object
-          description: Key-value pairs for storing arbitrary non-identifying metadata
-          additionalProperties:
-            type: string
-          example: example_value
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the resource was created
-          example: '2026-01-15T10:30:00Z'
-        generation:
-          type: integer
-          description: Sequence number representing a specific generation of the resource
-          example: 10
-        resourceVersion:
-          type: string
-          description: Opaque value for optimistic concurrency control
-          example: example_value
-        uid:
-          type: string
-          description: Unique identifier for the resource
-          example: '500123'
-      required:
-      - name
-      - namespace
-    HostStatus:
-      type: object
-      description: Status information for a Host resource
-      properties:
-        state:
-          type: string
-          description: Current state of the Host
-          enum:
-          - Initial
-          - Pending
-          - Ready
-          - Error
-          example: Initial
-        phaseCompleted:
-          type: string
-          description: Last completed phase of the Host lifecycle
-          enum:
-          - NA
-          - DefaultsFilled
-          - ACMEUserPrivateKeyCreated
-          - ACMEUserRegistered
-          - ACMECertificateChallenge
-          example: NA
-        errorReason:
-          type: string
-          description: Description of any error state
-          example: example_value
-        tlsCertificateSource:
-          type: string
-          description: Source of the TLS certificate
-          enum:
-          - None
-          - ACME
-          - Other
-          example: None
-    Host:
-      type: object
-      description: An Ambassador Host resource that configures how Ambassador handles requests for a specific hostname, including TLS termination and ACME certificate management.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: Host
-          example: example_value
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/HostSpec'
-        status:
-          $ref: '#/components/schemas/HostStatus'
   parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
     Limit:
       name: limit
       in: query
@@ -591,6 +583,21 @@ components:
       schema:
         type: integer
         minimum: 1
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continuation token for paginated results
+      schema:
+        type: string
     ResourceName:
       name: name
       in: path
@@ -606,13 +613,6 @@ components:
       schema:
         type: string
       example: app=my-service
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continuation token for paginated results
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
