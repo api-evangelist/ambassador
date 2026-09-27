@@ -23,7 +23,7 @@ apis:
   - Gateways
   - Ingress
   - Kubernetes
-  - Open-Source
+  - Open Source
   tags_raw:
   - CNCF
   - Envoy
@@ -31,6 +31,7 @@ apis:
   - Ingress
   - Kubernetes
   - Open Source
+  - Open-Source
   humanURL: https://www.getambassador.io/docs/emissary
   properties:
   - url: https://www.getambassador.io/docs/emissary

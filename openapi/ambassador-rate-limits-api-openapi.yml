@@ -269,7 +269,73 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
   schemas:
+    RateLimitRule:
+      type: object
+      description: A single rate limiting rule with a pattern and rate
+      required:
+      - pattern
+      - rate
+      properties:
+        pattern:
+          type: array
+          description: Descriptor entries to match against. Each entry is a key-value pair that must match the labels sent with the request.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+          - generic_key: my-rate-limit
+        rate:
+          type: integer
+          description: Maximum number of requests allowed in the specified unit of time
+          minimum: 1
+          example: 10
+        unit:
+          type: string
+          description: Time unit for the rate limit
+          enum:
+          - second
+          - minute
+          - hour
+          - day
+          default: minute
+          example: second
+        injectRequestHeaders:
+          type: array
+          description: Headers to inject into the request when the rate limit is applied
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+          example: []
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata
@@ -314,6 +380,27 @@ components:
       required:
       - name
       - namespace
+    RateLimit:
+      type: object
+      description: An Ambassador RateLimit resource that defines rate limiting policies using descriptors and rate values. Works with the built-in Ambassador Edge Stack rate limiting service.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: RateLimit
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RateLimitSpec'
     RateLimitList:
       type: object
       description: List of RateLimit resources
@@ -339,48 +426,6 @@ components:
           items:
             $ref: '#/components/schemas/RateLimit'
           example: []
-    RateLimitRule:
-      type: object
-      description: A single rate limiting rule with a pattern and rate
-      required:
-      - pattern
-      - rate
-      properties:
-        pattern:
-          type: array
-          description: Descriptor entries to match against. Each entry is a key-value pair that must match the labels sent with the request.
-          items:
-            type: object
-            additionalProperties:
-              type: string
-          example:
-          - generic_key: my-rate-limit
-        rate:
-          type: integer
-          description: Maximum number of requests allowed in the specified unit of time
-          minimum: 1
-          example: 10
-        unit:
-          type: string
-          description: Time unit for the rate limit
-          enum:
-          - second
-          - minute
-          - hour
-          - day
-          default: minute
-          example: second
-        injectRequestHeaders:
-          type: array
-          description: Headers to inject into the request when the rate limit is applied
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
-          example: []
     RateLimitSpec:
       type: object
       description: Specification for a RateLimit resource
@@ -398,51 +443,6 @@ components:
           items:
             $ref: '#/components/schemas/RateLimitRule'
           example: []
-    RateLimit:
-      type: object
-      description: An Ambassador RateLimit resource that defines rate limiting policies using descriptors and rate values. Works with the built-in Ambassador Edge Stack rate limiting service.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: RateLimit
-          example: example_value
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/RateLimitSpec'
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Kubernetes label selector to filter resources
-      schema:
-        type: string
-      example: app=my-service
   securitySchemes:
     bearerAuth:
       type: http

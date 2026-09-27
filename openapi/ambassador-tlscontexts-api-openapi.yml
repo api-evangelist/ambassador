@@ -344,7 +344,56 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
   schemas:
+    TLSContextList:
+      type: object
+      description: List of TLSContext resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: TLSContextList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSContext'
+          example: []
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata
@@ -389,31 +438,6 @@ components:
       required:
       - name
       - namespace
-    TLSContextList:
-      type: object
-      description: List of TLSContext resources
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: TLSContextList
-          example: example_value
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-          example: example_value
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TLSContext'
-          example: []
     TLSContextSpec:
       type: object
       description: Specification for a TLSContext resource
@@ -516,30 +540,6 @@ components:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
           $ref: '#/components/schemas/TLSContextSpec'
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Kubernetes label selector to filter resources
-      schema:
-        type: string
-      example: app=my-service
   securitySchemes:
     bearerAuth:
       type: http

@@ -365,86 +365,46 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continuation token for paginated results
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return
+      schema:
+        type: integer
+        minimum: 1
   schemas:
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata
-      properties:
-        name:
-          type: string
-          description: Name of the resource, unique within a namespace
-          example: Example Title
-        namespace:
-          type: string
-          description: Kubernetes namespace the resource belongs to
-          example: example_value
-        labels:
-          type: object
-          description: Key-value pairs for organizing and selecting resources
-          additionalProperties:
-            type: string
-          example: example_value
-        annotations:
-          type: object
-          description: Key-value pairs for storing arbitrary non-identifying metadata
-          additionalProperties:
-            type: string
-          example: example_value
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the resource was created
-          example: '2026-01-15T10:30:00Z'
-        generation:
-          type: integer
-          description: Sequence number representing a specific generation of the resource
-          example: 10
-        resourceVersion:
-          type: string
-          description: Opaque value for optimistic concurrency control
-          example: example_value
-        uid:
-          type: string
-          description: Unique identifier for the resource
-          example: '500123'
-      required:
-      - name
-      - namespace
-    HostStatus:
-      type: object
-      description: Status information for a Host resource
-      properties:
-        state:
-          type: string
-          description: Current state of the Host
-          enum:
-          - Initial
-          - Pending
-          - Ready
-          - Error
-          example: Initial
-        phaseCompleted:
-          type: string
-          description: Last completed phase of the Host lifecycle
-          enum:
-          - NA
-          - DefaultsFilled
-          - ACMEUserPrivateKeyCreated
-          - ACMEUserRegistered
-          - ACMECertificateChallenge
-          example: NA
-        errorReason:
-          type: string
-          description: Description of any error state
-          example: example_value
-        tlsCertificateSource:
-          type: string
-          description: Source of the TLS certificate
-          enum:
-          - None
-          - ACME
-          - Other
-          example: None
     HostList:
       type: object
       description: List of Host resources
@@ -493,6 +453,41 @@ components:
           $ref: '#/components/schemas/HostSpec'
         status:
           $ref: '#/components/schemas/HostStatus'
+    HostStatus:
+      type: object
+      description: Status information for a Host resource
+      properties:
+        state:
+          type: string
+          description: Current state of the Host
+          enum:
+          - Initial
+          - Pending
+          - Ready
+          - Error
+          example: Initial
+        phaseCompleted:
+          type: string
+          description: Last completed phase of the Host lifecycle
+          enum:
+          - NA
+          - DefaultsFilled
+          - ACMEUserPrivateKeyCreated
+          - ACMEUserRegistered
+          - ACMECertificateChallenge
+          example: NA
+        errorReason:
+          type: string
+          description: Description of any error state
+          example: example_value
+        tlsCertificateSource:
+          type: string
+          description: Source of the TLS certificate
+          enum:
+          - None
+          - ACME
+          - Other
+          example: None
     HostSpec:
       type: object
       description: Specification for an Ambassador Host
@@ -574,45 +569,50 @@ components:
               additionalProperties:
                 type: string
           example: example_value
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return
-      schema:
-        type: integer
-        minimum: 1
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continuation token for paginated results
-      schema:
-        type: string
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Kubernetes label selector to filter resources
-      schema:
-        type: string
-      example: app=my-service
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
   securitySchemes:
     bearerAuth:
       type: http
