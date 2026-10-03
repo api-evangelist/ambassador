@@ -269,31 +269,32 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Kubernetes label selector to filter resources
-      schema:
-        type: string
-      example: app=my-service
   schemas:
+    RateLimitList:
+      type: object
+      description: List of RateLimit resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: RateLimitList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          example: []
     RateLimitRule:
       type: object
       description: A single rate limiting rule with a pattern and rate
@@ -335,6 +336,23 @@ components:
                 type: string
               value:
                 type: string
+          example: []
+    RateLimitSpec:
+      type: object
+      description: Specification for a RateLimit resource
+      required:
+      - domain
+      - limits
+      properties:
+        domain:
+          type: string
+          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
+          example: ambassador
+        limits:
+          type: array
+          description: List of rate limit rules
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
           example: []
     ObjectMeta:
       type: object
@@ -401,48 +419,30 @@ components:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
           $ref: '#/components/schemas/RateLimitSpec'
-    RateLimitList:
-      type: object
-      description: List of RateLimit resources
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: RateLimitList
-          example: example_value
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-          example: example_value
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimit'
-          example: []
-    RateLimitSpec:
-      type: object
-      description: Specification for a RateLimit resource
-      required:
-      - domain
-      - limits
-      properties:
-        domain:
-          type: string
-          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
-          example: ambassador
-        limits:
-          type: array
-          description: List of rate limit rules
-          items:
-            $ref: '#/components/schemas/RateLimitRule'
-          example: []
+  parameters:
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
   securitySchemes:
     bearerAuth:
       type: http

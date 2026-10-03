@@ -180,6 +180,27 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Module:
+      type: object
+      description: An Ambassador Module resource for configuring global Ambassador settings such as diagnostics, tracing, circuit breaking defaults, and retry policies.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: Module
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ModuleSpec'
     ModuleSpec:
       type: object
       description: Specification for a Module resource
@@ -264,27 +285,6 @@ components:
           items:
             $ref: '#/components/schemas/Module'
           example: []
-    Module:
-      type: object
-      description: An Ambassador Module resource for configuring global Ambassador settings such as diagnostics, tracing, circuit breaking defaults, and retry policies.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: Module
-          example: example_value
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/ModuleSpec'
   parameters:
     ResourceName:
       name: name
