@@ -295,65 +295,6 @@ components:
           items:
             $ref: '#/components/schemas/RateLimit'
           example: []
-    RateLimitRule:
-      type: object
-      description: A single rate limiting rule with a pattern and rate
-      required:
-      - pattern
-      - rate
-      properties:
-        pattern:
-          type: array
-          description: Descriptor entries to match against. Each entry is a key-value pair that must match the labels sent with the request.
-          items:
-            type: object
-            additionalProperties:
-              type: string
-          example:
-          - generic_key: my-rate-limit
-        rate:
-          type: integer
-          description: Maximum number of requests allowed in the specified unit of time
-          minimum: 1
-          example: 10
-        unit:
-          type: string
-          description: Time unit for the rate limit
-          enum:
-          - second
-          - minute
-          - hour
-          - day
-          default: minute
-          example: second
-        injectRequestHeaders:
-          type: array
-          description: Headers to inject into the request when the rate limit is applied
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
-          example: []
-    RateLimitSpec:
-      type: object
-      description: Specification for a RateLimit resource
-      required:
-      - domain
-      - limits
-      properties:
-        domain:
-          type: string
-          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
-          example: ambassador
-        limits:
-          type: array
-          description: List of rate limit rules
-          items:
-            $ref: '#/components/schemas/RateLimitRule'
-          example: []
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata
@@ -419,14 +360,66 @@ components:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
           $ref: '#/components/schemas/RateLimitSpec'
+    RateLimitRule:
+      type: object
+      description: A single rate limiting rule with a pattern and rate
+      required:
+      - pattern
+      - rate
+      properties:
+        pattern:
+          type: array
+          description: Descriptor entries to match against. Each entry is a key-value pair that must match the labels sent with the request.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+          - generic_key: my-rate-limit
+        rate:
+          type: integer
+          description: Maximum number of requests allowed in the specified unit of time
+          minimum: 1
+          example: 10
+        unit:
+          type: string
+          description: Time unit for the rate limit
+          enum:
+          - second
+          - minute
+          - hour
+          - day
+          default: minute
+          example: second
+        injectRequestHeaders:
+          type: array
+          description: Headers to inject into the request when the rate limit is applied
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+          example: []
+    RateLimitSpec:
+      type: object
+      description: Specification for a RateLimit resource
+      required:
+      - domain
+      - limits
+      properties:
+        domain:
+          type: string
+          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
+          example: ambassador
+        limits:
+          type: array
+          description: List of rate limit rules
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
+          example: []
   parameters:
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
     Namespace:
       name: namespace
       in: path
@@ -435,6 +428,13 @@ components:
       schema:
         type: string
       example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
     LabelSelector:
       name: labelSelector
       in: query

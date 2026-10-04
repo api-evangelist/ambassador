@@ -179,43 +179,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
   schemas:
-    Module:
-      type: object
-      description: An Ambassador Module resource for configuring global Ambassador settings such as diagnostics, tracing, circuit breaking defaults, and retry policies.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: Module
-          example: example_value
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/ModuleSpec'
-    ModuleSpec:
-      type: object
-      description: Specification for a Module resource
-      properties:
-        config:
-          type: object
-          description: Module configuration. The shape depends on the module name (e.g., ambassador, authentication, tracing).
-          additionalProperties: true
-          example: example_value
-        ambassador_id:
-          type: array
-          description: Ambassador IDs that should apply this Module
-          items:
-            type: string
-          example: '500123'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata
@@ -260,6 +240,27 @@ components:
       required:
       - name
       - namespace
+    Module:
+      type: object
+      description: An Ambassador Module resource for configuring global Ambassador settings such as diagnostics, tracing, circuit breaking defaults, and retry policies.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: Module
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ModuleSpec'
     ModuleList:
       type: object
       description: List of Module resources
@@ -285,22 +286,21 @@ components:
           items:
             $ref: '#/components/schemas/Module'
           example: []
-  parameters:
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
+    ModuleSpec:
+      type: object
+      description: Specification for a Module resource
+      properties:
+        config:
+          type: object
+          description: Module configuration. The shape depends on the module name (e.g., ambassador, authentication, tracing).
+          additionalProperties: true
+          example: example_value
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should apply this Module
+          items:
+            type: string
+          example: '500123'
   securitySchemes:
     bearerAuth:
       type: http
