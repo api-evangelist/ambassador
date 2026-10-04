@@ -353,6 +353,7 @@ tags:
   - Mocks
   - Platform
   - Testing
+  - API Gateway
 kind: contract
 deliveryModel:
   model: open-core
