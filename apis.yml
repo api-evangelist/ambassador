@@ -386,6 +386,10 @@ accessModel:
 image: https://www.getambassador.io/images/ambassador-logo.png
 access: 3rd-Party
 common:
+  - type: Plans
+    url: plans/ambassador-plans-pricing.yml
+  - type: FinOps
+    url: finops/ambassador-finops.yml
   - type: IssueTracker
     url: https://github.com/datawire/edge-stack/issues
   - type: Releases
