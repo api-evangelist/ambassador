@@ -152,3 +152,51 @@ maintainers:
   - name: Gravitee (Ambassador Labs)
     email: support@gravitee.io
     url: https://www.gravitee.io
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  - object
+  - period
+  plans:
+  - name: Emissary-Ingress / Telepresence (Open Source)
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - object
+    periods:
+    - per-use
+  - name: Edge Stack - Planet
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    - period
+    periods:
+    - month
+    - per-use
+  - name: Edge Stack - Galaxy
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    - other
+    periods:
+    - per-use
+    - year
+  - name: Edge Stack - Universe
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    - other
+    periods:
+    - per-use
+    - year
