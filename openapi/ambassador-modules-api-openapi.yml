@@ -179,22 +179,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
   schemas:
     ObjectMeta:
       type: object
@@ -261,6 +245,21 @@ components:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
           $ref: '#/components/schemas/ModuleSpec'
+    ModuleSpec:
+      type: object
+      description: Specification for a Module resource
+      properties:
+        config:
+          type: object
+          description: Module configuration. The shape depends on the module name (e.g., ambassador, authentication, tracing).
+          additionalProperties: true
+          example: example_value
+        ambassador_id:
+          type: array
+          description: Ambassador IDs that should apply this Module
+          items:
+            type: string
+          example: '500123'
     ModuleList:
       type: object
       description: List of Module resources
@@ -286,21 +285,22 @@ components:
           items:
             $ref: '#/components/schemas/Module'
           example: []
-    ModuleSpec:
-      type: object
-      description: Specification for a Module resource
-      properties:
-        config:
-          type: object
-          description: Module configuration. The shape depends on the module name (e.g., ambassador, authentication, tracing).
-          additionalProperties: true
-          example: example_value
-        ambassador_id:
-          type: array
-          description: Ambassador IDs that should apply this Module
-          items:
-            type: string
-          example: '500123'
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

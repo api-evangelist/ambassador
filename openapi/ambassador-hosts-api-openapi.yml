@@ -447,6 +447,31 @@ components:
               additionalProperties:
                 type: string
           example: example_value
+    HostList:
+      type: object
+      description: List of Host resources
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: HostList
+          example: example_value
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Host'
+          example: []
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata
@@ -491,6 +516,29 @@ components:
       required:
       - name
       - namespace
+    Host:
+      type: object
+      description: An Ambassador Host resource that configures how Ambassador handles requests for a specific hostname, including TLS termination and ACME certificate management.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: Host
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
     HostStatus:
       type: object
       description: Status information for a Host resource
@@ -526,85 +574,7 @@ components:
           - ACME
           - Other
           example: None
-    Host:
-      type: object
-      description: An Ambassador Host resource that configures how Ambassador handles requests for a specific hostname, including TLS termination and ACME certificate management.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: Host
-          example: example_value
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/HostSpec'
-        status:
-          $ref: '#/components/schemas/HostStatus'
-    HostList:
-      type: object
-      description: List of Host resources
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: HostList
-          example: example_value
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-          example: example_value
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Host'
-          example: []
   parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return
-      schema:
-        type: integer
-        minimum: 1
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continuation token for paginated results
-      schema:
-        type: string
     LabelSelector:
       name: labelSelector
       in: query
@@ -613,6 +583,36 @@ components:
       schema:
         type: string
       example: app=my-service
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continuation token for paginated results
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return
+      schema:
+        type: integer
+        minimum: 1
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

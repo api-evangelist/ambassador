@@ -344,15 +344,34 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
   schemas:
-    TLSContext:
+    TLSContextList:
       type: object
-      description: An Ambassador TLSContext resource that configures TLS settings for inbound or outbound connections, including certificates, protocols, and cipher suites.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
+      description: List of TLSContext resources
       properties:
         apiVersion:
           type: string
@@ -360,56 +379,21 @@ components:
           example: example_value
         kind:
           type: string
-          const: TLSContext
+          const: TLSContextList
           example: example_value
         metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/TLSContextSpec'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata
-      properties:
-        name:
-          type: string
-          description: Name of the resource, unique within a namespace
-          example: Example Title
-        namespace:
-          type: string
-          description: Kubernetes namespace the resource belongs to
-          example: example_value
-        labels:
           type: object
-          description: Key-value pairs for organizing and selecting resources
-          additionalProperties:
-            type: string
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
           example: example_value
-        annotations:
-          type: object
-          description: Key-value pairs for storing arbitrary non-identifying metadata
-          additionalProperties:
-            type: string
-          example: example_value
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the resource was created
-          example: '2026-01-15T10:30:00Z'
-        generation:
-          type: integer
-          description: Sequence number representing a specific generation of the resource
-          example: 10
-        resourceVersion:
-          type: string
-          description: Opaque value for optimistic concurrency control
-          example: example_value
-        uid:
-          type: string
-          description: Unique identifier for the resource
-          example: '500123'
-      required:
-      - name
-      - namespace
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSContext'
+          example: []
     TLSContextSpec:
       type: object
       description: Specification for a TLSContext resource
@@ -491,9 +475,58 @@ components:
           items:
             type: string
           example: '500123'
-    TLSContextList:
+    ObjectMeta:
       type: object
-      description: List of TLSContext resources
+      description: Standard Kubernetes object metadata
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within a namespace
+          example: Example Title
+        namespace:
+          type: string
+          description: Kubernetes namespace the resource belongs to
+          example: example_value
+        labels:
+          type: object
+          description: Key-value pairs for organizing and selecting resources
+          additionalProperties:
+            type: string
+          example: example_value
+        annotations:
+          type: object
+          description: Key-value pairs for storing arbitrary non-identifying metadata
+          additionalProperties:
+            type: string
+          example: example_value
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: '2026-01-15T10:30:00Z'
+        generation:
+          type: integer
+          description: Sequence number representing a specific generation of the resource
+          example: 10
+        resourceVersion:
+          type: string
+          description: Opaque value for optimistic concurrency control
+          example: example_value
+        uid:
+          type: string
+          description: Unique identifier for the resource
+          example: '500123'
+      required:
+      - name
+      - namespace
+    TLSContext:
+      type: object
+      description: An Ambassador TLSContext resource that configures TLS settings for inbound or outbound connections, including certificates, protocols, and cipher suites.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
         apiVersion:
           type: string
@@ -501,45 +534,12 @@ components:
           example: example_value
         kind:
           type: string
-          const: TLSContextList
+          const: TLSContext
           example: example_value
         metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-          example: example_value
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TLSContext'
-          example: []
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Kubernetes label selector to filter resources
-      schema:
-        type: string
-      example: app=my-service
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/TLSContextSpec'
   securitySchemes:
     bearerAuth:
       type: http

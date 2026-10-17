@@ -269,6 +269,30 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Kubernetes label selector to filter resources
+      schema:
+        type: string
+      example: app=my-service
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+      example: default
+    ResourceName:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource
+      schema:
+        type: string
   schemas:
     RateLimitList:
       type: object
@@ -294,6 +318,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RateLimit'
+          example: []
+    RateLimitSpec:
+      type: object
+      description: Specification for a RateLimit resource
+      required:
+      - domain
+      - limits
+      properties:
+        domain:
+          type: string
+          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
+          example: ambassador
+        limits:
+          type: array
+          description: List of rate limit rules
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
           example: []
     ObjectMeta:
       type: object
@@ -339,27 +380,6 @@ components:
       required:
       - name
       - namespace
-    RateLimit:
-      type: object
-      description: An Ambassador RateLimit resource that defines rate limiting policies using descriptors and rate values. Works with the built-in Ambassador Edge Stack rate limiting service.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          const: getambassador.io/v3alpha1
-          example: example_value
-        kind:
-          type: string
-          const: RateLimit
-          example: example_value
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/RateLimitSpec'
     RateLimitRule:
       type: object
       description: A single rate limiting rule with a pattern and rate
@@ -402,47 +422,27 @@ components:
               value:
                 type: string
           example: []
-    RateLimitSpec:
+    RateLimit:
       type: object
-      description: Specification for a RateLimit resource
+      description: An Ambassador RateLimit resource that defines rate limiting policies using descriptors and rate values. Works with the built-in Ambassador Edge Stack rate limiting service.
       required:
-      - domain
-      - limits
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
-        domain:
+        apiVersion:
           type: string
-          description: Rate limiting domain that groups related rate limit configurations. Typically set to 'ambassador'.
-          example: ambassador
-        limits:
-          type: array
-          description: List of rate limit rules
-          items:
-            $ref: '#/components/schemas/RateLimitRule'
-          example: []
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-      example: default
-    ResourceName:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Kubernetes label selector to filter resources
-      schema:
-        type: string
-      example: app=my-service
+          const: getambassador.io/v3alpha1
+          example: example_value
+        kind:
+          type: string
+          const: RateLimit
+          example: example_value
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RateLimitSpec'
   securitySchemes:
     bearerAuth:
       type: http
