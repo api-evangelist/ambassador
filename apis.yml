@@ -396,6 +396,8 @@ accessModel:
 image: https://www.getambassador.io/images/ambassador-logo.png
 access: 3rd-Party
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/ambassador/overview
   - type: Plans
     url: plans/ambassador-plans-pricing.yml
   - type: FinOps
