@@ -1,0 +1,1201 @@
+{
+  "info": {
+    "_postman_id": "e5c88baf-9a65-4ff1-bb80-36a6abcfa5b8",
+    "name": "Ambassador Edge Stack Rate Limits API",
+    "description": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:26:36.000Z",
+    "updatedAt": "2026-10-22T01:26:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e5c88baf-9a65-4ff1-bb80-36a6abcfa5b8"
+  },
+  "item": [
+    {
+      "name": "apis",
+      "item": [
+        {
+          "name": "getambassador.io",
+          "item": [
+            {
+              "name": "v3alpha1",
+              "item": [
+                {
+                  "name": "namespaces",
+                  "item": [
+                    {
+                      "name": "{namespace}",
+                      "item": [
+                        {
+                          "name": "ratelimits",
+                          "item": [
+                            {
+                              "name": "{name}",
+                              "item": [
+                                {
+                                  "name": "Ambassador Get a Specific Ratelimit",
+                                  "id": "710f3d28-09ef-41a9-9ece-1dc27d6e880a",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "c50031c7-7fde-44ec-913d-8552d31ef0a9",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "99d500b1-6f3d-4372-bd70-92596177ba55",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Retrieves the specification of a specific RateLimit resource."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "32724ce0-2233-4ad9-901b-9ba0c4b18d85",
+                                      "name": "RateLimit retrieved successfully",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-32724ce0-2233-4ad9-901b-9ba0c4b18d85"
+                                    },
+                                    {
+                                      "id": "9c402a3d-707a-4ead-981c-6d91ac62b5d9",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-9c402a3d-707a-4ead-981c-6d91ac62b5d9"
+                                    },
+                                    {
+                                      "id": "4aa577e1-cf2f-4ba8-a7f4-f775df5de16f",
+                                      "name": "RateLimit not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-4aa577e1-cf2f-4ba8-a7f4-f775df5de16f"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-710f3d28-09ef-41a9-9ece-1dc27d6e880a"
+                                },
+                                {
+                                  "name": "Ambassador Update a Ratelimit",
+                                  "id": "4cb023cc-7d31-4e97-8357-ced26b69ceb1",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "226aa17a-18ce-43a5-a022-d5ffb7b15242",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "f81fdab4-4711-484f-bdc7-8b0c149cf630",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Replaces an existing RateLimit resource with the provided specification."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "0ae70f04-ec63-402a-89ce-55f3fa763a3e",
+                                      "name": "RateLimit updated successfully",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-0ae70f04-ec63-402a-89ce-55f3fa763a3e"
+                                    },
+                                    {
+                                      "id": "1198e6c4-0c2f-4bf7-91a4-7bef27f4b5da",
+                                      "name": "Invalid RateLimit specification",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-1198e6c4-0c2f-4bf7-91a4-7bef27f4b5da"
+                                    },
+                                    {
+                                      "id": "9b0967cb-de5e-44a2-9518-3e66df0428e0",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-9b0967cb-de5e-44a2-9518-3e66df0428e0"
+                                    },
+                                    {
+                                      "id": "dc7a0152-8722-46fa-bb21-9e7bbf512a96",
+                                      "name": "RateLimit not found",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-dc7a0152-8722-46fa-bb21-9e7bbf512a96"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-4cb023cc-7d31-4e97-8357-ced26b69ceb1"
+                                },
+                                {
+                                  "name": "Ambassador Delete a Ratelimit",
+                                  "id": "768da504-dcf7-47bb-ba4b-a86f00df9f98",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "DELETE",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "2df4dc8c-67e4-473b-b883-5a1a0dbad331",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "6d1a9800-39e8-4e93-9036-f2965582bbcc",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Deletes a specific RateLimit resource."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "fde6a1ec-9657-46d0-942b-1aa7b6aadf79",
+                                      "name": "RateLimit deleted successfully",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-fde6a1ec-9657-46d0-942b-1aa7b6aadf79"
+                                    },
+                                    {
+                                      "id": "915ea260-d58d-44e0-a5d6-d2d01c863731",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-915ea260-d58d-44e0-a5d6-d2d01c863731"
+                                    },
+                                    {
+                                      "id": "54a47d97-d6fe-43f3-8509-960453d39874",
+                                      "name": "RateLimit not found",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "ratelimits",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:36.000Z",
+                                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                                      "uid": "35240-54a47d97-d6fe-43f3-8509-960453d39874"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-768da504-dcf7-47bb-ba4b-a86f00df9f98"
+                                }
+                              ],
+                              "id": "871f37a6-d26b-4abf-824b-9bef6637f00e",
+                              "createdAt": "2026-10-22T01:26:36.000Z",
+                              "updatedAt": "2026-10-22T01:26:36.000Z",
+                              "uid": "35240-871f37a6-d26b-4abf-824b-9bef6637f00e"
+                            },
+                            {
+                              "name": "Ambassador List All Ratelimit Resources in a Namespace",
+                              "id": "f1eba5a0-4e62-4c3c-9855-a2a77a4541c3",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits?labelSelector=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "apis",
+                                    "getambassador.io",
+                                    "v3alpha1",
+                                    "namespaces",
+                                    ":namespace",
+                                    "ratelimits"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Kubernetes label selector to filter resources",
+                                      "key": "labelSelector",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "cafcaeb8-2482-431a-a645-deb255e12d01",
+                                      "key": "namespace",
+                                      "value": "<string>",
+                                      "description": "(Required) Kubernetes namespace"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns a list of all RateLimit resources in the specified namespace. RateLimits define rate limiting policies using labels and descriptors that control request throughput to backend services."
+                              },
+                              "response": [
+                                {
+                                  "id": "35a3584d-6641-4497-a9c2-2f9e81914219",
+                                  "name": "RateLimit list retrieved successfully",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits?labelSelector=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Kubernetes label selector to filter resources",
+                                          "key": "labelSelector",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"continue\": \"<string>\",\n    \"resourceVersion\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"metadata\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"labels\": {\n          \"non1\": \"<string>\",\n          \"ea_0\": \"<string>\"\n        },\n        \"annotations\": {\n          \"Lorem1\": \"<string>\",\n          \"proident6\": \"<string>\",\n          \"amet_9\": \"<string>\",\n          \"ad_3ee\": \"<string>\"\n        },\n        \"creationTimestamp\": \"<dateTime>\",\n        \"generation\": \"<integer>\",\n        \"resourceVersion\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"spec\": {\n        \"domain\": \"<string>\",\n        \"limits\": [\n          {\n            \"pattern\": [\n              {\n                \"dolore3d\": \"<string>\",\n                \"dolor_567\": \"<string>\"\n              },\n              {\n                \"eiusmod_c6b\": \"<string>\",\n                \"aliqua_6b4\": \"<string>\"\n              }\n            ],\n            \"rate\": \"<integer>\",\n            \"unit\": \"minute\",\n            \"injectRequestHeaders\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          },\n          {\n            \"pattern\": [\n              {\n                \"quis1\": \"<string>\",\n                \"pariatur_4c\": \"<string>\"\n              },\n              {\n                \"deseruntf\": \"<string>\"\n              }\n            ],\n            \"rate\": \"<integer>\",\n            \"unit\": \"minute\",\n            \"injectRequestHeaders\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"metadata\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"labels\": {\n          \"Utefe\": \"<string>\"\n        },\n        \"annotations\": {\n          \"ipsum71c\": \"<string>\",\n          \"sed_9de\": \"<string>\"\n        },\n        \"creationTimestamp\": \"<dateTime>\",\n        \"generation\": \"<integer>\",\n        \"resourceVersion\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"spec\": {\n        \"domain\": \"<string>\",\n        \"limits\": [\n          {\n            \"pattern\": [\n              {\n                \"in_5f\": \"<string>\",\n                \"consectetur_b8b\": \"<string>\"\n              },\n              {\n                \"pariatur_1\": \"<string>\",\n                \"elit_5\": \"<string>\"\n              }\n            ],\n            \"rate\": \"<integer>\",\n            \"unit\": \"minute\",\n            \"injectRequestHeaders\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          },\n          {\n            \"pattern\": [\n              {\n                \"culpae2\": \"<string>\",\n                \"mollit4\": \"<string>\"\n              },\n              {\n                \"quis_0\": \"<string>\",\n                \"elitd\": \"<string>\"\n              }\n            ],\n            \"rate\": \"<integer>\",\n            \"unit\": \"minute\",\n            \"injectRequestHeaders\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-35a3584d-6641-4497-a9c2-2f9e81914219"
+                                },
+                                {
+                                  "id": "68c57df0-ac08-4445-bf4b-a029184f6c18",
+                                  "name": "Authentication required",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits?labelSelector=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Kubernetes label selector to filter resources",
+                                          "key": "labelSelector",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-68c57df0-ac08-4445-bf4b-a029184f6c18"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:26:36.000Z",
+                              "updatedAt": "2026-10-22T01:26:36.000Z",
+                              "uid": "35240-f1eba5a0-4e62-4c3c-9855-a2a77a4541c3"
+                            },
+                            {
+                              "name": "Ambassador Create a New Ratelimit",
+                              "id": "3ace3e95-534e-4a29-93f9-d6c4b37a5007",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "apis",
+                                    "getambassador.io",
+                                    "v3alpha1",
+                                    "namespaces",
+                                    ":namespace",
+                                    "ratelimits"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "4e7f8f88-4596-4570-bff0-3aa6c9f03559",
+                                      "key": "namespace",
+                                      "value": "<string>",
+                                      "description": "(Required) Kubernetes namespace"
+                                    }
+                                  ]
+                                },
+                                "description": "Creates a new RateLimit resource in the specified namespace. RateLimits define rate limiting policies using domain, descriptors, and rate values to control traffic flow."
+                              },
+                              "response": [
+                                {
+                                  "id": "99d58c2e-dc2a-4b14-b92c-37e653b7fce9",
+                                  "name": "RateLimit created successfully",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-99d58c2e-dc2a-4b14-b92c-37e653b7fce9"
+                                },
+                                {
+                                  "id": "73709cf9-1a1c-4de9-a7d6-86ebc2041bcf",
+                                  "name": "Invalid RateLimit specification",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-73709cf9-1a1c-4de9-a7d6-86ebc2041bcf"
+                                },
+                                {
+                                  "id": "1479be12-6148-46c0-968a-9efa3a1be3f2",
+                                  "name": "Authentication required",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"consequat_9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"ipsum_5e\": \"<string>\",\n      \"magna_b4\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"domain\": \"<string>\",\n    \"limits\": [\n      {\n        \"pattern\": [\n          {\n            \"sed98\": \"<string>\",\n            \"nulla_4cc\": \"<string>\"\n          },\n          {\n            \"in_\": \"<string>\",\n            \"veniam_c\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"pattern\": [\n          {\n            \"in_d_\": \"<string>\"\n          },\n          {\n            \"aute619\": \"<string>\",\n            \"anim_ff\": \"<string>\"\n          }\n        ],\n        \"rate\": \"<integer>\",\n        \"unit\": \"minute\",\n        \"injectRequestHeaders\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimits",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "ratelimits"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:36.000Z",
+                                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                                  "uid": "35240-1479be12-6148-46c0-968a-9efa3a1be3f2"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:26:36.000Z",
+                              "updatedAt": "2026-10-22T01:26:36.000Z",
+                              "uid": "35240-3ace3e95-534e-4a29-93f9-d6c4b37a5007"
+                            }
+                          ],
+                          "id": "17a05bb7-8a1f-4082-b788-8529befbee50",
+                          "createdAt": "2026-10-22T01:26:36.000Z",
+                          "updatedAt": "2026-10-22T01:26:36.000Z",
+                          "uid": "35240-17a05bb7-8a1f-4082-b788-8529befbee50"
+                        }
+                      ],
+                      "id": "6d83c481-581a-4013-b98f-d4deb4273c77",
+                      "createdAt": "2026-10-22T01:26:36.000Z",
+                      "updatedAt": "2026-10-22T01:26:36.000Z",
+                      "uid": "35240-6d83c481-581a-4013-b98f-d4deb4273c77"
+                    }
+                  ],
+                  "id": "7a3a566c-c45e-45bc-a127-f51c6af2520d",
+                  "createdAt": "2026-10-22T01:26:36.000Z",
+                  "updatedAt": "2026-10-22T01:26:36.000Z",
+                  "uid": "35240-7a3a566c-c45e-45bc-a127-f51c6af2520d"
+                }
+              ],
+              "id": "b4a18afc-8af3-4b29-a428-20e6af305f2e",
+              "createdAt": "2026-10-22T01:26:36.000Z",
+              "updatedAt": "2026-10-22T01:26:36.000Z",
+              "uid": "35240-b4a18afc-8af3-4b29-a428-20e6af305f2e"
+            }
+          ],
+          "id": "ae2fbd47-e674-493d-b813-7c77b37eb70c",
+          "createdAt": "2026-10-22T01:26:36.000Z",
+          "updatedAt": "2026-10-22T01:26:36.000Z",
+          "uid": "35240-ae2fbd47-e674-493d-b813-7c77b37eb70c"
+        }
+      ],
+      "id": "51fa9d15-57fe-451e-ba31-68833c9ceb88",
+      "createdAt": "2026-10-22T01:26:36.000Z",
+      "updatedAt": "2026-10-22T01:26:36.000Z",
+      "uid": "35240-51fa9d15-57fe-451e-ba31-68833c9ceb88"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "ambassador-host",
+      "value": "localhost"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{ambassador-host}}:8877"
+    }
+  ]
+}

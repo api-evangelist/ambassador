@@ -1,845 +1,735 @@
 {
+  "info": {
+    "_postman_id": "6f7910d5-6d41-4302-a36b-3e3072014df8",
+    "name": "Ambassador Edge Stack Modules API",
+    "description": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:26:24.000Z",
+    "updatedAt": "2026-10-22T01:26:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6f7910d5-6d41-4302-a36b-3e3072014df8"
+  },
   "item": [
     {
-      "id": "225f2685-d92b-428a-99f5-3c287dc8c104",
-      "name": "Modules",
-      "description": {
-        "content": "Manage Ambassador Module resources for global configuration of the Ambassador gateway including diagnostics, tracing, and circuit breaking.",
-        "type": "text/plain"
-      },
+      "name": "apis",
       "item": [
         {
-          "id": "74882057-30e9-4823-bf2c-af9943e55e1d",
-          "name": "Ambassador List All Modules in a Namespace",
-          "request": {
-            "name": "Ambassador List All Modules in a Namespace",
-            "description": {
-              "content": "Returns a list of all Module resources in the specified namespace. Modules configure global settings for Ambassador such as diagnostics, tracing, circuit breaking, and retry policies.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "modules"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "getambassador.io",
+          "item": [
             {
-              "id": "7dcafd7c-59ab-4319-a8e1-26b2f7254e25",
-              "name": "Module list retrieved successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "v3alpha1",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "namespaces",
+                  "item": [
+                    {
+                      "name": "{namespace}",
+                      "item": [
+                        {
+                          "name": "modules",
+                          "item": [
+                            {
+                              "name": "{name}",
+                              "item": [
+                                {
+                                  "name": "Ambassador Get a Specific Module",
+                                  "id": "c7478be6-47cb-4439-bcab-fe9faabcb1f7",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "modules",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "eb16f4b5-386a-4e8b-8360-960d82923212",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "6dde82e4-b7b5-47f6-a78e-c9b984628d4e",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Retrieves the specification of a specific Module resource."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "f335e3d9-e25b-4158-959f-d575209deff6",
+                                      "name": "Module retrieved successfully",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-f335e3d9-e25b-4158-959f-d575209deff6"
+                                    },
+                                    {
+                                      "id": "d25d83e8-88b9-4d39-8f44-0b97ea77aa11",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-d25d83e8-88b9-4d39-8f44-0b97ea77aa11"
+                                    },
+                                    {
+                                      "id": "221af1ea-6dda-4c76-8c0e-609c573aec6e",
+                                      "name": "Module not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-221af1ea-6dda-4c76-8c0e-609c573aec6e"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:25.000Z",
+                                  "updatedAt": "2026-10-22T01:26:25.000Z",
+                                  "uid": "35240-c7478be6-47cb-4439-bcab-fe9faabcb1f7"
+                                },
+                                {
+                                  "name": "Ambassador Update a Module",
+                                  "id": "f7d6a4d0-8202-468b-8eef-993d346d733f",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "modules",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "176c7524-db59-49bb-8adf-925d6234e321",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "5bec4508-23f3-4f0c-8dcc-439f9e3f2aec",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Replaces an existing Module resource with the provided configuration."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "03a58352-8e8d-446e-a080-7b90366aff9e",
+                                      "name": "Module updated successfully",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-03a58352-8e8d-446e-a080-7b90366aff9e"
+                                    },
+                                    {
+                                      "id": "3c9afa9e-b3bf-45b2-b38d-902dc380bb1a",
+                                      "name": "Invalid Module specification",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-3c9afa9e-b3bf-45b2-b38d-902dc380bb1a"
+                                    },
+                                    {
+                                      "id": "10c2c53f-d97e-458b-bb5c-b6d0a98d8d66",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-10c2c53f-d97e-458b-bb5c-b6d0a98d8d66"
+                                    },
+                                    {
+                                      "id": "b1798be1-9664-4b99-8886-873960e46b84",
+                                      "name": "Module not found",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"culpa_1\": \"<string>\",\n      \"nulla5\": \"<string>\"\n    },\n    \"annotations\": {\n      \"do041\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"mollitd47\": -67393196.86267886\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "modules",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:25.000Z",
+                                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                                      "uid": "35240-b1798be1-9664-4b99-8886-873960e46b84"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:25.000Z",
+                                  "updatedAt": "2026-10-22T01:26:25.000Z",
+                                  "uid": "35240-f7d6a4d0-8202-468b-8eef-993d346d733f"
+                                }
+                              ],
+                              "id": "4ec4a234-1d21-489b-b8a1-98e4301e3d1e",
+                              "createdAt": "2026-10-22T01:26:25.000Z",
+                              "updatedAt": "2026-10-22T01:26:25.000Z",
+                              "uid": "35240-4ec4a234-1d21-489b-b8a1-98e4301e3d1e"
+                            },
+                            {
+                              "name": "Ambassador List All Modules in a Namespace",
+                              "id": "31c31866-b34d-4161-9fc1-e2c5ec9a3123",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "apis",
+                                    "getambassador.io",
+                                    "v3alpha1",
+                                    "namespaces",
+                                    ":namespace",
+                                    "modules"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b0b68e51-db1f-4ba6-83ea-c962d3f6a009",
+                                      "key": "namespace",
+                                      "value": "<string>",
+                                      "description": "(Required) Kubernetes namespace"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns a list of all Module resources in the specified namespace. Modules configure global settings for Ambassador such as diagnostics, tracing, circuit breaking, and retry policies."
+                              },
+                              "response": [
+                                {
+                                  "id": "1f9a4dd0-acdf-4bf0-a667-23d07d61a878",
+                                  "name": "Module list retrieved successfully",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "modules"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"continue\": \"<string>\",\n    \"resourceVersion\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"metadata\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"labels\": {\n          \"reprehenderit880\": \"<string>\"\n        },\n        \"annotations\": {\n          \"culpa_a06\": \"<string>\",\n          \"esse_26\": \"<string>\"\n        },\n        \"creationTimestamp\": \"<dateTime>\",\n        \"generation\": \"<integer>\",\n        \"resourceVersion\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"spec\": {\n        \"config\": {\n          \"irure2\": -8814437,\n          \"reprehenderit_f\": false,\n          \"Duis_5\": true,\n          \"cillum_15\": \"ea magna dolore\",\n          \"in_0\": \"proident\"\n        },\n        \"ambassador_id\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"metadata\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"labels\": {\n          \"minim__09\": \"<string>\",\n          \"officia034\": \"<string>\"\n        },\n        \"annotations\": {\n          \"ullamco_4c6\": \"<string>\",\n          \"ex_61\": \"<string>\",\n          \"reprehenderit_3\": \"<string>\",\n          \"ea_c4\": \"<string>\"\n        },\n        \"creationTimestamp\": \"<dateTime>\",\n        \"generation\": \"<integer>\",\n        \"resourceVersion\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"spec\": {\n        \"config\": {\n          \"aute_f47\": 53530634,\n          \"cillum1c0\": 94563769.74983373\n        },\n        \"ambassador_id\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-22T01:26:25.000Z",
+                                  "updatedAt": "2026-10-22T01:26:25.000Z",
+                                  "uid": "35240-1f9a4dd0-acdf-4bf0-a667-23d07d61a878"
+                                },
+                                {
+                                  "id": "71fab710-9dbd-41fe-ac67-94f5f600e81e",
+                                  "name": "Authentication required",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/modules",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "modules"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:25.000Z",
+                                  "updatedAt": "2026-10-22T01:26:25.000Z",
+                                  "uid": "35240-71fab710-9dbd-41fe-ac67-94f5f600e81e"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:26:25.000Z",
+                              "updatedAt": "2026-10-22T01:26:25.000Z",
+                              "uid": "35240-31c31866-b34d-4161-9fc1-e2c5ec9a3123"
+                            }
+                          ],
+                          "id": "4edfef5b-4b1a-4142-be0f-d7c4b91b4350",
+                          "createdAt": "2026-10-22T01:26:25.000Z",
+                          "updatedAt": "2026-10-22T01:26:25.000Z",
+                          "uid": "35240-4edfef5b-4b1a-4142-be0f-d7c4b91b4350"
+                        }
+                      ],
+                      "id": "8a557d1f-cd5d-4264-8985-b36c57faad1a",
+                      "createdAt": "2026-10-22T01:26:25.000Z",
+                      "updatedAt": "2026-10-22T01:26:25.000Z",
+                      "uid": "35240-8a557d1f-cd5d-4264-8985-b36c57faad1a"
+                    }
+                  ],
+                  "id": "5c11a75e-be04-494e-ac92-38c552613b60",
+                  "createdAt": "2026-10-22T01:26:25.000Z",
+                  "updatedAt": "2026-10-22T01:26:25.000Z",
+                  "uid": "35240-5c11a75e-be04-494e-ac92-38c552613b60"
                 }
               ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"continue\": \"example_value\",\n    \"resourceVersion\": \"example_value\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"example_value\",\n      \"kind\": \"example_value\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f4661c74-1dda-418d-ade5-601a4a9d238e",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "4095ef96-2f4a-4720-8d19-aa196a101ec6",
+              "createdAt": "2026-10-22T01:26:25.000Z",
+              "updatedAt": "2026-10-22T01:26:25.000Z",
+              "uid": "35240-4095ef96-2f4a-4720-8d19-aa196a101ec6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ee129d86-5e8b-44d3-9bb5-f57b9a17c010",
-          "name": "Ambassador Get a Specific Module",
-          "request": {
-            "name": "Ambassador Get a Specific Module",
-            "description": {
-              "content": "Retrieves the specification of a specific Module resource.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "modules",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) Name of the resource"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8aa94869-c8f0-4106-b409-fb60251b9390",
-              "name": "Module retrieved successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"config\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7d7748a1-8c94-462b-94bb-b992acbf825e",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d4ca5398-2364-45b4-8b34-e98efce9a768",
-              "name": "Module not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "09ec8afe-62f9-4bbc-acec-58ecd0c2d7ea",
-          "name": "Ambassador Update a Module",
-          "request": {
-            "name": "Ambassador Update a Module",
-            "description": {
-              "content": "Replaces an existing Module resource with the provided configuration.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "modules",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) Name of the resource"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"config\": {\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    },\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "ff6b4db7-d46a-4b11-9373-0306641c87fc",
-              "name": "Module updated successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"config\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"config\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fd5c7b47-52aa-4df1-b49b-9b5b7e836cbe",
-              "name": "Invalid Module specification",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"config\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "515f0d6b-07b5-4ccd-8d4d-2dbf6f0c68c1",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"config\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b8629f35-0c96-4474-b728-afd292f34391",
-              "name": "Module not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "modules",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"config\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "5f7b9db5-88e6-4b89-ae5d-a1c219035cbc",
+          "createdAt": "2026-10-22T01:26:25.000Z",
+          "updatedAt": "2026-10-22T01:26:25.000Z",
+          "uid": "35240-5f7b9db5-88e6-4b89-ae5d-a1c219035cbc"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Hostname or IP of the Ambassador Edge Stack admin interface",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "ambassador-host"
-    },
-    {
-      "type": "string",
-      "value": "https://{{ambassador-host}}:8877",
-      "key": "baseUrl"
+      "id": "361ca11b-4e79-456b-b2d3-0503e373c11d",
+      "createdAt": "2026-10-22T01:26:25.000Z",
+      "updatedAt": "2026-10-22T01:26:25.000Z",
+      "uid": "35240-361ca11b-4e79-456b-b2d3-0503e373c11d"
     }
   ],
   "auth": {
@@ -847,17 +737,19 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b715a07a-2f28-44f4-b1b7-6826211d5cb3",
-    "name": "Ambassador Edge Stack Diagnostics Modules API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "ambassador-host",
+      "value": "localhost"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{ambassador-host}}:8877"
     }
-  }
+  ]
 }

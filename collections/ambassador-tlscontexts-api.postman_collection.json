@@ -1,1385 +1,1181 @@
 {
+  "info": {
+    "_postman_id": "f7e1c768-aaea-426f-a901-26fd3c77d741",
+    "name": "Ambassador Edge Stack TLS Contexts API",
+    "description": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:26:29.000Z",
+    "updatedAt": "2026-10-22T01:26:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f7e1c768-aaea-426f-a901-26fd3c77d741"
+  },
   "item": [
     {
-      "id": "8a9986a5-495f-4bd3-b2fa-d5e2fa0aeff3",
-      "name": "TLSContexts",
-      "description": {
-        "content": "Manage TLSContext resources that configure TLS settings for Ambassador, including certificates, protocols, and cipher suites.",
-        "type": "text/plain"
-      },
+      "name": "apis",
       "item": [
         {
-          "id": "42d01900-efa9-4d7e-ada7-07062d27b354",
-          "name": "Ambassador List All Tls Contexts in a Namespace",
-          "request": {
-            "name": "Ambassador List All Tls Contexts in a Namespace",
-            "description": {
-              "content": "Returns a list of all TLSContext resources in the specified namespace. TLSContexts configure TLS settings such as certificates, protocols, and cipher suites.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "tlscontexts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "labelSelector",
-                  "value": "<string>",
-                  "description": "Kubernetes label selector to filter resources"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "getambassador.io",
+          "item": [
             {
-              "id": "a6ba857c-8bf7-4cd8-ac3b-d522af473736",
-              "name": "TLSContext list retrieved successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "labelSelector",
-                      "value": "app=my-service"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "v3alpha1",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "namespaces",
+                  "item": [
+                    {
+                      "name": "{namespace}",
+                      "item": [
+                        {
+                          "name": "tlscontexts",
+                          "item": [
+                            {
+                              "name": "{name}",
+                              "item": [
+                                {
+                                  "name": "Ambassador Get a Specific Tls Context",
+                                  "id": "7a59ad61-f082-4789-b655-71f5382aeca6",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "e17189a0-ecd8-4d73-8c0e-8b5036677e0e",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "59f51b43-a46f-4762-b2e6-5b851677dd31",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Retrieves the specification of a specific TLSContext resource."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "3e164a81-830f-4b77-b204-1839b6aa56a4",
+                                      "name": "TLSContext retrieved successfully",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-3e164a81-830f-4b77-b204-1839b6aa56a4"
+                                    },
+                                    {
+                                      "id": "ece0d93b-dd14-4ad7-a626-42f6241063bc",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-ece0d93b-dd14-4ad7-a626-42f6241063bc"
+                                    },
+                                    {
+                                      "id": "359d7a5e-dd16-428d-a243-68611359bcfa",
+                                      "name": "TLSContext not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-359d7a5e-dd16-428d-a243-68611359bcfa"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-7a59ad61-f082-4789-b655-71f5382aeca6"
+                                },
+                                {
+                                  "name": "Ambassador Update a Tls Context",
+                                  "id": "f5d83d2b-e704-4014-8b77-ce3e2763f69d",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "466e217f-c57a-4bc5-8cc4-d2c7011f4cd8",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "4376b92b-57e6-411a-b95a-c883017e9493",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Replaces an existing TLSContext resource with the provided specification."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "7e206e1f-c861-4247-b7de-81a55bf01cff",
+                                      "name": "TLSContext updated successfully",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-7e206e1f-c861-4247-b7de-81a55bf01cff"
+                                    },
+                                    {
+                                      "id": "5640631e-938c-49a3-89bb-8ead8b3bd0d0",
+                                      "name": "Invalid TLSContext specification",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-5640631e-938c-49a3-89bb-8ead8b3bd0d0"
+                                    },
+                                    {
+                                      "id": "6166b879-8fd6-4db1-820a-bfc8130e4b62",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-6166b879-8fd6-4db1-820a-bfc8130e4b62"
+                                    },
+                                    {
+                                      "id": "fce00320-903e-4411-b774-113b80e5d8c7",
+                                      "name": "TLSContext not found",
+                                      "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-fce00320-903e-4411-b774-113b80e5d8c7"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-f5d83d2b-e704-4014-8b77-ce3e2763f69d"
+                                },
+                                {
+                                  "name": "Ambassador Delete a Tls Context",
+                                  "id": "b4590c54-e7d3-42bd-9b7f-f18fec15eaef",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "DELETE",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts",
+                                        ":name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "a0804eb2-8919-478a-a544-c0096b7b06f6",
+                                          "key": "namespace",
+                                          "value": "<string>",
+                                          "description": "(Required) Kubernetes namespace"
+                                        },
+                                        {
+                                          "id": "dbb260a1-b274-439c-8667-d78d7bada39f",
+                                          "key": "name",
+                                          "value": "<string>",
+                                          "description": "(Required) Name of the resource"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Deletes a specific TLSContext resource."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "d1a903d7-7104-4c0e-b48f-72abf08f9c79",
+                                      "name": "TLSContext deleted successfully",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-d1a903d7-7104-4c0e-b48f-72abf08f9c79"
+                                    },
+                                    {
+                                      "id": "47a59408-9a32-4ddc-9579-d7a20f0b9cea",
+                                      "name": "Authentication required",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-47a59408-9a32-4ddc-9579-d7a20f0b9cea"
+                                    },
+                                    {
+                                      "id": "d636546c-633f-4cb5-bbc7-b672e57b7aaf",
+                                      "name": "TLSContext not found",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "apis",
+                                            "getambassador.io",
+                                            "v3alpha1",
+                                            "namespaces",
+                                            ":namespace",
+                                            "tlscontexts",
+                                            ":name"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "namespace"
+                                            },
+                                            {
+                                              "key": "name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T01:26:30.000Z",
+                                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                                      "uid": "35240-d636546c-633f-4cb5-bbc7-b672e57b7aaf"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-b4590c54-e7d3-42bd-9b7f-f18fec15eaef"
+                                }
+                              ],
+                              "id": "c425d509-3b3a-4bf4-b249-9726661e85ec",
+                              "createdAt": "2026-10-22T01:26:30.000Z",
+                              "updatedAt": "2026-10-22T01:26:30.000Z",
+                              "uid": "35240-c425d509-3b3a-4bf4-b249-9726661e85ec"
+                            },
+                            {
+                              "name": "Ambassador List All Tls Contexts in a Namespace",
+                              "id": "5e164404-5ee4-4797-ab41-3d139678153d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts?labelSelector=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "apis",
+                                    "getambassador.io",
+                                    "v3alpha1",
+                                    "namespaces",
+                                    ":namespace",
+                                    "tlscontexts"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Kubernetes label selector to filter resources",
+                                      "key": "labelSelector",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "4ef5db9e-4455-4c42-88e0-85cebc67cc04",
+                                      "key": "namespace",
+                                      "value": "<string>",
+                                      "description": "(Required) Kubernetes namespace"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns a list of all TLSContext resources in the specified namespace. TLSContexts configure TLS settings such as certificates, protocols, and cipher suites."
+                              },
+                              "response": [
+                                {
+                                  "id": "ea01ba9b-05be-44ed-88bd-05eac95c47fb",
+                                  "name": "TLSContext list retrieved successfully",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts?labelSelector=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Kubernetes label selector to filter resources",
+                                          "key": "labelSelector",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"continue\": \"<string>\",\n    \"resourceVersion\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"metadata\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"labels\": {\n          \"amet_f6b\": \"<string>\",\n          \"cillum0e3\": \"<string>\"\n        },\n        \"annotations\": {\n          \"voluptate8b_\": \"<string>\",\n          \"sunt6\": \"<string>\"\n        },\n        \"creationTimestamp\": \"<dateTime>\",\n        \"generation\": \"<integer>\",\n        \"resourceVersion\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"spec\": {\n        \"hosts\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"secret\": \"<string>\",\n        \"cert_chain_file\": \"<string>\",\n        \"private_key_file\": \"<string>\",\n        \"ca_secret\": \"<string>\",\n        \"cert_required\": false,\n        \"min_tls_version\": \"v1.2\",\n        \"max_tls_version\": \"v1.3\",\n        \"cipher_suites\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"ecdh_curves\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"alpn_protocols\": \"<string>\",\n        \"redirect_cleartext_from\": \"<integer>\",\n        \"sni\": \"<string>\",\n        \"ambassador_id\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"metadata\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"labels\": {\n          \"qui_7\": \"<string>\"\n        },\n        \"annotations\": {\n          \"Excepteur_1a7\": \"<string>\",\n          \"Lorem_ec\": \"<string>\"\n        },\n        \"creationTimestamp\": \"<dateTime>\",\n        \"generation\": \"<integer>\",\n        \"resourceVersion\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"spec\": {\n        \"hosts\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"secret\": \"<string>\",\n        \"cert_chain_file\": \"<string>\",\n        \"private_key_file\": \"<string>\",\n        \"ca_secret\": \"<string>\",\n        \"cert_required\": false,\n        \"min_tls_version\": \"v1.2\",\n        \"max_tls_version\": \"v1.3\",\n        \"cipher_suites\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"ecdh_curves\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"alpn_protocols\": \"<string>\",\n        \"redirect_cleartext_from\": \"<integer>\",\n        \"sni\": \"<string>\",\n        \"ambassador_id\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-ea01ba9b-05be-44ed-88bd-05eac95c47fb"
+                                },
+                                {
+                                  "id": "6da8b065-e372-4da3-933f-3588cabdb2e0",
+                                  "name": "Authentication required",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts?labelSelector=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Kubernetes label selector to filter resources",
+                                          "key": "labelSelector",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-6da8b065-e372-4da3-933f-3588cabdb2e0"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:26:30.000Z",
+                              "updatedAt": "2026-10-22T01:26:30.000Z",
+                              "uid": "35240-5e164404-5ee4-4797-ab41-3d139678153d"
+                            },
+                            {
+                              "name": "Ambassador Create a New Tls Context",
+                              "id": "2bd08cc9-82c9-4255-a6d1-13d11d2f7d9c",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "apis",
+                                    "getambassador.io",
+                                    "v3alpha1",
+                                    "namespaces",
+                                    ":namespace",
+                                    "tlscontexts"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "12e6ff17-8639-4b97-ab16-89b4de885aef",
+                                      "key": "namespace",
+                                      "value": "<string>",
+                                      "description": "(Required) Kubernetes namespace"
+                                    }
+                                  ]
+                                },
+                                "description": "Creates a new TLSContext resource specifying TLS certificates, protocol versions, and cipher suite configuration."
+                              },
+                              "response": [
+                                {
+                                  "id": "1b0d5d7d-746a-474d-853d-a4a83c9445e1",
+                                  "name": "TLSContext created successfully",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-1b0d5d7d-746a-474d-853d-a4a83c9445e1"
+                                },
+                                {
+                                  "id": "9816e43f-d53a-4c45-8099-e6fa7f1c83e3",
+                                  "name": "Invalid TLSContext specification",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-9816e43f-d53a-4c45-8099-e6fa7f1c83e3"
+                                },
+                                {
+                                  "id": "7733804c-9c16-4744-8850-cd7ed0566bab",
+                                  "name": "Authentication required",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"anim_46\": \"<string>\",\n      \"Excepteur_163\": \"<string>\",\n      \"Ut9\": \"<string>\"\n    },\n    \"annotations\": {\n      \"reprehenderit_f\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "apis",
+                                        "getambassador.io",
+                                        "v3alpha1",
+                                        "namespaces",
+                                        ":namespace",
+                                        "tlscontexts"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "namespace"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-22T01:26:30.000Z",
+                                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                                  "uid": "35240-7733804c-9c16-4744-8850-cd7ed0566bab"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:26:30.000Z",
+                              "updatedAt": "2026-10-22T01:26:30.000Z",
+                              "uid": "35240-2bd08cc9-82c9-4255-a6d1-13d11d2f7d9c"
+                            }
+                          ],
+                          "id": "699f9ccf-d156-4923-a0b8-d507f49aabc3",
+                          "createdAt": "2026-10-22T01:26:30.000Z",
+                          "updatedAt": "2026-10-22T01:26:30.000Z",
+                          "uid": "35240-699f9ccf-d156-4923-a0b8-d507f49aabc3"
+                        }
+                      ],
+                      "id": "a6072854-2c4a-4e27-ac65-a435276b1147",
+                      "createdAt": "2026-10-22T01:26:30.000Z",
+                      "updatedAt": "2026-10-22T01:26:30.000Z",
+                      "uid": "35240-a6072854-2c4a-4e27-ac65-a435276b1147"
+                    }
+                  ],
+                  "id": "f43c00f9-0df5-478d-8dfc-5793472079d2",
+                  "createdAt": "2026-10-22T01:26:30.000Z",
+                  "updatedAt": "2026-10-22T01:26:30.000Z",
+                  "uid": "35240-f43c00f9-0df5-478d-8dfc-5793472079d2"
                 }
               ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"continue\": \"example_value\",\n    \"resourceVersion\": \"example_value\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"example_value\",\n      \"kind\": \"example_value\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6d562e6e-45b8-485d-8673-2db36e38d0a2",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "labelSelector",
-                      "value": "app=my-service"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "7046fec7-91bd-4a9d-bfbd-d8aa9f390cdf",
+              "createdAt": "2026-10-22T01:26:30.000Z",
+              "updatedAt": "2026-10-22T01:26:30.000Z",
+              "uid": "35240-7046fec7-91bd-4a9d-bfbd-d8aa9f390cdf"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "861b4e46-3c00-4a55-865d-e24b2e4a6d6f",
-          "name": "Ambassador Create a New Tls Context",
-          "request": {
-            "name": "Ambassador Create a New Tls Context",
-            "description": {
-              "content": "Creates a new TLSContext resource specifying TLS certificates, protocol versions, and cipher suite configuration.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "tlscontexts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "197a7850-4a1a-4440-bc45-23fa61a713e2",
-              "name": "TLSContext created successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "36b78e75-506b-4a2d-a9de-f196f8908888",
-              "name": "Invalid TLSContext specification",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "96c4438a-e159-49a5-8ef1-3b7bcd4ad4b1",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8b296156-4249-4f6b-af20-8ac8b2cd0bb2",
-          "name": "Ambassador Get a Specific Tls Context",
-          "request": {
-            "name": "Ambassador Get a Specific Tls Context",
-            "description": {
-              "content": "Retrieves the specification of a specific TLSContext resource.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "tlscontexts",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) Name of the resource"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1da979a6-612e-4ef1-b7c7-eedd742aa382",
-              "name": "TLSContext retrieved successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "361da69f-06ac-4889-9faa-8d208d5f3883",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e472d15c-94bf-4c38-9680-86a8902402d6",
-              "name": "TLSContext not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "dd1eaa61-b21d-47bd-b3e2-5f486f4656d2",
-          "name": "Ambassador Update a Tls Context",
-          "request": {
-            "name": "Ambassador Update a Tls Context",
-            "description": {
-              "content": "Replaces an existing TLSContext resource with the provided specification.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "tlscontexts",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) Name of the resource"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"creationTimestamp\": \"<dateTime>\",\n    \"generation\": \"<integer>\",\n    \"resourceVersion\": \"<string>\",\n    \"uid\": \"<string>\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"ca_secret\": \"<string>\",\n    \"cert_required\": false,\n    \"min_tls_version\": \"v1.2\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alpn_protocols\": \"<string>\",\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"sni\": \"<string>\",\n    \"ambassador_id\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "eefc46fa-3e0b-4836-9577-dae012871b1d",
-              "name": "TLSContext updated successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5b0207f3-b33f-49e3-8e1d-d9fa0521ebdc",
-              "name": "Invalid TLSContext specification",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2131faf5-7391-4db5-bdc5-49450c1ceb52",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e47c412e-8ce4-447a-8992-ad9eecb8f8f2",
-              "name": "TLSContext not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"apiVersion\": \"example_value\",\n  \"kind\": \"example_value\",\n  \"metadata\": {\n    \"name\": \"Example Title\",\n    \"namespace\": \"example_value\",\n    \"labels\": \"example_value\",\n    \"annotations\": \"example_value\",\n    \"creationTimestamp\": \"2026-01-15T10:30:00Z\",\n    \"generation\": 10,\n    \"resourceVersion\": \"example_value\",\n    \"uid\": \"500123\"\n  },\n  \"spec\": {\n    \"hosts\": [\n      {}\n    ],\n    \"secret\": \"example_value\",\n    \"cert_chain_file\": \"example_value\",\n    \"private_key_file\": \"example_value\",\n    \"ca_secret\": \"example_value\",\n    \"cert_required\": true,\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.0\",\n    \"cipher_suites\": [\n      {}\n    ],\n    \"ecdh_curves\": [\n      {}\n    ],\n    \"alpn_protocols\": \"example_value\",\n    \"redirect_cleartext_from\": 10,\n    \"sni\": \"example_value\",\n    \"ambassador_id\": [\n      {}\n    ]\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "58d470a5-1d48-46a7-8a04-5a09a5c2c8eb",
-          "name": "Ambassador Delete a Tls Context",
-          "request": {
-            "name": "Ambassador Delete a Tls Context",
-            "description": {
-              "content": "Deletes a specific TLSContext resource.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "apis",
-                "getambassador.io",
-                "v3alpha1",
-                "namespaces",
-                ":namespace",
-                "tlscontexts",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "namespace",
-                  "description": "(Required) Kubernetes namespace"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) Name of the resource"
-                },
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "e3ce43ed-63f9-45a4-b40f-04151f4cc96c",
-              "name": "TLSContext deleted successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "dffb23c2-cb16-41a2-947a-d038d372ca5f",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b1da6df6-633d-43d5-b762-6f7666894109",
-              "name": "TLSContext not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "apis",
-                    "getambassador.io",
-                    "v3alpha1",
-                    "namespaces",
-                    ":namespace",
-                    "tlscontexts",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "namespace",
-                      "description": "(Required) Kubernetes namespace"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) Name of the resource"
-                    },
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "75ba81b0-8a00-494c-85d5-05b2b59b08a8",
+          "createdAt": "2026-10-22T01:26:30.000Z",
+          "updatedAt": "2026-10-22T01:26:30.000Z",
+          "uid": "35240-75ba81b0-8a00-494c-85d5-05b2b59b08a8"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Hostname or IP of the Ambassador Edge Stack admin interface",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "ambassador-host"
-    },
-    {
-      "type": "string",
-      "value": "https://{{ambassador-host}}:8877",
-      "key": "baseUrl"
+      "id": "40232fc2-c428-4bb0-895e-3aa08143d07e",
+      "createdAt": "2026-10-22T01:26:30.000Z",
+      "updatedAt": "2026-10-22T01:26:30.000Z",
+      "uid": "35240-40232fc2-c428-4bb0-895e-3aa08143d07e"
     }
   ],
   "auth": {
@@ -1387,17 +1183,19 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "604a2a85-aa92-419d-bcaa-48969c8d6ecd",
-    "name": "Ambassador Edge Stack Diagnostics TLSContexts API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "ambassador-host",
+      "value": "localhost"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{ambassador-host}}:8877"
     }
-  }
+  ]
 }

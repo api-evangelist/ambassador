@@ -1,492 +1,402 @@
 {
+  "info": {
+    "_postman_id": "35cfebc1-ebf6-4cce-ac60-011996e5749a",
+    "name": "Ambassador Edge Stack Diagnostics API",
+    "description": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:26:05.000Z",
+    "updatedAt": "2026-10-22T01:26:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-35cfebc1-ebf6-4cce-ac60-011996e5749a"
+  },
   "item": [
     {
-      "id": "413040e6-491e-4368-9cf9-299f5d84e936",
-      "name": "Diagnostics",
-      "description": {
-        "content": "Access diagnostic and health check endpoints for monitoring Ambassador Edge Stack operational status.",
-        "type": "text/plain"
-      },
+      "name": "ambassador",
       "item": [
         {
-          "id": "ce97e59c-3276-409d-8556-01d41b33b25c",
-          "name": "Ambassador Retrieve Diagnostic Overview",
-          "request": {
-            "name": "Ambassador Retrieve Diagnostic Overview",
-            "description": {
-              "content": "Returns a comprehensive diagnostic overview of the Ambassador instance including active configuration, cluster state, Envoy status, and any configuration errors or warnings.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "ambassador",
-                "v0",
-                "diag"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "v0",
+          "item": [
             {
-              "id": "53908780-eaf0-4d9b-a341-7c0e1b1931ab",
-              "name": "Diagnostic information retrieved successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "diag"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "diag",
+              "item": [
+                {
+                  "name": "Ambassador Retrieve Diagnostic Overview",
+                  "id": "f117c95c-5380-4921-b7c7-3681a8f32074",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ambassador/v0/diag",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ambassador",
+                        "v0",
+                        "diag"
+                      ]
+                    },
+                    "description": "Returns a comprehensive diagnostic overview of the Ambassador instance including active configuration, cluster state, Envoy status, and any configuration errors or warnings."
+                  },
+                  "response": [
+                    {
+                      "id": "13508a7b-06d5-4f33-a1d3-9c4e9c4a48f3",
+                      "name": "Diagnostic information retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/diag",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "diag"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"system\": {\n    \"version\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"ambassador_id\": \"<string>\",\n    \"cluster_id\": \"<string>\",\n    \"boot_time\": \"<dateTime>\"\n  },\n  \"ambassador_config\": {\n    \"irure_f8\": -93143284,\n    \"qui_35\": \"consequat cupidatat\",\n    \"sed_1a\": \"exercitation officia\",\n    \"in_01\": -53701180,\n    \"occaecat_11\": false\n  },\n  \"envoy_status\": {\n    \"alive\": \"<boolean>\",\n    \"ready\": \"<boolean>\",\n    \"uptime\": \"<integer>\"\n  },\n  \"route_info\": [\n    {\n      \"prefix\": \"<string>\",\n      \"service\": \"<string>\",\n      \"weight\": \"<integer>\"\n    },\n    {\n      \"prefix\": \"<string>\",\n      \"service\": \"<string>\",\n      \"weight\": \"<integer>\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"error\": \"<string>\"\n    },\n    {\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"error\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-13508a7b-06d5-4f33-a1d3-9c4e9c4a48f3"
+                    },
+                    {
+                      "id": "7a0c9d8e-1336-4d43-896e-eb7ff27d1dce",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/diag",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "diag"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-7a0c9d8e-1336-4d43-896e-eb7ff27d1dce"
+                    },
+                    {
+                      "id": "d004ef9d-810d-46c4-a3e9-faa8b6bda644",
+                      "name": "Ambassador not ready",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/diag",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "diag"
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-d004ef9d-810d-46c4-a3e9-faa8b6bda644"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:26:05.000Z",
+                  "updatedAt": "2026-10-22T01:26:05.000Z",
+                  "uid": "35240-f117c95c-5380-4921-b7c7-3681a8f32074"
                 }
               ],
-              "body": "{\n  \"system\": {\n    \"version\": \"example_value\",\n    \"hostname\": \"example_value\",\n    \"ambassador_id\": \"500123\",\n    \"cluster_id\": \"500123\",\n    \"boot_time\": \"2026-01-15T10:30:00Z\"\n  },\n  \"ambassador_config\": \"example_value\",\n  \"envoy_status\": {\n    \"alive\": true,\n    \"ready\": true,\n    \"uptime\": 10\n  },\n  \"route_info\": [\n    {\n      \"prefix\": \"example_value\",\n      \"service\": \"example_value\",\n      \"weight\": 10\n    }\n  ],\n  \"errors\": [\n    {\n      \"kind\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"namespace\": \"example_value\",\n      \"error\": \"example_value\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "d2b56ffd-befc-4017-b6dc-0120478c8294",
+              "createdAt": "2026-10-22T01:26:05.000Z",
+              "updatedAt": "2026-10-22T01:26:05.000Z",
+              "uid": "35240-d2b56ffd-befc-4017-b6dc-0120478c8294"
             },
             {
-              "id": "ed6b322d-4324-413b-bc4f-071521f5c4bb",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "diag"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "name": "check_ready",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "name": "Ambassador Readiness Health Check",
+                  "id": "a99d2db0-5447-4e51-8dbf-e9d1fe6b7c90",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/ambassador/v0/check_ready",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ambassador",
+                        "v0",
+                        "check_ready"
+                      ]
+                    },
+                    "description": "Returns whether Ambassador is ready to serve traffic. Used by Kubernetes readiness probes."
+                  },
+                  "response": [
+                    {
+                      "id": "a519683e-edfa-4b14-8076-da53b714434a",
+                      "name": "Ambassador is ready",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/check_ready",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "check_ready"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-a519683e-edfa-4b14-8076-da53b714434a"
+                    },
+                    {
+                      "id": "4cc57c5c-3576-4d05-9ebe-a5327b71cf60",
+                      "name": "Ambassador is not ready",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/check_ready",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "check_ready"
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-4cc57c5c-3576-4d05-9ebe-a5327b71cf60"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:26:05.000Z",
+                  "updatedAt": "2026-10-22T01:26:05.000Z",
+                  "uid": "35240-a99d2db0-5447-4e51-8dbf-e9d1fe6b7c90"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "133b1694-0402-4a39-97fc-e5142acf8618",
+              "createdAt": "2026-10-22T01:26:05.000Z",
+              "updatedAt": "2026-10-22T01:26:05.000Z",
+              "uid": "35240-133b1694-0402-4a39-97fc-e5142acf8618"
             },
             {
-              "id": "02ebf176-78d7-4f8b-91bd-482ea474b577",
-              "name": "Ambassador not ready",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "diag"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Service Unavailable",
-              "code": 503,
-              "header": [
+              "name": "check_alive",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "name": "Ambassador Liveness Health Check",
+                  "id": "27b030f0-ed58-4c63-8050-4378a521cd1c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/ambassador/v0/check_alive",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ambassador",
+                        "v0",
+                        "check_alive"
+                      ]
+                    },
+                    "description": "Returns whether the Ambassador process is alive. Used by Kubernetes liveness probes."
+                  },
+                  "response": [
+                    {
+                      "id": "37ad9afa-1aea-45a7-9675-6e622ac7a002",
+                      "name": "Ambassador is alive",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/check_alive",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "check_alive"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-37ad9afa-1aea-45a7-9675-6e622ac7a002"
+                    },
+                    {
+                      "id": "98fbea80-ce29-4a36-b5ff-f9903fe5acf3",
+                      "name": "Ambassador is not alive",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ambassador/v0/check_alive",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ambassador",
+                            "v0",
+                            "check_alive"
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:26:05.000Z",
+                      "updatedAt": "2026-10-22T01:26:05.000Z",
+                      "uid": "35240-98fbea80-ce29-4a36-b5ff-f9903fe5acf3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:26:05.000Z",
+                  "updatedAt": "2026-10-22T01:26:05.000Z",
+                  "uid": "35240-27b030f0-ed58-4c63-8050-4378a521cd1c"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "54a72e44-dd70-419a-aba1-f4ea9c3b2347",
+              "createdAt": "2026-10-22T01:26:05.000Z",
+              "updatedAt": "2026-10-22T01:26:05.000Z",
+              "uid": "35240-54a72e44-dd70-419a-aba1-f4ea9c3b2347"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "72d03baa-f644-407c-90dd-3972a002b58c",
-          "name": "Ambassador Readiness Health Check",
-          "request": {
-            "name": "Ambassador Readiness Health Check",
-            "description": {
-              "content": "Returns whether Ambassador is ready to serve traffic. Used by Kubernetes readiness probes.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "ambassador",
-                "v0",
-                "check_ready"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "75e3450c-6c5b-47e3-805c-61cadd13c81c",
-              "name": "Ambassador is ready",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "check_ready"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "983ba95f-20c3-4335-9266-8179f698464e",
-              "name": "Ambassador is not ready",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "check_ready"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Service Unavailable",
-              "code": 503,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cacac3db-313e-4eb1-99bc-d9f6f50509f0",
-          "name": "Ambassador Liveness Health Check",
-          "request": {
-            "name": "Ambassador Liveness Health Check",
-            "description": {
-              "content": "Returns whether the Ambassador process is alive. Used by Kubernetes liveness probes.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "ambassador",
-                "v0",
-                "check_alive"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                  "type": "any",
-                  "value": "{{ambassador-host}}",
-                  "key": "ambassador-host"
-                }
-              ]
-            },
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c121fd02-5df4-4837-a370-6bb2d3a17f0a",
-              "name": "Ambassador is alive",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "check_alive"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b48374bb-5ec8-4f05-8b66-f85448e02412",
-              "name": "Ambassador is not alive",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ambassador",
-                    "v0",
-                    "check_alive"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Hostname or IP of the Ambassador Edge Stack admin interface",
-                      "type": "any",
-                      "value": "{{ambassador-host}}",
-                      "key": "ambassador-host"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Service Unavailable",
-              "code": 503,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ce3535f2-af4a-4e55-8508-3baedcb6ae02",
+          "createdAt": "2026-10-22T01:26:05.000Z",
+          "updatedAt": "2026-10-22T01:26:05.000Z",
+          "uid": "35240-ce3535f2-af4a-4e55-8508-3baedcb6ae02"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Hostname or IP of the Ambassador Edge Stack admin interface",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "ambassador-host"
-    },
-    {
-      "type": "string",
-      "value": "https://{{ambassador-host}}:8877",
-      "key": "baseUrl"
+      "id": "f6cc4f1d-d054-4504-83eb-6660bbb71b14",
+      "createdAt": "2026-10-22T01:26:05.000Z",
+      "updatedAt": "2026-10-22T01:26:05.000Z",
+      "uid": "35240-f6cc4f1d-d054-4504-83eb-6660bbb71b14"
     }
   ],
   "auth": {
@@ -494,17 +404,19 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2ced7c09-a811-4f7c-9c74-ca6474f25f4e",
-    "name": "Ambassador Edge Stack Diagnostics API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for managing Ambassador Edge Stack resources in Kubernetes environments. Ambassador Edge Stack is a Kubernetes-native API gateway built on Envoy Proxy that provides routing, load balancing, authentication, rate limiting, and observability for microservices. This specification covers the management of core custom resource definitions (CRDs) including Mapping, Host, TLSContext, RateLimitService, and related configuration resources exposed through the Edge Stack management API.\n\nContact Support:\n Name: Ambassador Labs\n Email: support@datawire.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "ambassador-host",
+      "value": "localhost"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{ambassador-host}}:8877"
     }
-  }
+  ]
 }
