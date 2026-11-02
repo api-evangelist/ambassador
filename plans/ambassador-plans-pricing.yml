@@ -1,0 +1,202 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ambassador
+providerId: ambassador
+created: '2026-05-04'
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+method: generated
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - API Development
+  - Gateways
+  - Ingress
+  - Kubernetes
+  - Mock Servers
+  - Mocks
+  - Platform
+  - Testing
+description: Ambassador Labs (Edge Stack, Emissary-Ingress, Telepresence, Blackbird) was acquired and rebranded
+  under Gravitee in 2025; the previous getambassador.io/pricing URL now redirects to Gravitee Edge Stack
+  pricing. Pricing is flat per-month for unlimited users and unlimited API calls, scaled by number of
+  production gateways and event brokers. Open-source Emissary-Ingress and Telepresence remain free under
+  Apache 2.0.
+sources:
+  - https://www.gravitee.io/pricing
+  - https://www.getambassador.io
+plans:
+  - id: ambassador-emissary-oss
+    name: Emissary-Ingress / Telepresence (Open Source)
+    type: freemium
+    description: Apache 2.0 licensed Kubernetes ingress and remote-development tools; community supported.
+    entries:
+      - label: Self-hosted
+        name: oss_self_hosted
+        type: flat
+        metric: deployment
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Apache 2.0 license
+      - name: Community support
+      - name: Kubernetes-native
+      - name: Emissary-Ingress
+      - name: Telepresence (OSS)
+  - id: ambassador-edge-stack-planet
+    name: Edge Stack - Planet
+    type: subscription
+    description: Entry commercial tier (formerly Ambassador Edge Stack, now Gravitee Edge Stack) - 1 production
+      gateway, unlimited users and APIs, gold support.
+    entries:
+      - label: Monthly subscription
+        name: planet_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '2500.00'
+        userMultiplied: false
+      - label: Production gateways included
+        name: planet_gateways
+        type: quota
+        metric: gateway
+        limit: 1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Unlimited users and APIs
+      - name: Unlimited API calls
+      - name: 1 production gateway
+      - name: Gold support
+      - name: Developer portal
+  - id: ambassador-edge-stack-galaxy
+    name: Edge Stack - Galaxy
+    type: enterprise
+    description: Mid-tier commercial plan with 2 production gateways, enterprise plugins, limited event-broker
+      support.
+    entries:
+      - label: Custom contract
+        name: galaxy_contract
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+      - label: Production gateways included
+        name: galaxy_gateways
+        type: quota
+        metric: gateway
+        limit: 2
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Unlimited users and APIs
+      - name: 2 production gateways
+      - name: Enterprise plugins
+      - name: Limited event-broker support
+      - name: Gold support
+  - id: ambassador-edge-stack-universe
+    name: Edge Stack - Universe
+    type: enterprise
+    description: Top commercial plan - 4+ production gateways, all enterprise functionality, IAM, technical
+      account manager, 24/7 support.
+    entries:
+      - label: Custom contract
+        name: universe_contract
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+      - label: Production gateways included
+        name: universe_gateways
+        type: quota
+        metric: gateway
+        limit: 4
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: 4+ production gateways
+      - name: All enterprise functionality
+      - name: Unlimited event brokers
+      - name: Identity and Access Management
+      - name: Technical Account Manager
+      - name: 24/7 support
+maintainers:
+  - name: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com
+  - name: Gravitee (Ambassador Labs)
+    email: support@gravitee.io
+    url: https://www.gravitee.io
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  - object
+  - period
+  plans:
+  - name: Emissary-Ingress / Telepresence (Open Source)
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - object
+    periods:
+    - per-use
+  - name: Edge Stack - Planet
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    - period
+    periods:
+    - month
+    - per-use
+  - name: Edge Stack - Galaxy
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    - other
+    periods:
+    - per-use
+    - year
+  - name: Edge Stack - Universe
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    - other
+    periods:
+    - per-use
+    - year
